@@ -1,0 +1,8 @@
+Before delivery:
+
+From .gitignore
+remove main.c
+remove notes.txt
+
+From all other
+remove all lines with // REM

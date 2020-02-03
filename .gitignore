@@ -1,0 +1,8 @@
+*
+!.gitignore
+!*.c
+!*/*.c
+!*.h
+!*/*.h
+!Makefile
+!notes.txt
