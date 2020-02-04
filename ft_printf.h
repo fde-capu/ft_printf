@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:49:13 by fde-capu          #+#    #+#             */
-/* U20200204001808 :::|::                      */
+/* U20200204004549 |||::|                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct typetable
 {
 	char	tt_char;
 	char	*tt_string;
+	void	*tt_pointer;
 } typetable;
 typetable	*tt;
 
