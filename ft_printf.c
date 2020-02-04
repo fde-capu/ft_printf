@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200204001953 |:||::                      */
+/* U20200204002305 ||:||:                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,12 @@ int					ft_printf(const char *fmt, ...)
 	{
 		type = joker(f);
 		if (!type)
-		{
 			ft_putchar_fd(*s, FDOUT);
-			s++;
-		}
+		s += type ? 0 : 1;
 		if (type == 1)
-		{
 			tt->tt_char = va_arg(a, int);
-			//ft_putstr_fd(t, FDOUT);
-		}
 		if (type == 2)
-		{
 			tt->tt_string = va_arg(a, char *);
-		}
 		if (type)
 			print_typetable();
 	}
