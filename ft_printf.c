@@ -6,27 +6,41 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200203220244 :|:|||                      */
+/* U20200203222530 |:::||                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	pexe(va_list a, void *x)
+static void	pexe(va_list a, void *x)
 {
 	return ;
 }
 
-int		ft_printf(const char *fmt, ...)
+static char	*joker(char *str)
+{
+	if (!ft_strncmp(str, "%c", 2))
+	{
+		return (str + 2);
+	}
+	return (str);
+}
+
+int			ft_printf(const char *fmt, ...)
 {
 	va_list	a;
+	char	*f;
 
-	va_start(a, (char *)fmt);
-	while (*fmt)
+	f = (char *)fmt;
+	va_start(a, fmt);
+	while (*f)
 	{
 		//pexe(a, "int");
-		ft_putchar_fd(*fmt, FDOUT);
-		fmt++;
+		if (f == joker(f))
+			ft_putchar_fd(*f, FDOUT);
+		else
+			f = joker(f);
+		f++;
 	}
 	va_end(a);
 	return (1);
