@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:49:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/02/03 15:29:20 by fde-capu         ###   ########.fr       */
+/* U20200203210405 |:|:::                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft/libft.h"
+# include <stdio.h> // REM
 
 int		ft_printf(const char *a, ...);
-void	pexe(va_list a, char *x);
+void	pexe(va_list a, void *x);
 
 #endif

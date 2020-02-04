@@ -10,37 +10,32 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC =	gcc
+CC		=	gcc
 
-FLAGS =	-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror
 
-AR =	ar -rc
+AR		=	ar -rc
 
-NAME =	libftprintf.a
+NAME	=	libftprintf.a
 
-DEPLIB = libft/libft.a
+DEPLIB	=	libft/libft.a
 
-SRCS =	ft_printf.c
+SRCS	=	ft_printf.c
 
-OBJS =	$(SRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
 
-TOBJ =	main.c
+TOBJ	=	main.c
 
-all :	dep $(NAME)
+all:	dep $(NAME)
 
-dep :
+dep:
 	cd libft && $(MAKE) bonus
 
-cleandep:
-	cd libft && $(MAKE) fclean
+$(SRCS):
+	$(CC) $(FLAGS) -o $(OBJS) -c $(SRCS)
 
-$(DEPLIB) :	dep
-
-$(SRCS) :
-	$(CC) -o $(OBJS) -c $(DEPLIB) $(SRCS) $(FLAGS) 
-
-$(NAME) :	$(OBJS)
-	$(AR) $(NAME) $(DEPLIB) $(OBJS)
+$(NAME):	$(OBJS)
+	$(AR) $(NAME) $(OBJS) $(DEPLIB)
 
 clean:
 	rm -f $(OBJS)
@@ -48,22 +43,29 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-cleanall: fclean cleandep
+re:			fclean all
 
-re:		cleanall all
+cleandep:
+	cd libft && $(MAKE) fclean
 
 norm:
 	cd libft && norminette -R CheckForbiddenSourceHeader *.c *.h
 	norminette -R CheckForbiddenSourceHeader *.c *.h
 
-test:	all
-	$(CC) $(FLAGS) $(NAME) $(TOBJ) -o ftpft
+$(DEPLIB):	dep
+
+test:		all
+	$(CC) $(FLAGS) $(TOBJ) $(NAME) $(DEPLIB) -o ftpft
 	./ftpft
 
-rtest:	re test
+rtest:		cleanall test
 
-retest:	rtest
+retest:		rtest
 
-rt:		rtest
+rt:			rtest
 
-t:	test
+t:			test
+
+cleanall:	fclean cleandep
+
+st:			re test 

@@ -6,20 +6,17 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200203205328 ::::::                      */
+/* U20200203210153 ||:|:|                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h> // REM
 
-void	pexe(va_list a, char *x)
+void	pexe(va_list a, void *x)
 {
-	if (ft_strncmp(x, "char *", 10))
-		printf("Ok!\n");
-//		printf(" test >>> char * = int >>> %c\n", (int)x); // REM
-//	if (ft_strcmp(x, "int"))
-//		printf(" test >>> int >>> %d\n", (int)x); // REM
+	if (ft_strcmp(x, "int"))
+		printf(" test >>> int >>> %d\n", *(int *)x); // REM
 	return ;
 }
 
