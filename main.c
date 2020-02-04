@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200203223814 ::||:|                      */
+/* U20200204002018 ||||||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -16,6 +16,8 @@ int	main()
 {
 	printf("Hello, you.\n");
 	ft_printf("Hello, ft_printf.\n");
-	ft_printf("Hello, %c ft_printf.\n", "X");
+	printf   ("Hello, %c printf.\n", 'X');
+	ft_printf("Hello, %c ft_printf.\n", 'X');
+	ft_printf("Hello, %c ft_printf %s.\n", 'X', "Yes!");
 	return (0);
 }
