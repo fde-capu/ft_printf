@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200204005425 :|||::                      */
+/* U20200204182640 ::|:|:                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,23 @@ int					ft_printf(const char *fmt, ...)
 		if (!type)
 			ft_putchar_fd(*s, FDOUT);
 		s += type ? 0 : 1;
-		if (type == 1)
+		if (type == 1)	// %c (char)
 			tt->tt_char = va_arg(a, int);
-		if (type == 2)
+		if (type == 2)	// %s (string)
 			tt->tt_string = va_arg(a, char *);
-//		if (type == 3)
-			// address
-		if (type == 4)
+		if (type == 3)	// %p (hex address)
+			tt->tt_string = ft_itoa((unsigned long)va_arg(a, long));
+		if (type == 4)	// %d
 			tt->tt_string = ft_itoa(va_arg(a, int));
-//		if (type == 5)
+//		if (type == 5)	// %i
 			// receives integer in decimal, octal or hexadecimal notation
-		if (type == 6)
+		if (type == 6)	// %u
 			tt->tt_string = ft_itoa(va_arg(a, unsigned int));
-//		if (type == 7)
+//		if (type == 7)	// %x
 			// %x : hexadecimal lowercase 
-//		if (type == 8)
+//		if (type == 8)	// %X
 			// %X : hexadecimal uppercase 
-		if (type == 9)
+		if (type == 9)	// %%
 			tt->tt_char = '%';
 		if (type)
 			print_typetable();
