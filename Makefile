@@ -29,7 +29,7 @@ TOBJ	=	main.c
 all:	dep $(NAME)
 
 dep:
-	cd libft && $(MAKE) bonus
+	cd libft && $(MAKE)
 
 $(SRCS):
 	$(CC) $(FLAGS) -o $(OBJS) -c $(SRCS)
