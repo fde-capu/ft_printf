@@ -18,9 +18,9 @@ AR		=	ar -rc
 
 NAME	=	libftprintf.a
 
-DEPLIB	=	libft/libft.a
+DEPLIB	=	src/libft/libft.a
 
-SRCS	=	ft_printf.c
+SRCS	=	src/ft_printf.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -29,7 +29,7 @@ TOBJ	=	main.c
 all:	dep $(NAME)
 
 dep:
-	cd libft && $(MAKE)
+	cd src/libft && $(MAKE)
 
 $(SRCS):
 	$(CC) $(FLAGS) -o $(OBJS) -c $(SRCS)
@@ -46,11 +46,11 @@ fclean: clean
 re:			fclean all
 
 cleandep:
-	cd libft && $(MAKE) fclean
+	cd src/libft && $(MAKE) fclean
 
 norm:
-	cd libft && norminette -R CheckForbiddenSourceHeader *.c *.h
-	norminette -R CheckForbiddenSourceHeader *.c *.h
+	cd src/libft/src && norminette -R CheckForbiddenSourceHeader *.c *.h
+	cd src && norminette -R CheckForbiddenSourceHeader *.c *.h
 
 $(DEPLIB):	dep
 

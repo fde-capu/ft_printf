@@ -6,14 +6,14 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:49:13 by fde-capu          #+#    #+#             */
-/* U20200204004549 |||::|                      */
+/* U20200205190816 |||::|                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdarg.h>
-# include "libft/libft.h"
+# include "libft/libft.a"
 # include <stdio.h> // REM
 # define FDOUT 1
 
