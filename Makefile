@@ -22,7 +22,8 @@ NAME	=	libftprintf.a
 
 DEPLIB	=	libft/libft.a
 
-SRCS	=	ft_printf.c
+SRCS	=	ft_printf.c	\
+			typetable.c
 
 OBJS	=	$(SRCS:.c=.o)
 
