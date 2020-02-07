@@ -6,14 +6,14 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200207142352 |:|:||                      */
+/* U20200207143921 ||:||:                      */
 /*                                             */
 /* ******************************************* */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdarg.h>
-# include "libft/libft.a"
+# include "libft/libft.h"
 # include <stdio.h> // REM
 # define FDOUT 1
 
