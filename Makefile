@@ -10,7 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc
+GCC		=	gcc
+
+CC		=	$(GCC) $(FLAGS)	
 
 FLAGS	=	-Wall -Wextra -Werror
 
@@ -32,7 +34,7 @@ dep:
 	cd libft && $(MAKE)
 
 $(SRCS):
-	$(CC) $(FLAGS) -o $(OBJS) -c $(SRCS)
+	$(CC) -o $(OBJS) -c $(SRCS)
 
 $(NAME):	$(OBJS)
 	$(AR) $(NAME) $(OBJS) $(DEPLIB)
@@ -55,7 +57,7 @@ norm:
 $(DEPLIB):	dep
 
 test:		all
-	$(CC) $(FLAGS) $(TOBJ) $(NAME) $(DEPLIB) -o ftpft
+	$(CC) $(TOBJ) $(NAME) $(DEPLIB) -o ftpft
 	./ftpft
 
 rtest:		cleanall test
