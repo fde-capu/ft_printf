@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200207153751 |:::|:                      */
+/* U20200207183843 ||::||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include <stdio.h> // REM
 # define FDOUT 1
+# define ERRORMSG "^~~~ format error\n"
 
 typedef struct s_typetable
 {
@@ -29,6 +30,6 @@ int				ft_printf(const char *a, ...);
 void			init_typetable(void);
 void			reset_typetable(void);
 void			print_typetable(void);
-int				joker(char **str);
+int				joker(char *s);
 
 #endif
