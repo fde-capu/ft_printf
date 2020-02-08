@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200208195403 :||:::                      */
+/* U20200208201833 ||:||:                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_printf(const char *fmt, ...)
 			if (g_tt->tt_getstring)
 				g_tt->tt_string = va_arg(a, char *);
 			if (g_tt->tt_pointer)
-				g_tt->tt_pointer = va_arg(a, void *);
+				g_tt->tt_string = va_arg(a, void *);	// PLACEHOLDER
 			if (g_tt->tt_int == 1)
 				g_tt->tt_int = va_arg(a, signed int);
 			if (g_tt->tt_int == 2)
