@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200208195547 |:|::|                      */
+/* U20200208201002 :||||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -38,13 +38,12 @@ void	reset_typetable(void)
 
 void	print_typetable(void)
 {
-	char	*str;
-	char	chr;
+	char			*str;
+	char			chr;
+	unsigned int	i;
 
 	str = 0;
 	chr = 0;
-	if (g_tt->tt_char)
-		chr = g_tt->tt_char;
 	if (g_tt->tt_string)
 		str = g_tt->tt_string;
 //	if (g_tt->tt_pointer)
@@ -53,10 +52,22 @@ void	print_typetable(void)
 		str = ft_itoa(g_tt->tt_int);
 	if (g_tt->tt_uint)
 		str = ft_uitoa(g_tt->tt_uint);
-	if (str)
-		ft_putstr_fd(str, FDOUT);	
-	if (chr)
-		ft_putchar_fd(chr, FDOUT);	
+	if (g_tt->tt_width)
+	{
+		i = 0;
+		while (i < g_tt->tt_width - (str ? ft_strlen(str) : 1))
+		{
+			ft_putchar_fd(' ', FDOUT);
+			i++;
+		}
+	}
+	if (g_tt->tt_char)
+	{
+		chr = g_tt->tt_char;
+		ft_putchar_fd(chr, FDOUT);
+		return ;
+	}
+	ft_putstr_fd(str, FDOUT);
 }
 
 void	formattable()
@@ -66,12 +77,10 @@ void	formattable()
 int		maketable(char *s)
 {
 	int	c;
-	int	width;
 	int	precision;
 
 	reset_typetable();
 	c = 1;
-	width = 0;
 	precision = 0;
 	s++;
 // %[flags]<width><precision><length>[conversion char]
@@ -93,7 +102,7 @@ int		maketable(char *s)
 	{
 		if (*s == '*')
 			g_tt->tt_read_width = 1;
-		width = width ? width : ft_atoi(s);
+		g_tt->tt_width = g_tt->tt_width ? g_tt->tt_width : ft_atoi(s);
 		c++;
 		s++;
 	}
