@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200207183843 ||::||                      */
+/* U20200208191711 :|:|||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -20,16 +20,24 @@
 
 typedef struct s_typetable
 {
-	char	tt_char;
-	char	*tt_string;
-	void	*tt_pointer;
+	char			tt_char;
+	char			*tt_string;
+	void			*tt_pointer;
+	int				tt_int;
+	unsigned int	tt_uint;
+	int				tt_zero_flag;
+	int				tt_alignleft;
+	int				tt_precision;
+	int				tt_width;
+	int				tt_read_width;
+	int				tt_read_precision;
 } t_typetable;
 
-t_typetable		*tt;
+t_typetable		*g_tt;
 int				ft_printf(const char *a, ...);
 void			init_typetable(void);
 void			reset_typetable(void);
 void			print_typetable(void);
-int				joker(char *s);
+int				maketable(char *s);
 
 #endif
