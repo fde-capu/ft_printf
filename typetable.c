@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200208201002 :||||:                      */
+/* U20200208201519 :::|:|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -55,9 +55,13 @@ void	print_typetable(void)
 	if (g_tt->tt_width)
 	{
 		i = 0;
+		// about line below: it is wrong.
+		// it should take number length into consideration.
+		// zero flag does not work with %c.
+		// other stuff to be discovered.
 		while (i < g_tt->tt_width - (str ? ft_strlen(str) : 1))
 		{
-			ft_putchar_fd(' ', FDOUT);
+			ft_putchar_fd(g_tt->tt_zero_flag ? '0' : ' ', FDOUT);
 			i++;
 		}
 	}
@@ -68,10 +72,6 @@ void	print_typetable(void)
 		return ;
 	}
 	ft_putstr_fd(str, FDOUT);
-}
-
-void	formattable()
-{
 }
 
 int		maketable(char *s)

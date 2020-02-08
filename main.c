@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200208200408 :|::|:                      */
+/* U20200208201313 |:||||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -33,6 +33,10 @@ int	main()
 
 	printf	 ("S 5c_%5c_\n", 'X');fflush(stdout);
 	ft_printf("U 5c_%5c_\n", 'X');
+	printf("\n");
+
+	printf	 ("S 05c_%05c_\n", 'X');fflush(stdout);
+	ft_printf("U 05c_%05c_\n", 'X');
 	printf("\n");
 
 	printf	 ("S p_%p_\n", z);fflush(stdout);
