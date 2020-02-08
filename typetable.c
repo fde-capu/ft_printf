@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200208191943 ||::||                      */
+/* U20200208195547 |:|::|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -20,8 +20,10 @@ void	init_typetable(void)
 
 void	reset_typetable(void)
 {
-	g_tt->tt_char = 0;
 	g_tt->tt_string = 0;
+	g_tt->tt_char = 0;
+	g_tt->tt_getstring = 0;
+	g_tt->tt_getchar = 0;
 	g_tt->tt_pointer = 0;
 	g_tt->tt_int = 0;
 	g_tt->tt_uint = 0;
@@ -36,17 +38,25 @@ void	reset_typetable(void)
 
 void	print_typetable(void)
 {
+	char	*str;
+	char	chr;
+
+	str = 0;
+	chr = 0;
 	if (g_tt->tt_char)
-			ft_putchar_fd(g_tt->tt_char, FDOUT);
+		chr = g_tt->tt_char;
 	if (g_tt->tt_string)
-			ft_putstr_fd(g_tt->tt_string, FDOUT);
+		str = g_tt->tt_string;
 //	if (g_tt->tt_pointer)
 //			print pointer address
 	if (g_tt->tt_int)
-			ft_putstr_fd(ft_itoa(g_tt->tt_int), FDOUT);
+		str = ft_itoa(g_tt->tt_int);
 	if (g_tt->tt_uint)
-			ft_putstr_fd(ft_uitoa(g_tt->tt_uint), FDOUT);
-	reset_typetable();
+		str = ft_uitoa(g_tt->tt_uint);
+	if (str)
+		ft_putstr_fd(str, FDOUT);	
+	if (chr)
+		ft_putchar_fd(chr, FDOUT);	
 }
 
 void	formattable()
@@ -67,7 +77,7 @@ int		maketable(char *s)
 // %[flags]<width><precision><length>[conversion char]
 	if (*s == '%')		// % exepction
 	{
-		g_tt->tt_char = '%';
+		g_tt->tt_string = "%";
 		return (2);
 	}
 	while (ft_strinset(s, "-0"))	// % flags
@@ -104,7 +114,9 @@ int		maketable(char *s)
 	while (ft_strinset(s, "cspdiuxX")) // conversion
 	{
 		if (*s == 'c')
-			g_tt->tt_char = '#';
+			g_tt->tt_getchar = 1;
+		if (*s == 's')
+			g_tt->tt_getstring = 1;
 		if (*s == 'p')
 			g_tt->tt_pointer = g_tt;
 		if (*s == 'd')

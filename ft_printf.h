@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200208191711 :|:|||                      */
+/* U20200208195329 :|||:|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -20,8 +20,10 @@
 
 typedef struct s_typetable
 {
-	char			tt_char;
 	char			*tt_string;
+	int				tt_getstring;
+	char			tt_char;
+	int				tt_getchar;
 	void			*tt_pointer;
 	int				tt_int;
 	unsigned int	tt_uint;

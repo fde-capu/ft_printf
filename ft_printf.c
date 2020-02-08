@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200208191858 ::||::                      */
+/* U20200208195403 :||:::                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	ft_printf(const char *fmt, ...)
 				free(g_tt);
 				return (1);
 			}
-			if ((g_tt->tt_char) && (g_tt->tt_char != '%'))
+			if (g_tt->tt_getchar)
 				g_tt->tt_char = (char)va_arg(a, int);
+			if (g_tt->tt_getstring)
+				g_tt->tt_string = va_arg(a, char *);
 			if (g_tt->tt_pointer)
 				g_tt->tt_pointer = va_arg(a, void *);
 			if (g_tt->tt_int == 1)
