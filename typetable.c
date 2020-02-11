@@ -89,7 +89,7 @@ int		maketable(char *s)
 		g_tt->tt_string = "%";
 		return (2);
 	}
-	while (ft_strinset(s, "-0"))	// % flags
+	while (ft_chrinset(s, "-0"))	// % flags
 	{
 		if (*s == '-')
 			g_tt->tt_alignleft = 1;
@@ -98,7 +98,7 @@ int		maketable(char *s)
 		c++;
 		s++;
 	}
-	while (ft_strinset(s, "0123456789*"))		// width
+	while (ft_chrinset(s, "0123456789*"))		// width
 	{
 		if (*s == '*')
 			g_tt->tt_read_width = 1;
@@ -106,7 +106,7 @@ int		maketable(char *s)
 		c++;
 		s++;
 	}
-	while (ft_strinset(s, ".123456789*"))	// precision
+	while (ft_chrinset(s, ".123456789*"))	// precision
 	{
 		if (*s == '*')
 			g_tt->tt_read_precision = 1;
@@ -115,12 +115,12 @@ int		maketable(char *s)
 		c++;
 		s++;
 	}
-	while (ft_strinset(s, "lh"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
+	while (ft_chrinset(s, "lh"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
 	{
 		c++;
 		s++;
 	}
-	while (ft_strinset(s, "cspdiuxX")) // conversion
+	while (ft_chrinset(s, "cspdiuxX")) // conversion
 	{
 		if (*s == 'c')
 			g_tt->tt_getchar = 1;
