@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200211080748 :|:|:|                      */
+/* U20200211094803 ::|::|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -47,6 +47,27 @@ int	main()
 	
 	printf	 ("S %%d_%d_\n", 123);fflush(stdout);
 	ft_printf("U %%d_%d_\n", 123);
+	printf("\n");
+	
+	printf	 ("S %%0d_%0d_\n", 6);fflush(stdout);
+	ft_printf("U %%0d_%0d_\n", 6);
+	printf("\n");
+	
+//	printf	 ("S %%00d_%00d_\n", 6);fflush(stdout);
+	printf	 ("S %%00d_(error)_\n");fflush(stdout);
+	ft_printf("U %%00d_%00d_\n", 6);
+	printf("\n");
+	
+	printf	 ("S %%06d_%06d_\n", 6);fflush(stdout);
+	ft_printf("U %%06d_%06d_\n", 6);
+	printf("\n");
+	
+	printf	 ("S %%6d_%6d_\n", 6);fflush(stdout);
+	ft_printf("U %%6d_%6d_\n", 6);
+	printf("\n");
+	
+	printf	 ("S %%-6d_%-6d_\n", 6);fflush(stdout);
+	ft_printf("U %%-6d_%-6d_\n", 6);
 	printf("\n");
 	
 	printf	 ("S %%i_%i_\n", 123);fflush(stdout);

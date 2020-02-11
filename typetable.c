@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200208201519 :::|:|                      */
+/* U20200211094718 ||:|||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -40,7 +40,6 @@ void	print_typetable(void)
 {
 	char			*str;
 	char			chr;
-	unsigned int	i;
 
 	str = 0;
 	chr = 0;
@@ -52,26 +51,23 @@ void	print_typetable(void)
 		str = ft_itoa(g_tt->tt_int);
 	if (g_tt->tt_uint)
 		str = ft_uitoa(g_tt->tt_uint);
-	if (g_tt->tt_width)
-	{
-		i = 0;
-		// about line below: it is wrong.
-		// it should take number length into consideration.
-		// zero flag does not work with %c.
-		// other stuff to be discovered.
-		while (i < g_tt->tt_width - (str ? ft_strlen(str) : 1))
-		{
-			ft_putchar_fd(g_tt->tt_zero_flag ? '0' : ' ', FDOUT);
-			i++;
-		}
-	}
-	if (g_tt->tt_char)
+	if ((g_tt->tt_width) && (!g_tt->tt_alignleft))
+		ft_repchar_fd((g_tt->tt_zero_flag ? '0' : ' '), g_tt->tt_width - (str ? ft_strlen(str) : 1), FDOUT);
+/*
+**
+*/
+	if (str)
+		ft_putstr_fd(str, FDOUT);
+	else
 	{
 		chr = g_tt->tt_char;
 		ft_putchar_fd(chr, FDOUT);
-		return ;
 	}
-	ft_putstr_fd(str, FDOUT);
+/*
+** 
+*/
+	if ((g_tt->tt_width) && (g_tt->tt_alignleft))
+		ft_repchar_fd(' ', g_tt->tt_width - (str ? ft_strlen(str) : 1), FDOUT);
 }
 
 int		maketable(char *s)
@@ -83,7 +79,9 @@ int		maketable(char *s)
 	c = 1;
 	precision = 0;
 	s++;
-// %[flags]<width><precision><length>[conversion char]
+/*
+** %[flags]<width><precision><length>[conversion char]
+*/
 	if (*s == '%')		// % exepction
 	{
 		g_tt->tt_string = "%";
@@ -106,7 +104,7 @@ int		maketable(char *s)
 		c++;
 		s++;
 	}
-	while (ft_chrinset(s, ".123456789*"))	// precision
+	while (ft_chrinset(s, ".1234567890*"))	// precision
 	{
 		if (*s == '*')
 			g_tt->tt_read_precision = 1;
