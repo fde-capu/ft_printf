@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200211094718 ||:|||                      */
+/* U20200211120709                             */
 /*                                             */
 /* ******************************************* */
 
@@ -51,8 +51,19 @@ void	print_typetable(void)
 		str = ft_itoa(g_tt->tt_int);
 	if (g_tt->tt_uint)
 		str = ft_uitoa(g_tt->tt_uint);
+	if ((!g_tt->tt_width) && (g_tt->tt_precision) && (!g_tt->tt_string))
+	{
+		g_tt->tt_width = g_tt->tt_precision + (*str == '-' ? 1 : 0);
+		g_tt->tt_zero_flag = 1;
+	}
 	if ((g_tt->tt_width) && (!g_tt->tt_alignleft))
+	{
+		if ((str) && (*str == '-') && (!g_tt->tt_string) && (g_tt->tt_zero_flag))
+			ft_putchar_fd('-', FDOUT);
 		ft_repchar_fd((g_tt->tt_zero_flag ? '0' : ' '), g_tt->tt_width - (str ? ft_strlen(str) : 1), FDOUT);
+		if ((str) && (*str == '-') && (!g_tt->tt_string) && (g_tt->tt_zero_flag))
+			str++;
+	}
 /*
 **
 */
@@ -73,11 +84,9 @@ void	print_typetable(void)
 int		maketable(char *s)
 {
 	int	c;
-	int	precision;
 
 	reset_typetable();
 	c = 1;
-	precision = 0;
 	s++;
 /*
 ** %[flags]<width><precision><length>[conversion char]
@@ -106,10 +115,9 @@ int		maketable(char *s)
 	}
 	while (ft_chrinset(s, ".1234567890*"))	// precision
 	{
+		g_tt->tt_precision = g_tt->tt_precision ? g_tt->tt_precision : ft_atoi(s + 1);
 		if (*s == '*')
 			g_tt->tt_read_precision = 1;
-		g_tt->tt_precision = 1;
-		precision = precision ? precision : ft_atoi(s);
 		c++;
 		s++;
 	}
