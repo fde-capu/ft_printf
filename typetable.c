@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200213001129 |:|||:                      */
+/* U20200213023109 :|::||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -24,6 +24,8 @@ void	reset_typetable(void)
 	TTC = 0;
 	TGS = 0;
 	TGC = 0;
+	TGP = 0;
+	TTL = 0;
 	TPT = 0;
 	TTI = 0;
 	TTU = 0;
@@ -42,9 +44,10 @@ void	print_typetable(void)
 
 	str = 0;
 	str = TTS ? TTS : str;
-	//str = PTP ? getpointer : str;
+	str = TPT ? TPT : str;
 	str = TTI ? ft_itoa(TTI) : str;
 	str = TTU ? ft_uitoa(TTU) : str;
+	str = TTL ? ft_ltoh(TTL) : str;
 	if (TTZ && NEG)
 	{
 		ft_putchar_fd('-', FDOUT);
@@ -54,7 +57,6 @@ void	print_typetable(void)
 	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
 	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
 	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
-//	TTZ = TTW && TTP && TTW > TTP ? TTP - STRL : TTZ;
 	TTZ = TTW && TTP ? TTP - STRL : TTZ;
 	TTW -= TTW && TTP && NEG ? 1 : 0;
 	if ((str) && (TTW > TTZ + STRL) && (!TAL))
@@ -135,7 +137,7 @@ int		maketable(char *s)
 		if (*s == 's')
 			TGS = 1;
 		if (*s == 'p')
-			TPT = g_tt;
+			TGP = 1;
 		if (*s == 'd')
 			TTI= 1;
 		if (*s == 'i')
