@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200211120709                             */
+/* U20200212235427 |||:||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -20,65 +20,66 @@ void	init_typetable(void)
 
 void	reset_typetable(void)
 {
-	g_tt->tt_string = 0;
-	g_tt->tt_char = 0;
-	g_tt->tt_getstring = 0;
-	g_tt->tt_getchar = 0;
-	g_tt->tt_pointer = 0;
-	g_tt->tt_int = 0;
-	g_tt->tt_uint = 0;
-	g_tt->tt_zero_flag = 0;
-	g_tt->tt_alignleft = 0;
-	g_tt->tt_precision = 0;
-	g_tt->tt_width = 0;
-	g_tt->tt_read_width = 0;
-	g_tt->tt_read_precision = 0;
+	TTS = 0;
+	TTC = 0;
+	TGS = 0;
+	TGC = 0;
+	TPT = 0;
+	TTI = 0;
+	TTU = 0;
+	TTZ = 0;
+	TAL = 0;
+	TTP = 0;
+	TTW = 0;
+	TRW = 0;
+	TRP = 0;
 	return ;
 }
 
 void	print_typetable(void)
 {
-	char			*str;
-	char			chr;
+	char	*str;
 
 	str = 0;
-	chr = 0;
-	if (g_tt->tt_string)
-		str = g_tt->tt_string;
-//	if (g_tt->tt_pointer)
-//			print pointer address
-	if (g_tt->tt_int)
-		str = ft_itoa(g_tt->tt_int);
-	if (g_tt->tt_uint)
-		str = ft_uitoa(g_tt->tt_uint);
-	if ((!g_tt->tt_width) && (g_tt->tt_precision) && (!g_tt->tt_string))
+	str = TTS ? TTS : str;
+	//str = PTP ? getpointer : str;
+	str = TTI ? ft_itoa(TTI) : str;
+	str = TTU ? ft_uitoa(TTU) : str;
+	if (TTZ && NEG)
 	{
-		g_tt->tt_width = g_tt->tt_precision + (*str == '-' ? 1 : 0);
-		g_tt->tt_zero_flag = 1;
+		ft_putchar_fd('-', FDOUT);
+		TTW -= TTW ? 1 : 0;
+		str++;
 	}
-	if ((g_tt->tt_width) && (!g_tt->tt_alignleft))
+	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
+	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
+	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
+	TTZ = TTW && TTP && TTW > TTP ? TTP - STRL : TTZ;
+	TTW -= TTW && TTP && NEG ? 1 : 0;
+	if ((str) && (TTW > TTZ + STRL) && (!TAL))
+		ft_repchar_fd('.', TTW - TTZ - STRL, FDOUT);
+	if ((str) && (TTZ) && (NEG))
 	{
-		if ((str) && (*str == '-') && (!g_tt->tt_string) && (g_tt->tt_zero_flag))
-			ft_putchar_fd('-', FDOUT);
-		ft_repchar_fd((g_tt->tt_zero_flag ? '0' : ' '), g_tt->tt_width - (str ? ft_strlen(str) : 1), FDOUT);
-		if ((str) && (*str == '-') && (!g_tt->tt_string) && (g_tt->tt_zero_flag))
-			str++;
+		ft_putchar_fd('-', FDOUT);
+		ft_repchar_fd('0', TTZ, FDOUT);
+		str++;
 	}
+	if ((str) && (TTZ) && (!NEG))
+		ft_repchar_fd('0', TTZ, FDOUT);
+	if ((!str) && (TTW > 1))
+		ft_repchar_fd(' ', TTW - 1, FDOUT);
 /*
 **
 */
-	if (str)
+	if (!TGC)
 		ft_putstr_fd(str, FDOUT);
 	else
-	{
-		chr = g_tt->tt_char;
-		ft_putchar_fd(chr, FDOUT);
-	}
+		ft_putchar_fd(TTC, FDOUT);
 /*
 ** 
 */
-	if ((g_tt->tt_width) && (g_tt->tt_alignleft))
-		ft_repchar_fd(' ', g_tt->tt_width - (str ? ft_strlen(str) : 1), FDOUT);
+	if ((str) && (TTW > TTZ + STRL) && (TAL))
+		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
 }
 
 int		maketable(char *s)
@@ -93,31 +94,31 @@ int		maketable(char *s)
 */
 	if (*s == '%')		// % exepction
 	{
-		g_tt->tt_string = "%";
+		TTS = "%";
 		return (2);
 	}
 	while (ft_chrinset(s, "-0"))	// % flags
 	{
 		if (*s == '-')
-			g_tt->tt_alignleft = 1;
+			TAL = 1;
 		if (*s == '0')
-			g_tt->tt_zero_flag = 1;
+			TTZ = 1;
 		c++;
 		s++;
 	}
 	while (ft_chrinset(s, "0123456789*"))		// width
 	{
 		if (*s == '*')
-			g_tt->tt_read_width = 1;
-		g_tt->tt_width = g_tt->tt_width ? g_tt->tt_width : ft_atoi(s);
+			TRW = 1;
+		TTW = TTW ? TTW : (unsigned int)ft_atoi(s);
 		c++;
 		s++;
 	}
 	while (ft_chrinset(s, ".1234567890*"))	// precision
 	{
-		g_tt->tt_precision = g_tt->tt_precision ? g_tt->tt_precision : ft_atoi(s + 1);
+		TTP = TTP ? TTP : (unsigned int)ft_atoi(s + 1);
 		if (*s == '*')
-			g_tt->tt_read_precision = 1;
+			TRP = 1;
 		c++;
 		s++;
 	}
@@ -129,21 +130,21 @@ int		maketable(char *s)
 	while (ft_chrinset(s, "cspdiuxX")) // conversion
 	{
 		if (*s == 'c')
-			g_tt->tt_getchar = 1;
+			TGC = 1;
 		if (*s == 's')
-			g_tt->tt_getstring = 1;
+			TGS = 1;
 		if (*s == 'p')
-			g_tt->tt_pointer = g_tt;
+			TPT = g_tt;
 		if (*s == 'd')
-			g_tt->tt_int = 1;
+			TTI= 1;
 		if (*s == 'i')
-			g_tt->tt_int = 2;
+			TTI = 2;
 		if (*s == 'u')
-			g_tt->tt_uint = 1;
+			TTU = 1;
 		if (*s == 'x')
-			g_tt->tt_int = 4;
+			TTI = 4;
 		if (*s == 'X')
-			g_tt->tt_int = 5;
+			TTI = 5;
 		c++;
 		s++;
 	}

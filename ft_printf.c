@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200208201833 ||:||:                      */
+/* U20200212221926 ||::::                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,16 @@ int	ft_printf(const char *fmt, ...)
 				free(g_tt);
 				return (1);
 			}
-			if (g_tt->tt_getchar)
-				g_tt->tt_char = (char)va_arg(a, int);
-			if (g_tt->tt_getstring)
-				g_tt->tt_string = va_arg(a, char *);
-			if (g_tt->tt_pointer)
-				g_tt->tt_string = va_arg(a, void *);	// PLACEHOLDER
-			if (g_tt->tt_int == 1)
-				g_tt->tt_int = va_arg(a, signed int);
-			if (g_tt->tt_int == 2)
-				g_tt->tt_int = va_arg(a, int); // must also accept 033 (octal) or 0x88 (hex)
-			if (g_tt->tt_uint == 1)
-				g_tt->tt_uint = va_arg(a, unsigned int);
-			if (g_tt->tt_int == 4)
-				g_tt->tt_int = va_arg(a, unsigned int); // to hex lcase
-			if (g_tt->tt_int == 5)
-				g_tt->tt_int = va_arg(a, unsigned int); // to hex ucase
+			TTW = TRW ? va_arg(a, unsigned int) : TTW;
+			TTP = TRP ? va_arg(a, unsigned int) : TTP;
+			TTC = TGC ? (char)va_arg(a, int) : TTC;
+			TTS = TGS ? va_arg(a, char *) : TTS;
+//			TTS = TTP ? va_arg(a, void *) : TTS;	// PLACEHOLDER
+			TTI = TTI == 1 ? (signed int)va_arg(a, int) : TTI;
+//			TTI = TTI == 2 ? va_arg(a, int) : TTI; // must also accept 033 (octal) or 0x88 (hex)
+//			TTU = TTU == 1 ? va_arg(a, unsigned int) : TTU;
+//			TTI = TTI == 4 ? va_arg(a, unsigned int) : TTI; // to hex lcase
+//			TTI = TTI == 5 ? va_arg(a, unsigned int) : TTI; // to hex ucase
 			print_typetable();
 		}
 		else

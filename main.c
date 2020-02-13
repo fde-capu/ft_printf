@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200211120024 ||:|||                      */
+/* U20200212232953 ::|:||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -14,114 +14,122 @@
 
 int	main()
 {
-	int	x = 42;
-	int	*z;
+	//int	x = 42;
+	//int	*z;
 
-	z = &x;
+	//z = &x;
 
 	printf("\n\n");fflush(stdout);
-	printf	("System || User\n");fflush(stdout);
-	printf("\n");
+	printf	("System || User\n\n");fflush(stdout);
+	printf("basics:\n");
 
-	printf	 ("S %%%% _%%_\n");fflush(stdout);
-	ft_printf("U %%%% _%%_\n");
+	printf	 ("\tS %%%% _%%_\t");fflush(stdout);
+	printf	 ("\tS %%c _%c_\t", 'X');fflush(stdout);
+	printf	 ("\tS %%5c _%5c_\t", 'X');fflush(stdout);
+	printf	 ("\tS %%0d _%0d_\t", 6);fflush(stdout);
+	printf	 ("\tS %%00d _(error)_\t");fflush(stdout);
 	printf("\n");
+	ft_printf("\tU %%%% _%%_\t");
+	ft_printf("\tU %%c _%c_\t", 'X');
+	ft_printf("\tU %%5c _%5c_\t", 'X');
+	ft_printf("\tU %%0d _%0d_\t", 6);
+	ft_printf("\tU %%00d _%00d_\t", 6);
 	
-	printf	 ("S %%c _%c_\n", 'X');fflush(stdout);
-	ft_printf("U %%c _%c_\n", 'X');
 	printf("\n");
+	printf("\nwidth:");
+	printf("\n");
+	printf	 ("S %%06d _%06d_\t", 6);fflush(stdout);
+	printf	 ("S %%6d _%6d_\t", 6);fflush(stdout);
+	printf	 ("S %%-6d _%-6d_\t", 6);fflush(stdout);
+	printf	 ("S %%-06d _(error)_\t");fflush(stdout);
+	printf	 ("S %%-10d _%-10d_\t", -6);fflush(stdout);
+	printf	 ("S %%10d _%10d_\t", -6);fflush(stdout);
+	printf	 ("S %%-010d _(error)_\t");fflush(stdout);
+	printf	 ("S %%010d _%010d_\t", -6);fflush(stdout);
+	printf("\n");
+	ft_printf("U %%06d _%06d_\t", 6);
+	ft_printf("U %%6d _%6d_\t", 6);
+	ft_printf("U %%-6d _%-6d_\t", 6);
+	ft_printf("U %%-06d _%-06d_\t", 6);
+	ft_printf("U %%-10d _%-10d_\t", -6);
+	ft_printf("U %%10d _%10d_\t", -6);
+	ft_printf("U %%-010d _%-010d_\t", -6);
+	ft_printf("U %%010d _%010d_\t", -6);
 
-	printf	 ("S %%5c _%5c_\n", 'X');fflush(stdout);
-	ft_printf("U %%5c _%5c_\n", 'X');
 	printf("\n");
+	printf("\nwidth read:");
+	printf("\n");
+	printf	 ("S %%0*d _err_\t");fflush(stdout);
+	printf	 ("S %%*d _%*d_\t", 6, 6);fflush(stdout);
+	printf	 ("S %%-*d _%-*d_\t", 6, 6);fflush(stdout);
+	printf	 ("S %%-0*d _err_\t\t");fflush(stdout);
+	printf	 ("S %%-*d _%-*d_\t", 10, -6);fflush(stdout);
+	printf	 ("S %%*d _%*d_\t", 10, -6);fflush(stdout);
+	printf	 ("S %%-0*d _err_\t\t");fflush(stdout);
+	printf	 ("S %%0*d _%0*d_\t", 10, -6);fflush(stdout);
+	printf("\n");
+	ft_printf("U %%0*d _%0*d_\t", 6, 6);
+	ft_printf("U %%*d _%*d_\t", 6, 6);
+	ft_printf("U %%-*d _%-*d_\t", 6, 6);
+	ft_printf("U %%-0*d _%-0*d_\t", 6, 6);
+	ft_printf("U %%-*d _%-*d_\t", 10, -6);
+	ft_printf("U %%*d _%*d_\t", 10, -6);
+	ft_printf("U %%-0*d _%-0*d_\t", 10, -6);
+	ft_printf("U %%0*d _%0*d_\t", 10, -6);
 
-//	printf	 ("S 05c_%05c_\n", 'X');fflush(stdout);
-	// this below should not work (throw error)
-	printf	 ("S %%05c _(error)_\n");fflush(stdout);
-	ft_printf("U %%05c _%05c_\n", 'X');
 	printf("\n");
+	printf("\nprecision:");
+	printf("\n");
+	printf	 ("\tS %%.5d _%.5d_\t", 6);fflush(stdout);
+	printf	 ("\tS %%.5d _%.5d_\t", -123);fflush(stdout);
+	printf	 ("\tS %%01.5d _err_\t");fflush(stdout);
+	printf	 ("\tS %%10.5d _%10.5d_\t", 6);fflush(stdout);
+	printf	 ("\tS %%10.5d _%10.5d_\t", -123);fflush(stdout);
+	printf("\n");
+	ft_printf("\tU %%.5d _%.5d_\t", 6);
+	ft_printf("\tU %%.5d _%.5d_\t", -123);
+	ft_printf("\tU %%01.5d _%01.5d_\t", 6);
+	ft_printf("\tU %%10.5d _%10.5d_\t", 6);
+	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
+	
+	printf("\n");
+	printf("\nprecision read:");
+	printf("\n");
+	printf	 ("\tS %%.*d _%.*d_\t", 5, 6);fflush(stdout);
+	printf	 ("\tS %%.*d _%.*d_\t", 5, -123);fflush(stdout);
+	printf	 ("\tS %%10.*d _%10.*d_\t", 5, 6);fflush(stdout);
+	printf	 ("\tS %%10.*d _%10.*d_\t", 5, -123);fflush(stdout);
+	printf("\n");
+	ft_printf("\tU %%.*d _%.*d_\t", 5, 6);
+	ft_printf("\tU %%.*d _%.*d_\t", 5, -123);
+	ft_printf("\tU %%10.*d _%10.*d_\t", 5, 6);
+	ft_printf("\tU %%10.*d _%10.*d_\t", 5, -123);
 
-	printf	 ("S %%p _%p_\n", z);fflush(stdout);
-	ft_printf("U %%p _%p_\n", z);
+	printf("\n");
+	printf("\nwidth and precision read:");
+	printf("\n");
+	printf	 ("\tS %%*.*d _%*.*d_\t", 7, 5, 6);fflush(stdout);
+	printf	 ("\tS %%*.*d _%*.*d_\t", 3, 5, -123);fflush(stdout);
+	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, 6);fflush(stdout);
+	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, -123);fflush(stdout);
+	printf("\n");
+	ft_printf("\tU %%.*d _%.*d_\t", 5, 6);
+	ft_printf("\tU %%.*d _%.*d_\t", 5, -123);
+	ft_printf("\tU %%10.*d _%.*d_\t", 5, 6);
+	ft_printf("\tU %%10.*d _%.*d_\t", 5, -123);
+	printf("\n");
+	ft_printf("\nhex:");
 	printf("\n");
 	
-	printf	 ("S %%d _%d_\n", 123);fflush(stdout);
-	ft_printf("U %%d _%d_\n", 123);
+	printf	 ("\tS %%i _%i_\t", 123);fflush(stdout);
+	printf	 ("\tS %%u _%u_\t", -123);fflush(stdout);
+	printf	 ("\tS %%X _%X_\t", 123);fflush(stdout);
+	printf	 ("\tS %%x _%x_\t", 123);fflush(stdout);
 	printf("\n");
-	
-	printf	 ("S %%0d _%0d_\n", 6);fflush(stdout);
-	ft_printf("U %%0d _%0d_\n", 6);
-	printf("\n");
-	
-//	printf	 ("S %%00d_%00d_\n", 6);fflush(stdout);
-	printf	 ("S %%00d _(error)_\n");fflush(stdout);
-	ft_printf("U %%00d _%00d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%06d _%06d_\n", 6);fflush(stdout);
-	ft_printf("U %%06d _%06d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%6d _%6d_\n", 6);fflush(stdout);
-	ft_printf("U %%6d _%6d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%-6d _%-6d_\n", 6);fflush(stdout);
-	ft_printf("U %%-6d _%-6d_\n", 6);
-	printf("\n");
-	
-	//printf	 ("S %%-06d_%-06d_\n", 6);fflush(stdout);
-	printf	 ("S %%-06d _(error)_\n");fflush(stdout);
-	ft_printf("U %%-06d _%-06d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%-10d _%-10d_\n", -6);fflush(stdout);
-	ft_printf("U %%-10d _%-10d_\n", -6);
-	printf("\n");
-	
-	printf	 ("S %%10d _%10d_\n", -6);fflush(stdout);
-	ft_printf("U %%10d _%10d_\n", -6);
-	printf("\n");
-	
-	//printf	 ("S %%-010d_%-010d_\n", -6);fflush(stdout);
-	printf	 ("S %%-010d _(error)_\n");fflush(stdout);
-	ft_printf("U %%-010d _%-010d_\n", -6);
-	printf("\n");
-	
-	printf	 ("S %%010d _%010d_\n", -6);fflush(stdout);
-	ft_printf("U %%010d _%010d_\n", -6);
-	printf("\n");
-	
-	printf	 ("S %%.5d _%.5d_\n", 6);fflush(stdout);
-	ft_printf("U %%.5d _%.5d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%.5d _%.5d_\n", -123);fflush(stdout);
-	ft_printf("U %%.5d _%.5d_\n", -123);
-	printf("\n");
-	
-	printf	 ("S %%10.5d _%.5d_\n", 6);fflush(stdout);
-	ft_printf("U %%10.5d _%.5d_\n", 6);
-	printf("\n");
-	
-	printf	 ("S %%10.5d _%.5d_\n", -123);fflush(stdout);
-	ft_printf("U %%10.5d _%.5d_\n", -123);
-	printf("\n");
-	
-	printf	 ("S %%i _%i_\n", 123);fflush(stdout);
-	ft_printf("U %%i _%i_\n", 123);
-	printf("\n");
-	
-	printf	 ("S %%u _%u_\n", -123);fflush(stdout);
-	ft_printf("U %%u _%u_\n", -123);
-	printf("\n");
-	
-	printf	 ("S %%x _%x_\n", 123);fflush(stdout);
-	ft_printf("U %%x _%x_\n", 123);
-	printf("\n");
-	
-	printf	 ("S %%X _%X_\n", 123);fflush(stdout);
-	ft_printf("U %%X _%X_\n", 123);
+	ft_printf("\tU %%i _%i_\t", 123);
+	ft_printf("\tU %%u _%u_\t", -123);
+	ft_printf("\tU %%X _%X_\t", 123);
+	ft_printf("\tU %%x _%x_\t", 123);
 	printf("\n\n");fflush(stdout);
 
 	return (0);
