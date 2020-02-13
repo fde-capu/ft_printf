@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200213023109 :|::||                      */
+/* U20200213183549 ||:::|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -48,12 +48,15 @@ void	print_typetable(void)
 	str = TTI ? ft_itoa(TTI) : str;
 	str = TTU ? ft_uitoa(TTU) : str;
 	str = TTL ? ft_ltoh(TTL) : str;
+	str = TPT ? ft_ltoh((long unsigned int)TPT) : str;
 	if (TTZ && NEG)
 	{
 		ft_putchar_fd('-', FDOUT);
 		TTW -= TTW ? 1 : 0;
 		str++;
 	}
+	if (TPT)
+		ft_putstr_fd("0x", FDOUT);
 	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
 	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
 	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
