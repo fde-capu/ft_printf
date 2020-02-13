@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200212235427 |||:||                      */
+/* U20200213001129 |:|||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -54,10 +54,11 @@ void	print_typetable(void)
 	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
 	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
 	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
-	TTZ = TTW && TTP && TTW > TTP ? TTP - STRL : TTZ;
+//	TTZ = TTW && TTP && TTW > TTP ? TTP - STRL : TTZ;
+	TTZ = TTW && TTP ? TTP - STRL : TTZ;
 	TTW -= TTW && TTP && NEG ? 1 : 0;
 	if ((str) && (TTW > TTZ + STRL) && (!TAL))
-		ft_repchar_fd('.', TTW - TTZ - STRL, FDOUT);
+		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
 	if ((str) && (TTZ) && (NEG))
 	{
 		ft_putchar_fd('-', FDOUT);

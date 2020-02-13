@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200212232953 ::|:||                      */
+/* U20200213001216 ||||||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -82,7 +82,7 @@ int	main()
 	printf("\n");
 	printf	 ("\tS %%.5d _%.5d_\t", 6);fflush(stdout);
 	printf	 ("\tS %%.5d _%.5d_\t", -123);fflush(stdout);
-	printf	 ("\tS %%01.5d _err_\t");fflush(stdout);
+	printf	 ("\tS %%01.5d _error_\t");fflush(stdout);
 	printf	 ("\tS %%10.5d _%10.5d_\t", 6);fflush(stdout);
 	printf	 ("\tS %%10.5d _%10.5d_\t", -123);fflush(stdout);
 	printf("\n");
@@ -106,6 +106,19 @@ int	main()
 	ft_printf("\tU %%10.*d _%10.*d_\t", 5, -123);
 
 	printf("\n");
+	printf("\nwidth and precision:");
+	printf("\n");
+	printf	 ("\tS %%7.5d _%7.5d_\t", 6);fflush(stdout);
+	printf	 ("\tS %%3.5d _%3.5d_\t", -123);fflush(stdout);
+	printf	 ("\tS %%10.5d _%10.5d_\t", 6);fflush(stdout);
+	printf	 ("\tS %%10.5d _%10.5d_\t", -123);fflush(stdout);
+	printf("\n");
+	ft_printf("\tU %%7.5d _%7.5d_\t", 6);
+	ft_printf("\tU %%3.5d _%3.5d_\t", -123);
+	ft_printf("\tU %%10.5d _%10.5d_\t", 6);
+	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
+	
+	printf("\n");
 	printf("\nwidth and precision read:");
 	printf("\n");
 	printf	 ("\tS %%*.*d _%*.*d_\t", 7, 5, 6);fflush(stdout);
@@ -113,10 +126,10 @@ int	main()
 	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, 6);fflush(stdout);
 	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, -123);fflush(stdout);
 	printf("\n");
-	ft_printf("\tU %%.*d _%.*d_\t", 5, 6);
-	ft_printf("\tU %%.*d _%.*d_\t", 5, -123);
-	ft_printf("\tU %%10.*d _%.*d_\t", 5, 6);
-	ft_printf("\tU %%10.*d _%.*d_\t", 5, -123);
+	ft_printf("\tU %%*.*d _%*.*d_\t", 7, 5, 6);
+	ft_printf("\tU %%*.*d _%*.*d_\t", 3, 5, -123);
+	ft_printf("\tU %%*.*d _%*.*d_\t", 10, 5, 6);
+	ft_printf("\tU %%*.*d _%*.*d_\t", 10, 5, -123);
 	printf("\n");
 	ft_printf("\nhex:");
 	printf("\n");
