@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200213015728 |::|:|                      */
+/* U20200214083041 :|:||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -17,22 +17,21 @@
 # include <stdio.h> // REM
 # define FDOUT 1
 # define ERRORMSG "^~~~ format error\n"
-# define TT(X) g_tt->X
-# define TTS TT(tt_string)
-# define TTI TT(tt_int)
-# define TTU TT(tt_uint)
-# define TTL TT(tt_long)
-# define TTZ TT(tt_zero)
-# define TTW TT(tt_width)
-# define TRW TT(tt_read_width)
-# define TTP TT(tt_precision)
-# define TRP TT(tt_read_precision)
-# define TPT TT(tt_pointer)
-# define TTC TT(tt_char)
-# define TAL TT(tt_alignleft)
-# define TGC TT(tt_getchar)
-# define TGS TT(tt_getstring)
-# define TGP TT(tt_getpointer)
+# define TTS g_tt->tt_string
+# define TTI g_tt->tt_int
+# define TTU g_tt->tt_uint
+# define TTL g_tt->tt_long
+# define TTZ g_tt->tt_zero
+# define TTW g_tt->tt_width
+# define TRW g_tt->tt_read_width
+# define TTP g_tt->tt_precision
+# define TRP g_tt->tt_read_precision
+# define TPT g_tt->tt_pointer
+# define TTC g_tt->tt_char
+# define TAL g_tt->tt_alignleft
+# define TGC g_tt->tt_getchar
+# define TGS g_tt->tt_getstring
+# define TGP g_tt->tt_getpointer
 # define NEG (*str == '-')
 # define STRL ft_strlen(str)
 
