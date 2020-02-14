@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200213183549 ||:::|                      */
+/* U20200213184219 |::|:|                      */
 /*                                             */
 /* ******************************************* */
 
@@ -57,6 +57,9 @@ void	print_typetable(void)
 	}
 	if (TPT)
 		ft_putstr_fd("0x", FDOUT);
+/*
+**	Maybe TPT resolution is system dependent. 
+*/
 	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
 	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
 	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
