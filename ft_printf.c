@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200217192648 |:|::|                      */
+/* U20200217202359 :::||:                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	ft_printf_error(char *s, int pos)
 		ft_putchar_fd(' ', FDOUT);
 	ft_putstr_fd(ERRORMSG, FDOUT);
 	return ;
+}
+
+void	putvar(unsigned int val, unsigned int *adr)
+{
+	*adr = val;
 }
 
 int		ft_printf(const char *fmt, ...)
@@ -49,11 +54,14 @@ int		ft_printf(const char *fmt, ...)
 			TTC = TGC ? (char)va_arg(a, int) : TTC;
 			TTS = TGS ? va_arg(a, char *) : TTS;
 			TPT = TGP ? va_arg(a, void *) : TPT;
-			TBT = TTI == 2 || TTI == 3 ? 16 : TBT;
-			TUC = TTI == 3 ? 1 : TUC;
-			TTI = TTI ? (signed int)va_arg(a, int) : TTI;
-			TTU = TTU == 1 ? va_arg(a, unsigned int) : TTU;
-			print_typetable();
+			TTI = TTI ? va_arg(a, int) : TTI;
+			TUC = TTU == 3 ? 1 : TUC;
+			TBT = TTU > 1 ? 16 : TBT;
+			TTU = TTU ? va_arg(a, unsigned int) : TTU;
+			if (!TPV)
+				print_typetable();
+			else
+				putvar(s - fmt, va_arg(a, unsigned int *));
 		}
 		else
 			ft_putchar_fd(*s, FDOUT);
