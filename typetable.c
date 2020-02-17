@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200216221751 ::|||:                      */
+/* U20200217193107 |||:||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -35,6 +35,8 @@ void	reset_typetable(void)
 	TTW = 0;
 	TRW = 0;
 	TRP = 0;
+	TBT = 0;
+	TUC = 0;
 	return ;
 }
 
@@ -44,7 +46,9 @@ void	print_typetable(void)
 
 	str = 0;
 	str = TTS ? TTS : str;
-	str = TTI ? ft_itoa(TTI) : str;
+	str = TTI && !TBT ? ft_itoa(TTI) : str;
+	str = TTI && TBT ? ft_dtob(TTI, TBT) : str;
+	str = TUC ? ft_ucase(str) : str;
 	str = TTU ? ft_uitoa(TTU) : str;
 	str = TTL ? ft_itoa(TTL) : str;
 	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
@@ -90,6 +94,10 @@ void	print_typetable(void)
 		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
 }
 
+/*
+** %[flags]<width><precision><length>[conversion char]
+*/
+
 int		maketable(char *s)
 {
 	int	c;
@@ -97,9 +105,6 @@ int		maketable(char *s)
 	reset_typetable();
 	c = 1;
 	s++;
-/*
-** %[flags]<width><precision><length>[conversion char]
-*/
 	if (*s == '%')		// % exepction
 	{
 		TTS = "%";

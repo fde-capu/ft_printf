@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200214083041 :|:||:                      */
+/* U20200217185117 ::|||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -32,8 +32,10 @@
 # define TGC g_tt->tt_getchar
 # define TGS g_tt->tt_getstring
 # define TGP g_tt->tt_getpointer
+# define TBT g_tt->tt_baseto
 # define NEG (*str == '-')
 # define STRL ft_strlen(str)
+# define TUC g_tt->tt_ucase
 
 typedef struct s_typetable
 {
@@ -52,6 +54,8 @@ typedef struct s_typetable
 	unsigned int	tt_width;
 	int				tt_read_width;
 	int				tt_read_precision;
+	int				tt_baseto;
+	int				tt_ucase;
 } t_typetable;
 
 t_typetable		*g_tt;
