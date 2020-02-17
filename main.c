@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200213012040 ||::||                      */
+/* U20200215173703 |:::|:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -23,6 +23,7 @@ int	main()
 	printf("basics:\n");
 
 	printf	 ("\tS %%%% _%%_\t");
+	printf	 ("\tS %%d _%d_\t", 42);
 	printf	 ("\tS %%c _%c_\t", 'X');
 	printf	 ("\tS %%5c _%5c_\t", 'X');
 	printf	 ("\tS %%0d _%0d_\t", 6);
@@ -30,6 +31,7 @@ int	main()
 	printf	 ("\tS %%p _%p_\t", z);
 	printf("\n");
 	ft_printf("\tU %%%% _%%_\t");
+	ft_printf("\tS %%d _%d_\t", 42);
 	ft_printf("\tU %%c _%c_\t", 'X');
 	ft_printf("\tU %%5c _%5c_\t", 'X');
 	ft_printf("\tU %%0d _%0d_\t", 6);
@@ -37,8 +39,27 @@ int	main()
 	ft_printf("\tS %%p _%p_\t", z);
 	
 	printf("\n");
+	printf("\ninput variants:");
+	printf("\n");
+
+	printf	 ("\tS %%d (hex) _%d_\t", 0x2a);
+	printf	 ("\tS %%d (HEX) _%d_\t", 0x2A);
+	printf	 ("\tS %%d (oct) _%d_\t", 012);
+	printf	 ("\tS %%i (hex) _%i_\t", 0x2a);
+	printf	 ("\tS %%i (HEX) _%i_\t", 0x2A);
+	printf	 ("\tS %%i (oct) _%i_\t", 012);
+	printf("\n");
+	ft_printf	 ("\tU %%d (hex) _%d_\t", 0x2a);
+	ft_printf	 ("\tU %%d (HEX) _%d_\t", 0x2A);
+	ft_printf	 ("\tU %%d (oct) _%d_\t", 012);
+	ft_printf	 ("\tU %%i (hex) _%i_\t", 0x2a);
+	ft_printf	 ("\tU %%i (HEX) _%i_\t", 0x2A);
+	ft_printf	 ("\tU %%i (oct) _%i_\t", 012);
+
+	printf("\n");
 	printf("\nwidth:");
 	printf("\n");
+
 	printf	 ("S %%06d _%06d_\t", 6);
 	printf	 ("S %%6d _%6d_\t", 6);
 	printf	 ("S %%-6d _%-6d_\t", 6);
@@ -135,12 +156,18 @@ int	main()
 	ft_printf("\nhex:");
 	printf("\n");
 	
-	printf	 ("\tS %%i _%i_\t", 123);
+	printf	 ("\tS %%i(123) _%i_\t", 123);
+	printf	 ("\tS %%i(0x123) _%i_\t", 0x123);
+	printf	 ("\tS %%i(0X123) _%i_\t", 0x123);
+	printf	 ("\tS %%i(0123) _%i_\t", 0123);
 	printf	 ("\tS %%u _%u_\t", -123);
 	printf	 ("\tS %%X _%X_\t", 123);
 	printf	 ("\tS %%x _%x_\t", 123);
 	printf("\n");
-	ft_printf("\tU %%i _%i_\t", 123);
+	ft_printf("\tU %%i(123) _%i_\t", 123);
+	ft_printf ("\tU %%i(0x123) _%i_\t", 0x123);
+	ft_printf ("\tU %%i(0X123) _%i_\t", 0x123);
+	ft_printf ("\tU %%i(0123) _%i_\t", 0123);
 	ft_printf("\tU %%u _%u_\t", -123);
 	ft_printf("\tU %%X _%X_\t", 123);
 	ft_printf("\tU %%x _%x_\t", 123);

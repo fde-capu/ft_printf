@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200213184219 |::|:|                      */
+/* U20200216221751 ::|||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -44,11 +44,10 @@ void	print_typetable(void)
 
 	str = 0;
 	str = TTS ? TTS : str;
-	str = TPT ? TPT : str;
 	str = TTI ? ft_itoa(TTI) : str;
 	str = TTU ? ft_uitoa(TTU) : str;
-	str = TTL ? ft_ltoh(TTL) : str;
-	str = TPT ? ft_ltoh((long unsigned int)TPT) : str;
+	str = TTL ? ft_itoa(TTL) : str;
+	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
 	if (TTZ && NEG)
 	{
 		ft_putchar_fd('-', FDOUT);
@@ -138,22 +137,14 @@ int		maketable(char *s)
 	}
 	while (ft_chrinset(s, "cspdiuxX")) // conversion
 	{
-		if (*s == 'c')
-			TGC = 1;
-		if (*s == 's')
-			TGS = 1;
-		if (*s == 'p')
-			TGP = 1;
-		if (*s == 'd')
-			TTI= 1;
-		if (*s == 'i')
-			TTI = 2;
-		if (*s == 'u')
-			TTU = 1;
-		if (*s == 'x')
-			TTI = 4;
-		if (*s == 'X')
-			TTI = 5;
+		TGC = *s == 'c' ? 1 : TGC;
+		TGS = *s == 's' ? 1 : TGS;
+		TGP = *s == 'p' ? 1 : TGP;
+		TTI = *s == 'd' ? 1 : TTI;
+		TTI = *s == 'i' ? 1 : TTI;
+		TTI = *s == 'x' ? 2 : TTI;
+		TTI = *s == 'X' ? 3 : TTI;
+		TTU = *s == 'u' ? 1 : TTU;
 		c++;
 		s++;
 	}
