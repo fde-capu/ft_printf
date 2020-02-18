@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200217202359 :::||:                      */
+/* U20200218132139 :::::|                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int		ft_printf(const char *fmt, ...)
 			TUC = TTU == 3 ? 1 : TUC;
 			TBT = TTU > 1 ? 16 : TBT;
 			TTU = TTU ? va_arg(a, unsigned int) : TTU;
+			TTL = TTL && !TTU ? va_arg(a, signed long) : TTL;
+			TUL = TTL && TTU ? va_arg(a, unsigned long) : TUL;
 			if (!TPV)
 				print_typetable();
 			else

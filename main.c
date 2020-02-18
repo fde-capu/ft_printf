@@ -6,11 +6,14 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200217201037 |::|::                      */
+/* U20200218122926 ||:|::                      */
 /*                                             */
 /* ******************************************* */
 
 #include "ft_printf.h"
+#include <math.h>
+#include <limits.h>
+#include <stdint.h>
 
 int	main()
 {
@@ -180,17 +183,51 @@ int	main()
 	*avar = 42;
 
 	printf("\n");
-	ft_printf("\nbonus:");
+	ft_printf("\nBONUS:");
 	printf("\n");
 	printf("S This var %d...%n(%%n, 16)", *avar, avar);
 	printf("...is now %d.\t", *avar);
-
 	printf("\n");
+
 
 	*avar = 42;
 	ft_printf("U This var %d...%n(%%n, 16)", *avar, avar);
 	ft_printf("...is now %d.\t", *avar);
 	
+	printf("\n");
+	ft_printf("\nlong:");
+	printf("\n");
+	printf("S %%ld _%ld_\t", LONG_MAX - 123);
+	printf("%%li _%li_\t", LONG_MIN + 123);
+	printf("%%lu _%lu_\t", ULONG_MAX - 123);
+	printf("%%lld _%lld_\t", LLONG_MIN + 123);
+	printf("%%lli _%lli_\t", LLONG_MAX - 123);
+	printf("%%llu _%llu_\t", ULLONG_MAX - 123);
+	printf("\n");
+	ft_printf("U %%ld _%ld_\t", LONG_MAX - 123);
+	ft_printf("%%li _%li_\t", LONG_MIN + 123);
+	ft_printf("%%lu _%lu_\t", ULONG_MAX - 123);
+	ft_printf("%%lld _%lld_\t", LLONG_MIN + 123);
+	ft_printf("%%lli _%lli_\t", LLONG_MAX - 123);
+	ft_printf("%%llu _%llu_\t", ULLONG_MAX - 123);
+
+	printf("\n");
+	ft_printf("\nlong extremes:");
+	printf("\n");
+	printf("S %%ld _%ld_\t", LONG_MAX);
+	printf("%%li _%li_\t", LONG_MIN);
+	printf("%%lu _%lu_\t", ULONG_MAX);
+	printf("%%lld _%lld_\t", LLONG_MIN);
+	printf("%%lli _%lli_\t", LLONG_MAX);
+	printf("%%llu _%llu_\t", ULLONG_MAX);
+	printf("\n");
+//	ft_printf("U %%ld _%ld_\t", LONG_MAX);
+//	ft_printf("%%li _%li_\t", LONG_MIN);
+//	ft_printf("%%lu _%lu_\t", ULONG_MAX);
+//	ft_printf("%%lld _%lld_\t", LLONG_MIN);
+//	ft_printf("%%lli _%lli_\t", LLONG_MAX);
+//	ft_printf("%%llu _%llu_\t", ULLONG_MAX);
+
 	printf("\n\n");
 	return (0);
 }

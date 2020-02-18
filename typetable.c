@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200217202543 ::||:|                      */
+/* U20200218132132 |:::::                      */
 /*                                             */
 /* ******************************************* */
 
@@ -37,7 +37,13 @@ void	print_typetable(void)
 	str = TTU && !TBT ? ft_uitoa(TTU) : str;
 	str = TTU && TBT ? ft_dtob(TTU, TBT) : str;
 	str = TUC ? ft_ucase(str) : str;
-	str = TTL ? ft_itoa(TTL) : str;
+	str = TTL && !TUL ? ft_ltoa(TTL) : str;
+	str = TUL ? ft_ultoa(TUL) : str;
+	if (TUL)
+	{
+		printf(" [[%lu]] ", TUL);
+		fflush(stdout);
+	}
 	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
 	if (TTZ && NEG)
 	{
@@ -84,7 +90,7 @@ void	print_typetable(void)
 /*
 ** %[flags]<width><precision><length>[conversion char]
 ** Bonus:
-** conversions: n f g e 
+** conversions: n f g e (ok: n) 
 ** flags: l ll h hh
 ** flags: # + (both have to work)
 */
@@ -126,12 +132,12 @@ int		maketable(char *s)
 		c++;
 		s++;
 	}
-	while (ft_chrinset(s, "lh"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
+	while (ft_chrinset(s, "h"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
 	{
 		c++;
 		s++;
 	}
-	while (ft_chrinset(s, "cspdiuxXn")) // conversion
+	while (ft_chrinset(s, "cspdiuxXnl")) // conversion
 	{
 		TGC = *s == 'c' ? 1 : TGC;
 		TGS = *s == 's' ? 1 : TGS;
@@ -142,6 +148,10 @@ int		maketable(char *s)
 		TTU = *s == 'x' ? 2 : TTU;
 		TTU = *s == 'X' ? 3 : TTU;
 		TPV = *s == 'n' ? 1 : TPV;
+		TTL += *s == 'l' ? 1 : 0;
+		TLL = TTL > 1 ? 1 : TLL;
+		TTL = TLL ? 0 : TTL;
+		TTI = TTL || TLL ? 0 : TTI;
 		c++;
 		s++;
 	}

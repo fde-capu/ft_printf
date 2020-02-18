@@ -6,7 +6,7 @@
 /*     |:|::| <|:|::|>                         */
 /*                                             */
 /* C20200207142351 |:|::|                      */
-/* U20200217195811 :|:||:                      */
+/* U20200218132125 |:::::                      */
 /*                                             */
 /* ******************************************* */
 
@@ -17,24 +17,26 @@
 # include <stdio.h> // REM
 # define FDOUT 1
 # define ERRORMSG "^~~~ format error\n"
-# define TTS g_tt->tt_string
+# define TAL g_tt->tt_alignleft
+# define TBT g_tt->tt_baseto
+# define TGC g_tt->tt_getchar
+# define TGP g_tt->tt_getpointer
+# define TGS g_tt->tt_getstring
+# define TLL g_tt->tt_llong
+# define TPT g_tt->tt_pointer
+# define TPV g_tt->tt_putvar
+# define TRP g_tt->tt_read_precision
+# define TRW g_tt->tt_read_width
 # define TTI g_tt->tt_int
-# define TTU g_tt->tt_uint
+# define TTS g_tt->tt_string
 # define TTL g_tt->tt_long
+# define TTP g_tt->tt_precision
+# define TTU g_tt->tt_uint
 # define TTZ g_tt->tt_zero
 # define TTW g_tt->tt_width
-# define TRW g_tt->tt_read_width
-# define TTP g_tt->tt_precision
-# define TRP g_tt->tt_read_precision
-# define TPT g_tt->tt_pointer
 # define TTC g_tt->tt_char
-# define TAL g_tt->tt_alignleft
-# define TGC g_tt->tt_getchar
-# define TGS g_tt->tt_getstring
-# define TGP g_tt->tt_getpointer
-# define TBT g_tt->tt_baseto
 # define TUC g_tt->tt_ucase
-# define TPV g_tt->tt_putvar
+# define TUL g_tt->tt_ulong
 # define NEG (*str == '-')
 # define STRL ft_strlen(str)
 
@@ -46,6 +48,8 @@ typedef struct s_typetable
 	int				tt_getchar;
 	int				tt_getpointer;
 	long			tt_long;
+	long long		tt_llong;
+	unsigned long	tt_ulong;
 	void			*tt_pointer;// check if its in use
 	int				tt_int;
 	unsigned int	tt_uint;
