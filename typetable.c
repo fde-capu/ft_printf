@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200218132132 |:::::                      */
+/* U20200218134415 ::|||:                      */
 /*                                             */
 /* ******************************************* */
 
@@ -39,11 +39,6 @@ void	print_typetable(void)
 	str = TUC ? ft_ucase(str) : str;
 	str = TTL && !TUL ? ft_ltoa(TTL) : str;
 	str = TUL ? ft_ultoa(TUL) : str;
-	if (TUL)
-	{
-		printf(" [[%lu]] ", TUL);
-		fflush(stdout);
-	}
 	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
 	if (TTZ && NEG)
 	{
