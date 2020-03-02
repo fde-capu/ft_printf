@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/02 07:57:57 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/02 16:59:38 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		=	$(GCC) $(FLAGS)
 
 FLAGS	=	-Wall -Wextra -Werror
 
-AR		=	ar -rc
+AR		=	ar -rcs
 
 NAME	=	libftprintf.a
 
@@ -75,3 +75,12 @@ t:			test
 cleanall:	fclean cleandep
 
 st:			re test 
+
+deliver:
+	mkdir _deliver
+	cp ft_printf.c _deliver
+	cp typetable.c _deliver
+	cp ftpf_renders.c _deliver
+	cp Makefile _deliver
+	cp -rf libft _deliver
+	cp ft_printf.h _deliver
