@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200215162607 |||::|                      */
+/* U20200218134358 |::||:                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ void	ft_printf_error(char *s, int pos)
 	return ;
 }
 
-int	ft_printf(const char *fmt, ...)
+void	putvar(unsigned int val, unsigned int *adr)
+{
+	*adr = val;
+}
+
+int		ft_printf(const char *fmt, ...)
 {
 	va_list		a;
 	char		*s;
@@ -49,11 +54,16 @@ int	ft_printf(const char *fmt, ...)
 			TTC = TGC ? (char)va_arg(a, int) : TTC;
 			TTS = TGS ? va_arg(a, char *) : TTS;
 			TPT = TGP ? va_arg(a, void *) : TPT;
-//			TTI = TTI == 3 ? va_arg(a, unsigned int) : TTI; // to hex lcase
-//			TTI = TTI == 4 ? va_arg(a, unsigned int) : TTI; // to hex ucase
-			TTI = TTI == 1 ? (signed int)va_arg(a, int) : TTI;
-			TTU = TTU == 1 ? va_arg(a, unsigned int) : TTU;
-			print_typetable();
+			TTI = TTI ? va_arg(a, int) : TTI;
+			TUC = TTU == 3 ? 1 : TUC;
+			TBT = TTU > 1 ? 16 : TBT;
+			TTU = TTU && TTI ? va_arg(a, unsigned int) : TTU;
+			TTL = TTL && !TTU ? va_arg(a, signed long) : TTL;
+			TUL = TTL && TTU ? va_arg(a, unsigned long) : TUL;
+			if (!TPV)
+				print_typetable();
+			else
+				putvar(s - fmt, va_arg(a, unsigned int *));
 		}
 		else
 			ft_putchar_fd(*s, FDOUT);
