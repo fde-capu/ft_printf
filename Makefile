@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/02 16:59:38 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/02 19:33:54 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		=	$(GCC) $(FLAGS)
 
 FLAGS	=	-Wall -Wextra -Werror
 
-AR		=	ar -rcs
+AR		=	ar -rc
 
 NAME	=	libftprintf.a
 
@@ -37,10 +37,10 @@ all:	dep $(NAME)
 dep:
 	cd libft && $(MAKE)
 
-$(SRCS):
-	$(CC) -o $(OBJS) -c $(SRCS)
-
 $(NAME):	$(OBJS)
+
+$(OBJS):	$(SRCS)
+	$(CC) -c $(SRCS)
 	$(AR) $(NAME) $(OBJS) $(DEPLIB)
 
 clean:
@@ -77,10 +77,14 @@ cleanall:	fclean cleandep
 st:			re test 
 
 deliver:
-	mkdir _deliver
-	cp ft_printf.c _deliver
-	cp typetable.c _deliver
-	cp ftpf_renders.c _deliver
-	cp Makefile _deliver
-	cp -rf libft _deliver
-	cp ft_printf.h _deliver
+	mkdir -p _deliver
+	cp -p ft_printf.c _deliver
+	cp -p typetable.c _deliver
+	cp -p ftpf_renders.c _deliver
+	cp -p Makefile _deliver
+	cp -rfp libft _deliver
+	cp -p ft_printf.h _deliver
+
+tt:			deliver
+	cp -prf _deliver/* ../zzz
+	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
