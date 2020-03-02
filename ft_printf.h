@@ -1,14 +1,14 @@
-/* ******************************************* */
-/*                                             */
-/*                     ||||::::::||||:|||::||| */
-/* ft_printf.h         :|::::|:::||:::|:||::|: */
-/*                     :||:||:|:|::|:|:||||||: */
-/*     |:|::| <|:|::|>                         */
-/*                                             */
-/* C20200207142351 |:|::|                      */
-/* U20200214083041 :|:||:                      */
-/*                                             */
-/* ******************************************* */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
+/*   Updated: 2020/03/02 07:53:32 by fde-capu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
@@ -43,7 +43,7 @@ typedef struct s_typetable
 	int				tt_getchar;
 	int				tt_getpointer;
 	long			tt_long;
-	void			*tt_pointer;// check if its in use
+	void			*tt_pointer;
 	int				tt_int;
 	unsigned int	tt_uint;
 	unsigned int	tt_zero;
@@ -60,5 +60,10 @@ void			init_typetable(void);
 void			reset_typetable(void);
 void			print_typetable(void);
 int				maketable(char *s);
+int				make_flags(char *s);
+int				make_width(char *s);
+int				make_precision(char *s);
+int				make_length(char *s);
+int				make_conversion(char *s);
 
 #endif

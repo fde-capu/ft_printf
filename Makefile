@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/02/03 15:34:11 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/02 07:57:57 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,12 @@ NAME	=	libftprintf.a
 DEPLIB	=	libft/libft.a
 
 SRCS	=	ft_printf.c	\
-			typetable.c
+			typetable.c \
+			ftpf_renders.c
 
 OBJS	=	$(SRCS:.c=.o)
+
+HEAD	=	ft_printf.h	
 
 TOBJ	=	main.c
 
@@ -53,7 +56,7 @@ cleandep:
 
 norm:
 	cd libft && norminette -R CheckForbiddenSourceHeader *.c *.h
-	norminette -R CheckForbiddenSourceHeader *.c *.h
+	norminette -R CheckForbiddenSourceHeader $(SRCS) $(HEAD)
 
 $(DEPLIB):	dep
 

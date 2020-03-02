@@ -1,44 +1,26 @@
-/* ******************************************* */
-/*                                             */
-/*                     |:|::::::|:::|:|::|::|| */
-/* typetable.c         :|:|:||:||::::||::|:||| */
-/*                     :||||:::|||::||||||:|:: */
-/*     ::::|: <::::|:>                         */
-/*                                             */
-/* C20200207152631 ::::|:                      */
-/* U20200216221751 ::|||:                      */
-/*                                             */
-/* ******************************************* */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   typetable.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
+/*   Updated: 2020/03/02 07:59:58 by fde-capu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
 void	init_typetable(void)
 {
+	g_tt = g_tt ? ft_calloc(1, 1) : g_tt;
+	free(g_tt);
 	g_tt = ft_calloc(sizeof(t_typetable), 1);
 	return ;
 }
 
-void	reset_typetable(void)
-{
-	TTS = 0;
-	TTC = 0;
-	TGS = 0;
-	TGC = 0;
-	TGP = 0;
-	TTL = 0;
-	TPT = 0;
-	TTI = 0;
-	TTU = 0;
-	TTZ = 0;
-	TAL = 0;
-	TTP = 0;
-	TTW = 0;
-	TRW = 0;
-	TRP = 0;
-	return ;
-}
-
-void	print_typetable(void)
+char	*makestr(void)
 {
 	char	*str;
 
@@ -54,16 +36,11 @@ void	print_typetable(void)
 		TTW -= TTW ? 1 : 0;
 		str++;
 	}
-	if (TPT)
-		ft_putstr_fd("0x", FDOUT);
-/*
-**	Maybe TPT resolution is system dependent. 
-*/
-	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
-	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
-	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
-	TTZ = TTW && TTP ? TTP - STRL : TTZ;
-	TTW -= TTW && TTP && NEG ? 1 : 0;
+	return (str);
+}
+
+void	makealigns(char *str)
+{
 	if ((str) && (TTW > TTZ + STRL) && (!TAL))
 		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
 	if ((str) && (TTZ) && (NEG))
@@ -76,77 +53,60 @@ void	print_typetable(void)
 		ft_repchar_fd('0', TTZ, FDOUT);
 	if ((!str) && (TTW > 1))
 		ft_repchar_fd(' ', TTW - 1, FDOUT);
-/*
-**
-*/
 	if (!TGC)
 		ft_putstr_fd(str, FDOUT);
 	else
 		ft_putchar_fd(TTC, FDOUT);
-/*
-** 
-*/
 	if ((str) && (TTW > TTZ + STRL) && (TAL))
 		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
 }
 
+void	print_typetable(void)
+{
+	char	*str;
+
+	str = makestr();
+	if (TPT)
+		ft_putstr_fd("0x", FDOUT);
+	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
+	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
+	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
+	TTZ = TTW && TTP ? TTP - STRL : TTZ;
+	TTW -= TTW && TTP && NEG ? 1 : 0;
+	makealigns(str);
+}
+
+/*
+** %[flags]<width><precision><length>[conversion char]
+** (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
+*/
+
 int		maketable(char *s)
 {
 	int	c;
+	int	t;
 
-	reset_typetable();
+	init_typetable();
 	c = 1;
 	s++;
-/*
-** %[flags]<width><precision><length>[conversion char]
-*/
-	if (*s == '%')		// % exepction
-	{
+	if (*s == '%')
 		TTS = "%";
+	if (*s == '%')
 		return (2);
-	}
-	while (ft_chrinset(s, "-0"))	// % flags
-	{
-		if (*s == '-')
-			TAL = 1;
-		if (*s == '0')
-			TTZ = 1;
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "0123456789*"))		// width
-	{
-		if (*s == '*')
-			TRW = 1;
-		TTW = TTW ? TTW : (unsigned int)ft_atoi(s);
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, ".1234567890*"))	// precision
-	{
-		TTP = TTP ? TTP : (unsigned int)ft_atoi(s + 1);
-		if (*s == '*')
-			TRP = 1;
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "lh"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
-	{
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "cspdiuxX")) // conversion
-	{
-		TGC = *s == 'c' ? 1 : TGC;
-		TGS = *s == 's' ? 1 : TGS;
-		TGP = *s == 'p' ? 1 : TGP;
-		TTI = *s == 'd' ? 1 : TTI;
-		TTI = *s == 'i' ? 1 : TTI;
-		TTI = *s == 'x' ? 2 : TTI;
-		TTI = *s == 'X' ? 3 : TTI;
-		TTU = *s == 'u' ? 1 : TTU;
-		c++;
-		s++;
-	}
+	t = make_flags(s);
+	c += t;
+	s += t;
+	t = make_width(s);
+	c += t;
+	s += t;
+	t = make_precision(s);
+	c += t;
+	s += t;
+	t = make_length(s);
+	c += t;
+	s += t;
+	t = make_conversion(s);
+	c += t;
+	s += t;
 	return (c == 1 ? -1 : c);
 }
