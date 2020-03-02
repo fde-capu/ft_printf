@@ -14,6 +14,7 @@
 #include <math.h>
 #include <limits.h>
 #include <stdint.h>
+# include <stdio.h> 
 
 int	main()
 {
