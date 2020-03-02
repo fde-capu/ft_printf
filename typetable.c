@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 15:27:43 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:13:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ void	init_typetable(void)
 	return ;
 }
 
+void	tweaks(int neg)
+{
+	if (g_f->zeros && !g_f->precision)
+	{
+		g_f->precision = g_f->width;
+		g_f->precision -= neg ? 1 : 0;
+	}
+	return ;
+}
+
 char	*format_len(char *str)
 {
 	int		len;
@@ -42,11 +52,7 @@ char	*format_len(char *str)
 	int		neg;
 
 	neg = *str == '-' ? 1 : 0;
-	if (g_f->zeros && !g_f->precision)
-	{
-		g_f->precision = g_f->width;
-		g_f->precision -= neg ? 1 : 0;
-	}
+	tweaks(neg);
 	g_f->zeros = g_f->precision ? 1 : g_f->zeros;
 	g_f->precision += neg ? 1 : 0;
 	fill = g_f->zeros ? '0' : ' ';

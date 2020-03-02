@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 15:35:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:17:42 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ftpf_render(va_list ap)
 {
-	char	*str;
-	char	*out;
+	char		*str;
+	char		*out;
 
 	str = ft_strcat("", "");
 	g_f->type = g_f->type == 'i' ? 'd' : g_f->type;
@@ -25,9 +25,11 @@ char	*ftpf_render(va_list ap)
 	str = g_f->type == 'd' ? ft_strcat(str, ft_itoa(va_arg(ap, int))) : str;
 	str = g_f->type == 'c' ? ft_strchrcat(str, (char)va_arg(ap, int)) : str;
 	str = g_f->type == 's' ? va_arg(ap, char *) : str;
-	str = g_f->type == 'p' ? ft_strcat("0x", ft_dtob(va_arg(ap, long long), 16)) : str;
+	str = g_f->type == 'p' ? \
+		ft_strcat("0x", ft_dtob(va_arg(ap, long long), 16)) : str;
 	str = g_f->type == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : str;
-	str = g_f->type == 'X' ? ft_ucase(ft_dtob(va_arg(ap, unsigned int), 16)) : str;
+	str = g_f->type == 'X' ? \
+		ft_ucase(ft_dtob(va_arg(ap, unsigned int), 16)) : str;
 	str = g_f->type == 'x' ? ft_dtob(va_arg(ap, unsigned int), 16) : str;
 	out = format_len(str);
 	return (out);
@@ -51,33 +53,21 @@ char	*fprocess(char *p, va_list ap)
 
 int		count_jokers(char *f)
 {
-	int	c;
+	char	*o;
 
-	c = 1;
+	o = f;
 	if ((*f == '%') && (*(f + 1) == '%'))
 		return (1);
 	f++;
 	while (ft_chrinset(f, JOKER_FLAGS))
-	{
 		f++;
-		c++;
-	}
 	while (ft_chrinset(f, JOKER_WIDTH))
-	{
 		f++;
-		c++;
-	}
 	while (ft_chrinset(f, JOKER_PRECI))
-	{
 		f++;
-		c++;
-	}
 	while (ft_chrinset(f, JOKER_LENGT))
-	{
 		f++;
-		c++;
-	}
-	return (c);
+	return (f - o);
 }
 
 int		ft_printf(const char *full, ...)
