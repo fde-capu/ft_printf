@@ -39,6 +39,10 @@ int	main()
 	ft_printf("\tS %%d _%d_\t", 42);
 	ft_printf("\tU %%c _%c_\t", 'X');
 	ft_printf("\tU %%5c _%5c_\t", 'X');
+//	ft_printf("\tU _%%_\t");
+//	ft_printf("\tS _%d_\t", 42);
+//	ft_printf("\tU _%c_\t", 'X');
+//	ft_printf("\tU _%5c_\t", 'X');
 	ft_printf("\tU %%0d _%0d_\t", 6);
 	ft_printf("\tU %%00d _%00d_\t", 6);
 	ft_printf("\tS %%p _%p_\t", z);
@@ -76,6 +80,7 @@ int	main()
 	printf	 ("S %%010d _%010d_\t", -6);
 	printf("\n");
 	ft_printf("U %%06d _%06d_\t", 6);
+//check_typetable();
 	ft_printf("U %%6d _%6d_\t", 6);
 	ft_printf("U %%-6d _%-6d_\t", 6);
 	ft_printf("U %%-06d _%-06d_\t", 6);
@@ -115,6 +120,7 @@ int	main()
 	printf	 ("\tS %%10.5d _%10.5d_\t", -123);
 	printf("\n");
 	ft_printf("\tU %%.5d _%.5d_\t", 6);
+//	check_typetable();
 	ft_printf("\tU %%.5d _%.5d_\t", -123);
 	ft_printf("\tU %%01.5d _%01.5d_\t", 6);
 	ft_printf("\tU %%10.5d _%10.5d_\t", 6);

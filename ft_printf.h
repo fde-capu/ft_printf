@@ -6,20 +6,44 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 08:35:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/02 14:55:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include "libft/libft.h"
-# define FDOUT 1
+# define JOKER_FLAGS "-0"
+# define JOKER_WIDTH "0123456789*"
+# define JOKER_PRECI ".0123456789*"
+# define JOKER_LENGT ""
+# define JOKER_FORMS "cspdiuxX%"
 
 typedef struct	s_typetable
 {
-	char	c;
+	int		alignl;
+	int		zeros;
+	int		width;
+	int		precision;
+	char	type;
 }				t_typetable;
 
+t_typetable		*g_f;
+void			init_typetable(void);
+void			check_typetable(void);
+char			*fprocess(char *p, va_list ap);
 int				ft_printf(const char *a, ...);
+int				ftpf_flags(char *p);
+int				ftpf_width(char *p);
+int				ftpf_preci(char *p);
+int				ftpf_lengt(char *p);
+int				ftpf_forms(char *p);
+char			*ftpf_render(va_list ap);
+char			*format_len(char *str);
+int				count_jokers(char *f);
 
 #endif
+
+/*
+** <flag><width><precision><length><conversion>
+*/
