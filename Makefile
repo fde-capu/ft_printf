@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/02 19:38:08 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/03 12:08:46 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,21 @@ CC		=	$(GCC) $(FLAGS)
 
 FLAGS	=	-Wall -Wextra -Werror
 
-AR		=	ar -rc
+AR		=	ar -rcs
 
 NAME	=	libftprintf.a
+NAMESHORT = ftprintf
 
-DEPLIB	=	libft/libft.a
+DEPPATH =	./libft
+DEPLIB	=	libft.a
+DEPLSHORT =	ft
 
 SRCS	=	ft_printf.c	\
 			typetable.c \
 			ftpf_renders.c
 
 OBJS	=	$(SRCS:.c=.o)
+DEPOBJS =	$(DEPPATH)/*.o
 
 HEAD	=	ft_printf.h	
 
@@ -38,12 +42,7 @@ dep:
 	cd libft && $(MAKE)
 
 $(NAME):	$(OBJS)
-	$(CC) -c $(SRCS) -I.
-	cp -p libft/libft.a .
-	$(AR) $(NAME) $(OBJS)
-
-$(OBJS):	$(SRCS)
-	$(CC) -c $(SRCS) -I.
+	$(AR) $(NAME) $(OBJS) $(DEPOBJS)
 
 clean:
 	rm -f $(OBJS)
@@ -63,7 +62,7 @@ norm:
 $(DEPLIB):	dep
 
 test:		all
-	$(CC) $(TOBJ) $(NAME) $(DEPLIB) -o ftpft
+	$(CC) $(TOBJ) -L. -l$(NAMESHORT) -o ftpft
 	./ftpft
 
 rtest:		cleanall test
@@ -74,7 +73,7 @@ rt:			rtest
 
 t:			test
 
-cleanall:	fclean cleandep
+cleanall:	fclean cleandep xdeliver
 
 st:			re test 
 
@@ -86,6 +85,9 @@ deliver:
 	cp -p Makefile _deliver
 	cp -rfp libft _deliver
 	cp -p ft_printf.h _deliver
+
+xdeliver:
+	rm -rf _deliver
 
 tt:			deliver
 	cp -prf _deliver/* ../zzz
