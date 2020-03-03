@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 19:33:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:14:03 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_typetable
 	int		zeros;
 	int		width;
 	int		precision;
+	int		pdef;
 	char	type;
 }				t_typetable;
 
@@ -44,7 +45,8 @@ int				ftpf_forms(char *p);
 char			*ftpf_render(va_list ap);
 char			*format_len(char *str);
 int				count_jokers(char *f);
-void			tweaks(int neg);
+char			*tweaks(char *str, int neg);
+int				tt_cmp(const char *tt, char *str, char *stv);
 
 #endif
 

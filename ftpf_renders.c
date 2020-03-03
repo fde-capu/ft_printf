@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:51:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 15:24:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:59:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,17 @@ int		ftpf_preci(char *p)
 	if (*p == '.')
 	{
 		p++;
-		g_f->precision = ft_atoi(p);
+		g_f->pdef = 2;
+		if (ft_chrinset(p, "123456789"))
+		{
+			g_f->pdef = 1;
+			g_f->precision = ft_atoi(p);
+		}
 	}
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_PRECI)))
 	{
 		if (*p == '*')
-			g_f->precision = -1;
+			g_f->pdef = -1;
 		p++;
 	}
 	return (p - o);

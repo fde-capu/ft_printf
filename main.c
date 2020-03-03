@@ -39,10 +39,6 @@ int	main()
 	ft_printf("\tS %%d _%d_\t", 42);
 	ft_printf("\tU %%c _%c_\t", 'X');
 	ft_printf("\tU %%5c _%5c_\t", 'X');
-//	ft_printf("\tU _%%_\t");
-//	ft_printf("\tS _%d_\t", 42);
-//	ft_printf("\tU _%c_\t", 'X');
-//	ft_printf("\tU _%5c_\t", 'X');
 	ft_printf("\tU %%0d _%0d_\t", 6);
 	ft_printf("\tU %%00d _%00d_\t", 6);
 	ft_printf("\tS %%p _%p_\t", z);
@@ -189,45 +185,45 @@ int	main()
 	avar = &thevar;
 	*avar = 42;
 
-	printf("\n");
-	ft_printf("\nBONUS:");
-	printf("\n");
-	printf("S This var %d...%n(%%n, 16)", *avar, avar);
-	printf("...is now %d.\t", *avar);
-	printf("\n");
-
-
-	*avar = 42;
-	ft_printf("U This var %d...%n(%%n, 16)", *avar, avar);
-	ft_printf("...is now %d.\t", *avar);
-	
-	printf("\n");
-	ft_printf("\nlong:");
-	printf("\n");
-	printf("S %%ld _%ld_\t", LONG_MAX - 123);
-	printf("%%li _%li_\t", LONG_MIN + 123);
-	printf("%%lu _%lu_\t", ULONG_MAX - 123);
-	printf("%%lld _%lld_\t", LLONG_MIN + 123);
-	printf("%%lli _%lli_\t", LLONG_MAX - 123);
-	printf("%%llu _%llu_\t", ULLONG_MAX - 123);
-	printf("\n");
-	ft_printf("U %%ld _%ld_\t", LONG_MAX - 123);
-	ft_printf("%%li _%li_\t", LONG_MIN + 123);
-	ft_printf("%%lu _%lu_\t", ULONG_MAX - 123);
-	ft_printf("%%lld _%lld_\t", LLONG_MIN + 123);
-	ft_printf("%%lli _%lli_\t", LLONG_MAX - 123);
-	ft_printf("%%llu _%llu_\t", ULLONG_MAX - 123);
-
-	printf("\n");
-	ft_printf("\nlong extremes:");
-	printf("\n");
-	printf("S %%ld _%ld_\t", LONG_MAX);
-	printf("%%li _%li_\t", LONG_MIN);
-	printf("%%lu _%lu_\t", ULONG_MAX);
-	printf("%%lld _%lld_\t", LLONG_MIN);
-	printf("%%lli _%lli_\t", LLONG_MAX);
-	printf("%%llu _%llu_\t", ULLONG_MAX);
-	printf("\n");
+//	printf("\n");
+//	ft_printf("\nBONUS:");
+//	printf("\n");
+//	printf("S This var %d...%n(%%n, 16)", *avar, avar);
+//	printf("...is now %d.\t", *avar);
+//	printf("\n");
+//
+//
+//	*avar = 42;
+//	ft_printf("U This var %d...%n(%%n, 16)", *avar, avar);
+//	ft_printf("...is now %d.\t", *avar);
+//	
+//	printf("\n");
+//	ft_printf("\nlong:");
+//	printf("\n");
+//	printf("S %%ld _%ld_\t", LONG_MAX - 123);
+//	printf("%%li _%li_\t", LONG_MIN + 123);
+//	printf("%%lu _%lu_\t", ULONG_MAX - 123);
+//	printf("%%lld _%lld_\t", LLONG_MIN + 123);
+//	printf("%%lli _%lli_\t", LLONG_MAX - 123);
+//	printf("%%llu _%llu_\t", ULLONG_MAX - 123);
+//	printf("\n");
+//	ft_printf("U %%ld _%ld_\t", LONG_MAX - 123);
+//	ft_printf("%%li _%li_\t", LONG_MIN + 123);
+//	ft_printf("%%lu _%lu_\t", ULONG_MAX - 123);
+//	ft_printf("%%lld _%lld_\t", LLONG_MIN + 123);
+//	ft_printf("%%lli _%lli_\t", LLONG_MAX - 123);
+//	ft_printf("%%llu _%llu_\t", ULLONG_MAX - 123);
+//
+//	printf("\n");
+//	ft_printf("\nlong extremes:");
+//	printf("\n");
+//	printf("S %%ld _%ld_\t", LONG_MAX);
+//	printf("%%li _%li_\t", LONG_MIN);
+//	printf("%%lu _%lu_\t", ULONG_MAX);
+//	printf("%%lld _%lld_\t", LLONG_MIN);
+//	printf("%%lli _%lli_\t", LLONG_MAX);
+//	printf("%%llu _%llu_\t", ULLONG_MAX);
+//	printf("\n");
 //	ft_printf("U %%ld _%ld_\t", LONG_MAX);
 //	ft_printf("%%li _%li_\t", LONG_MIN);
 //	ft_printf("%%lu _%lu_\t", ULONG_MAX);
@@ -235,6 +231,50 @@ int	main()
 //	ft_printf("%%lli _%lli_\t", LLONG_MAX);
 //	ft_printf("%%llu _%llu_\t", ULLONG_MAX);
 
+
+
+	printf("\n");
+	ft_printf("\ndebugging:");
+	printf("\n");
+	printf("S %%0.d _%0.d_\t\t\t\t", 0);
+	printf("S %%0d _%0d_\t\t\t\t", 0);
+	printf("S %%d _%d_\t\t\t\t", 0);
+	printf("S %%0.0d _%0.0d_\t\t\t\t", 0);
+	printf("S %%0.1d _%0.1d_\t\t\t\t", 0);
+	printf("\n");
+	ft_printf("U %%0.d _%0.d_\t", 0);	check_typetable();
+	ft_printf("U %%0d _%0d_\t", 0);	check_typetable();
+	ft_printf("U %%d _%d_\t", 0);	check_typetable();
+	ft_printf("U %%0.0d _%0.0d_\t", 0);	check_typetable();
+	ft_printf("U %%0.1d _%0.1d_\t", 0);	check_typetable();
+
+	printf("\n");
+	printf("S %%.0i _%.0i_\t\t\t\t", -4);
+	printf("S %%.0d _%.0d_\t\t\t\t", -4);
+	printf("S %%*i _%*i_\t\t\t\t\t", -4, -12);
+	printf("S %%0*i _%0*i_\t\t\t\t\t", -4, -12);
+	printf("S %%.*d _%.*d_\t\t\t\t\t", -2, 0);
+	printf("S %%.*d (0,0) _%.*d_\t\t\t\t", 0, 0);
+	printf("\n");
+	ft_printf("U %%.0i _%.0i_\t", -4);	check_typetable();
+	ft_printf("U %%.0d _%.0d_\t", -4);	check_typetable();
+	ft_printf("U %%*i _%*i_\t", -4, -12);	check_typetable();
+	ft_printf("U %%0*i _%0*i_\t", -4, -12);	check_typetable();
+	ft_printf("U %%.*d _%.*d_\t", -2, 0);	check_typetable();
+	ft_printf("U %%.*d (0,0) _%.*d_\t", 0, 0);	check_typetable();
+
+	printf("\n");
+	printf("S %%0*.*i (2,-2) _%0*.*i_\t\t\t\t\t", 2, -2, 8);
+	printf("S %%0*.*i (-2,-2) _%0*.*i_\t\t\t\t\t", -2, -2, 8);
+	printf("S %%0*i _%0*i_\t\t\t\t\t", 2, 8);
+	printf("\n");
+	ft_printf("U %%0*.*i (2,-2) _%0*.*i_\t", 2, -2, 8);	check_typetable();
+	ft_printf("U %%0*.*i (-2,-2) _%0*.*i_\t", -2, -2, 8);	check_typetable();
+	ft_printf("U %%0*i _%0*i_\t", 2, 8);	check_typetable();
+
+
 	printf("\n\n");
+
+
 	return (0);
 }

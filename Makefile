@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/03 12:08:46 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/03 14:40:53 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re:			fclean all
+re:			cleanall all
 
 cleandep:
 	cd libft && $(MAKE) fclean
@@ -92,3 +92,7 @@ xdeliver:
 tt:			deliver
 	cp -prf _deliver/* ../zzz
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
+
+t2:			deliver
+	cp -prf _deliver/* ../zzz
+#to do

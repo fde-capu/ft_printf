@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/02 16:17:42 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:26:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ char	*ftpf_render(va_list ap)
 	str = ft_strcat("", "");
 	g_f->type = g_f->type == 'i' ? 'd' : g_f->type;
 	g_f->width = g_f->width == -1 ? va_arg(ap, int) : g_f->width;
-	g_f->precision = g_f->precision == -1 ? va_arg(ap, int) : g_f->precision;
+	g_f->alignl = g_f->width < 0 ? 1 : g_f->alignl;
+	if (g_f->pdef == -1)
+	{
+		g_f->precision = va_arg(ap, int);
+		g_f->pdef = 1;
+	}
 	str = g_f->type == '%' ? ft_strcat(str, "%") : str;
 	str = g_f->type == 'd' ? ft_strcat(str, ft_itoa(va_arg(ap, int))) : str;
 	str = g_f->type == 'c' ? ft_strchrcat(str, (char)va_arg(ap, int)) : str;
