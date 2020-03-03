@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/02 19:33:54 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/02 19:38:08 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,12 @@ dep:
 	cd libft && $(MAKE)
 
 $(NAME):	$(OBJS)
+	$(CC) -c $(SRCS) -I.
+	cp -p libft/libft.a .
+	$(AR) $(NAME) $(OBJS)
 
 $(OBJS):	$(SRCS)
-	$(CC) -c $(SRCS)
-	$(AR) $(NAME) $(OBJS) $(DEPLIB)
+	$(CC) -c $(SRCS) -I.
 
 clean:
 	rm -f $(OBJS)
