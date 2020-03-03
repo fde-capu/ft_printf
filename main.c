@@ -266,12 +266,20 @@ int	main()
 	printf("\n");
 	printf("S %%0*.*i (2,-2) _%0*.*i_\t\t\t\t\t", 2, -2, 8);
 	printf("S %%0*.*i (-2,-2) _%0*.*i_\t\t\t\t\t", -2, -2, 8);
-	printf("S %%0*i _%0*i_\t\t\t\t\t", 2, 8);
+	printf("S %%0*i _%0*i_\t\t\t\t", 2, 8);
+	printf("S %%0*.*i (1,-2) _%0*.*i_\t\t\t\t\t", 1, -2, 8);
+	printf("S %%-*.*i (1,-2) _%-*.*i_\t\t\t\t\t", 1, -2, 8);
 	printf("\n");
 	ft_printf("U %%0*.*i (2,-2) _%0*.*i_\t", 2, -2, 8);	check_typetable();
 	ft_printf("U %%0*.*i (-2,-2) _%0*.*i_\t", -2, -2, 8);	check_typetable();
 	ft_printf("U %%0*i _%0*i_\t", 2, 8);	check_typetable();
+	ft_printf("U %%0*.*i (1,-2) _%0*.*i_\t\t", 1, -2, 8);	check_typetable();
+	ft_printf("U %%-*.*i (1,-2) _%-*.*i_\t", 1, -2, 8);	check_typetable();
 
+	printf("\n");
+	printf("S %%*.*i (-2,3) _%*.*i_\t\t\t\t\t", -2, 3, 8);
+	printf("\n");
+	ft_printf("U %%*.*i (-2,3) _%*.*i_\t", -2, 3, 8);	check_typetable();
 
 	printf("\n\n");
 

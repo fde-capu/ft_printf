@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 16:48:13 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:09:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ void	init_typetable(void)
 
 char	*tweaks(char *str, int neg)
 {
-	if (g_f->zeros && !g_f->pdef && !g_f->alignl)
-	{
-		g_f->precision = g_f->width;
-		g_f->precision -= neg ? 1 : 0;
-	}
+	(void)neg;
+	g_f->precision = g_f->precision < 0 \
+		? g_f->width : g_f->precision;
 	str = \
 		ft_stridentical(str, "0") && ( \
 		(g_f->pdef == 2) \
