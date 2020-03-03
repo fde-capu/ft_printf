@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 16:26:32 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:41:29 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,21 @@ char	*ftpf_render(va_list ap)
 	char		*out;
 
 	str = ft_strcat("", "");
-	g_f->type = g_f->type == 'i' ? 'd' : g_f->type;
-	g_f->width = g_f->width == -1 ? va_arg(ap, int) : g_f->width;
-	g_f->alignl = g_f->width < 0 ? 1 : g_f->alignl;
-	if (g_f->pdef == -1)
-	{
-		g_f->precision = va_arg(ap, int);
-		g_f->pdef = 1;
-	}
-	str = g_f->type == '%' ? ft_strcat(str, "%") : str;
-	str = g_f->type == 'd' ? ft_strcat(str, ft_itoa(va_arg(ap, int))) : str;
-	str = g_f->type == 'c' ? ft_strchrcat(str, (char)va_arg(ap, int)) : str;
-	str = g_f->type == 's' ? va_arg(ap, char *) : str;
-	str = g_f->type == 'p' ? \
+	g_f->t = g_f->t == 'i' ? 'd' : g_f->t;
+	g_f->w = g_f->wd == -1 ? va_arg(ap, int) : g_f->w;
+	g_f->wd == g_f->wd == -1 ? 1 : g_f->wd;
+	g_f->p = g_f->pd == -1 ? va_arg(ap, int) : g_f->p;
+	g_f->pd == g_f->pd == -1 ? 1 : g_f->pd;
+	str = g_f->t == '%' ? ft_strcat(str, "%") : str;
+	str = g_f->t == 'd' ? ft_strcat(str, ft_itoa(va_arg(ap, int))) : str;
+	str = g_f->t == 'c' ? ft_strchrcat(str, (char)va_arg(ap, int)) : str;
+	str = g_f->t == 's' ? va_arg(ap, char *) : str;
+	str = g_f->t == 'p' ? \
 		ft_strcat("0x", ft_dtob(va_arg(ap, long long), 16)) : str;
-	str = g_f->type == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : str;
-	str = g_f->type == 'X' ? \
+	str = g_f->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : str;
+	str = g_f->t == 'X' ? \
 		ft_ucase(ft_dtob(va_arg(ap, unsigned int), 16)) : str;
-	str = g_f->type == 'x' ? ft_dtob(va_arg(ap, unsigned int), 16) : str;
+	str = g_f->t == 'x' ? ft_dtob(va_arg(ap, unsigned int), 16) : str;
 	out = format_len(str);
 	return (out);
 }
@@ -48,7 +45,7 @@ char	*fprocess(char *p, va_list ap)
 	o = p;
 	p++;
 	p += ftpf_flags(p);
-	p += ftpf_width(p);
+	p += ftpf_w(p);
 	p += ftpf_preci(p);
 	p += ftpf_lengt(p);
 	p += ftpf_forms(p);
@@ -88,7 +85,7 @@ int		ft_printf(const char *full, ...)
 	{
 		if (*f == '%')
 		{
-			init_typetable();
+			init_ttable();
 			out = ft_strcat(out, fprocess(f, ap));
 			f += count_jokers(f);
 		}

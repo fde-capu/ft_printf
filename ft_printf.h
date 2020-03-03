@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 15:14:03 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:39:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,24 @@
 # define JOKER_LENGT ""
 # define JOKER_FORMS "cspdiuxX%"
 
-typedef struct	s_typetable
+typedef struct	s_ttable
 {
-	int		alignl;
-	int		zeros;
-	int		width;
-	int		precision;
-	int		pdef;
-	char	type;
-}				t_typetable;
+	int		a;
+	int		z;
+	int		w;
+	int		wd;
+	int		p;
+	int		pd;
+	char	t;
+}				t_ttable;
 
-t_typetable		*g_f;
-void			init_typetable(void);
-void			check_typetable(void);
+t_ttable		*g_f;
+void			init_ttable(void);
+void			check_ttable(void);
 char			*fprocess(char *p, va_list ap);
 int				ft_printf(const char *a, ...);
 int				ftpf_flags(char *p);
-int				ftpf_width(char *p);
+int				ftpf_w(char *p);
 int				ftpf_preci(char *p);
 int				ftpf_lengt(char *p);
 int				ftpf_forms(char *p);
@@ -51,5 +52,5 @@ int				tt_cmp(const char *tt, char *str, char *stv);
 #endif
 
 /*
-** <flag><width><precision><length><conversion>
+** <flag><w><p><length><conversion>
 */

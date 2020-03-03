@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/03 14:40:53 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/03 17:46:23 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ DEPOBJS =	$(DEPPATH)/*.o
 HEAD	=	ft_printf.h	
 
 TOBJ	=	main.c
+EXECNM	=	ftpft
 
 all:	dep $(NAME)
 
@@ -62,8 +63,8 @@ norm:
 $(DEPLIB):	dep
 
 test:		all
-	$(CC) $(TOBJ) -L. -l$(NAMESHORT) -o ftpft
-	./ftpft
+	$(CC) $(TOBJ) -L. -l$(NAMESHORT) -o $(EXECNM)
+	./$(EXECNM)
 
 rtest:		cleanall test
 
@@ -74,6 +75,7 @@ rt:			rtest
 t:			test
 
 cleanall:	fclean cleandep xdeliver
+	rm -f $(EXECNM)
 
 st:			re test 
 

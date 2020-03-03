@@ -63,7 +63,7 @@ int	main()
 	ft_printf	 ("\tU %%i (oct) _%i_\t", 012);
 
 	printf("\n");
-	printf("\nwidth:");
+	printf("\nw:");
 	printf("\n");
 
 	printf	 ("S %%06d _%06d_\t", 6);
@@ -76,7 +76,7 @@ int	main()
 	printf	 ("S %%010d _%010d_\t", -6);
 	printf("\n");
 	ft_printf("U %%06d _%06d_\t", 6);
-//check_typetable();
+//check_ttable();
 	ft_printf("U %%6d _%6d_\t", 6);
 	ft_printf("U %%-6d _%-6d_\t", 6);
 	ft_printf("U %%-06d _%-06d_\t", 6);
@@ -86,7 +86,7 @@ int	main()
 	ft_printf("U %%010d _%010d_\t", -6);
 
 	printf("\n");
-	printf("\nwidth read:");
+	printf("\nw read:");
 	printf("\n");
 	printf	 ("S %%0*d _err_\t");
 	printf	 ("S %%*d _%*d_\t", 6, 6);
@@ -107,7 +107,7 @@ int	main()
 	ft_printf("U %%0*d _%0*d_\t", 10, -6);
 
 	printf("\n");
-	printf("\nprecision:");
+	printf("\np:");
 	printf("\n");
 	printf	 ("\tS %%.5d _%.5d_\t", 6);
 	printf	 ("\tS %%.5d _%.5d_\t", -123);
@@ -116,14 +116,14 @@ int	main()
 	printf	 ("\tS %%10.5d _%10.5d_\t", -123);
 	printf("\n");
 	ft_printf("\tU %%.5d _%.5d_\t", 6);
-//	check_typetable();
+//	check_ttable();
 	ft_printf("\tU %%.5d _%.5d_\t", -123);
 	ft_printf("\tU %%01.5d _%01.5d_\t", 6);
 	ft_printf("\tU %%10.5d _%10.5d_\t", 6);
 	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
 	
 	printf("\n");
-	printf("\nprecision read:");
+	printf("\np read:");
 	printf("\n");
 	printf	 ("\tS %%.*d _%.*d_\t", 5, 6);
 	printf	 ("\tS %%.*d _%.*d_\t", 5, -123);
@@ -136,7 +136,7 @@ int	main()
 	ft_printf("\tU %%10.*d _%10.*d_\t", 5, -123);
 
 	printf("\n");
-	printf("\nwidth and precision:");
+	printf("\nw and p:");
 	printf("\n");
 	printf	 ("\tS %%7.5d _%7.5d_\t", 6);
 	printf	 ("\tS %%3.5d _%3.5d_\t", -123);
@@ -149,7 +149,7 @@ int	main()
 	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
 	
 	printf("\n");
-	printf("\nwidth and precision read:");
+	printf("\nw and p read:");
 	printf("\n");
 	printf	 ("\tS %%*.*d _%*.*d_\t", 7, 5, 6);
 	printf	 ("\tS %%*.*d _%*.*d_\t", 3, 5, -123);
@@ -242,11 +242,11 @@ int	main()
 	printf("S %%0.0d _%0.0d_\t\t\t\t", 0);
 	printf("S %%0.1d _%0.1d_\t\t\t\t", 0);
 	printf("\n");
-	ft_printf("U %%0.d _%0.d_\t", 0);	check_typetable();
-	ft_printf("U %%0d _%0d_\t", 0);	check_typetable();
-	ft_printf("U %%d _%d_\t", 0);	check_typetable();
-	ft_printf("U %%0.0d _%0.0d_\t", 0);	check_typetable();
-	ft_printf("U %%0.1d _%0.1d_\t", 0);	check_typetable();
+	ft_printf("U %%0.d _%0.d_\t", 0);	check_ttable();
+	ft_printf("U %%0d _%0d_\t", 0);	check_ttable();
+	ft_printf("U %%d _%d_\t", 0);	check_ttable();
+	ft_printf("U %%0.0d _%0.0d_\t", 0);	check_ttable();
+	ft_printf("U %%0.1d _%0.1d_\t", 0);	check_ttable();
 
 	printf("\n");
 	printf("S %%.0i _%.0i_\t\t\t\t", -4);
@@ -256,12 +256,12 @@ int	main()
 	printf("S %%.*d _%.*d_\t\t\t\t\t", -2, 0);
 	printf("S %%.*d (0,0) _%.*d_\t\t\t\t", 0, 0);
 	printf("\n");
-	ft_printf("U %%.0i _%.0i_\t", -4);	check_typetable();
-	ft_printf("U %%.0d _%.0d_\t", -4);	check_typetable();
-	ft_printf("U %%*i _%*i_\t", -4, -12);	check_typetable();
-	ft_printf("U %%0*i _%0*i_\t", -4, -12);	check_typetable();
-	ft_printf("U %%.*d _%.*d_\t", -2, 0);	check_typetable();
-	ft_printf("U %%.*d (0,0) _%.*d_\t", 0, 0);	check_typetable();
+	ft_printf("U %%.0i _%.0i_\t", -4);	check_ttable();
+	ft_printf("U %%.0d _%.0d_\t", -4);	check_ttable();
+	ft_printf("U %%*i _%*i_\t", -4, -12);	check_ttable();
+	ft_printf("U %%0*i _%0*i_\t", -4, -12);	check_ttable();
+	ft_printf("U %%.*d _%.*d_\t", -2, 0);	check_ttable();
+	ft_printf("U %%.*d (0,0) _%.*d_\t", 0, 0);	check_ttable();
 
 	printf("\n");
 	printf("S %%0*.*i (2,-2) _%0*.*i_\t\t\t\t\t", 2, -2, 8);
@@ -270,16 +270,16 @@ int	main()
 	printf("S %%0*.*i (1,-2) _%0*.*i_\t\t\t\t\t", 1, -2, 8);
 	printf("S %%-*.*i (1,-2) _%-*.*i_\t\t\t\t\t", 1, -2, 8);
 	printf("\n");
-	ft_printf("U %%0*.*i (2,-2) _%0*.*i_\t", 2, -2, 8);	check_typetable();
-	ft_printf("U %%0*.*i (-2,-2) _%0*.*i_\t", -2, -2, 8);	check_typetable();
-	ft_printf("U %%0*i _%0*i_\t", 2, 8);	check_typetable();
-	ft_printf("U %%0*.*i (1,-2) _%0*.*i_\t\t", 1, -2, 8);	check_typetable();
-	ft_printf("U %%-*.*i (1,-2) _%-*.*i_\t", 1, -2, 8);	check_typetable();
+	ft_printf("U %%0*.*i (2,-2) _%0*.*i_\t", 2, -2, 8);	check_ttable();
+	ft_printf("U %%0*.*i (-2,-2) _%0*.*i_\t", -2, -2, 8);	check_ttable();
+	ft_printf("U %%0*i _%0*i_\t", 2, 8);	check_ttable();
+	ft_printf("U %%0*.*i (1,-2) _%0*.*i_\t\t", 1, -2, 8);	check_ttable();
+	ft_printf("U %%-*.*i (1,-2) _%-*.*i_\t", 1, -2, 8);	check_ttable();
 
 	printf("\n");
 	printf("S %%*.*i (-2,3) _%*.*i_\t\t\t\t\t", -2, 3, 8);
 	printf("\n");
-	ft_printf("U %%*.*i (-2,3) _%*.*i_\t", -2, 3, 8);	check_typetable();
+	ft_printf("U %%*.*i (-2,3) _%*.*i_\t", -2, 3, 8);	check_ttable();
 
 	printf("\n\n");
 
