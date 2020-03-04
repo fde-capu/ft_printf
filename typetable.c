@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 17:41:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:42:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	check_ttable(void)
 	ft_putstr(ft_itoa(g_f->p));
 	ft_putstr(":");
 	ft_putstr(ft_itoa(g_f->pd));
+	ft_putstr("-");
+	ft_putstr(ft_itoa(g_f->pn));
 	ft_putstr("|t:");
 	ft_putstr(&g_f->t);
 	ft_putstr("|\t");
@@ -40,13 +42,22 @@ void	init_ttable(void)
 
 char	*tweaks(char *str, int neg)
 {
-	(void)neg;
+	str = ft_stridentical(str, "0") && g_f->pd == 2 ? "" : str;
+	g_f->a = g_f->w < 0 ? 1 : g_f->a;
+	g_f->w = ft_abs(g_f->w);
+	str = ft_stridentical(str, "0") && g_f->pd && g_f->pd != 2 && g_f->p == 0 ? "" : str;
+	g_f->p = g_f->z && !g_f->pd && !g_f->a ? g_f->w : g_f->p;
+	g_f->z = g_f->pd && g_f->p > 0 ? 1 : g_f->z;
+	g_f->p += neg && g_f->pd ? 1 : 0;
+	g_f->pn = g_f->p < 0 ? 1 : 0;
+	g_f->p = g_f->wd ? ft_abs(g_f->p) : g_f->p;
+	g_f->p = g_f->wd && !g_f->w && g_f->pn ? g_f->w : g_f->p;
+	g_f->w = !g_f->wd ? g_f->p : g_f->w;
 	return (str);
 }
 
 char	*format_len(char *str)
 {
-	int		len;
 	int		l;
 	char	fill;
 	int		neg;
@@ -56,17 +67,19 @@ char	*format_len(char *str)
 	neg = *str == '-' ? 1 : 0;
 	str = tweaks(str, neg);
 	fill = g_f->z ? '0' : ' ';
-	len = g_f->p;
 	l = ft_strlen(str);
 	str += neg;
-	if (l < len)
-		str = ft_strcat(ft_repchar(fill, len - l), str);
+	if ((l < g_f->p \
+		&& !(g_f->p > g_f->w)
+		&& (!g_f->a || !g_f->pn) \
+		&& !(g_f->w < g_f->p && !g_f->z)) \
+		|| (l < g_f->p && g_f->pd && g_f->z && !g_f->pn))
+		str = ft_strcat(ft_repchar(fill, g_f->p - l), str);
 	str = neg ? ft_strcat("-", str) : str;
-	len = g_f->w;
 	l = ft_strlen(str);
-	if ((l < len) && (!g_f->a))
-		str = ft_strcat(ft_repchar(' ', len - l), str);
-	if ((l < len) && (g_f->a))
-		str = ft_strcat(str, ft_repchar(' ', len - l));
+	if ((l < g_f->w) && (!g_f->a))
+		str = ft_strcat(ft_repchar(' ', g_f->w - l), str);
+	if ((l < g_f->w) && (g_f->a))
+		str = ft_strcat(str, ft_repchar(' ', g_f->w - l));
 	return (str);
 }

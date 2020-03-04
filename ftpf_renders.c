@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:51:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 17:32:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:33:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int		ftpf_w(char *p)
 	char	*o;
 
 	o = p;
-	g_f->w = ft_atoi(p);
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_WIDTH)))
 	{
+		if (!g_f->wd)
+			g_f->w = ft_atoi(p);
+		g_f->wd = 1;
 		if (*p == '*')
 			g_f->wd = -1;
 		p++;
