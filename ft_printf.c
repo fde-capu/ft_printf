@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 21:09:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/05 04:49:41 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ char	*ftpf_render(va_list ap)
 	char		*str;
 	char		*out;
 
-	str = ft_strcat("", "");
+	str = ft_strnew();
 	g_f->t = g_f->t == 'i' ? 'd' : g_f->t;
 	g_f->w = g_f->wd == -1 ? va_arg(ap, int) : g_f->w;
 	g_f->wd = g_f->wd == -1 ? 1 : g_f->wd;
 	g_f->p = g_f->pd == -1 ? va_arg(ap, int) : g_f->p;
 	g_f->pd = g_f->pd == -1 ? 1 : g_f->pd;
-	str = g_f->t == '%' ? ft_strcat(str, "%") : str;
-	str = g_f->t == 'd' ? ft_strcat(str, ft_itoa(va_arg(ap, int))) : str;
-	str = g_f->t == 'c' ? ft_strchrcat(str, (char)va_arg(ap, int)) : str;
+	str = g_f->t == '%' ? ft_strcatxl(str, "%") : str;
+	str = g_f->t == 'd' ? ft_strcatxl(str, ft_itoa(va_arg(ap, int))) : str;
+	str = g_f->t == 'c' ? ft_xlloc(str, ft_strchrcat(str, (char)va_arg(ap, int))) : str;
 	str = g_f->t == 's' ? va_arg(ap, char *) : str;
 	str = g_f->t == 'p' ? \
-		ft_strcat("0x", ft_dtob(va_arg(ap, long long), 16)) : str;
-	str = g_f->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : str;
-	str = g_f->t == 'X' ? \
-		ft_ucase(ft_dtob(va_arg(ap, unsigned int), 16)) : str;
-	str = g_f->t == 'x' ? ft_dtob(va_arg(ap, unsigned int), 16) : str;
+		ft_xlloc(str, ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16))) : str;
+	str = g_f->t == 'u' ? ft_xlloc(str, ft_uitoa(va_arg(ap, unsigned int))) : str;
+	str = ft_chrinset(&g_f->t, "Xx") ? ft_xlloc(str, ft_dtob(va_arg(ap, unsigned int), 16)) : str;
+	str = g_f->t == 'X' ? ft_xlloc(str, ft_ucase(str)) : str;
 	out = format_len(str);
+	//free(str);
 	return (out);
 }
 
@@ -49,7 +49,8 @@ char	*fprocess(char *p, va_list ap)
 	p += ftpf_preci(p);
 	p += ftpf_lengt(p);
 	p += ftpf_forms(p);
-	str = ft_strcat("", ftpf_render(ap));
+	str = ft_strcatxr("", ftpf_render(ap));
+	//free(str);
 	return (str);
 }
 
@@ -78,7 +79,7 @@ int		ft_printf(const char *full, ...)
 	char	*f;
 	char	*out;
 
-	out = ft_strcat("", "");
+	out = ft_strnew();
 	va_start(ap, full);
 	f = (char *)full;
 	while ((f) && (*f))
@@ -86,14 +87,15 @@ int		ft_printf(const char *full, ...)
 		if (*f == '%')
 		{
 			init_ttable();
-			out = ft_strcat(out, fprocess(f, ap));
+			out = ft_strcatxl(out, fprocess(f, ap));
 			f += count_jokers(f);
 		}
 		else
-			out = ft_strchrcat(out, *f);
+			out = ft_xlloc(out, ft_strchrcat(out, *f));
 		f++;
 	}
 	va_end(ap);
 	ft_putstr(out);
-	return (ft_strlen(out));
+	//return (ft_strlen(out) + g_f->ncc);
+	return (ft_strlen(out) + 0);
 }

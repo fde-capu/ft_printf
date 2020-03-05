@@ -6,53 +6,40 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 23:42:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/05 04:44:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	check_ttable(void)
-{
-	ft_putstr("|a:");
-	ft_putstr(ft_itoa(g_f->a));
-	ft_putstr("|z:");
-	ft_putstr(ft_itoa(g_f->z));
-	ft_putstr("|w:");
-	ft_putstr(ft_itoa(g_f->w));
-	ft_putstr(":");
-	ft_putstr(ft_itoa(g_f->wd));
-	ft_putstr("|p:");
-	ft_putstr(ft_itoa(g_f->p));
-	ft_putstr(":");
-	ft_putstr(ft_itoa(g_f->pd));
-	ft_putstr("-");
-	ft_putstr(ft_itoa(g_f->pn));
-	ft_putstr("|t:");
-	ft_putstr(&g_f->t);
-	ft_putstr("|\t");
-}
-
 void	init_ttable(void)
 {
-	free(g_f);
+	free (g_f);
 	g_f = ft_calloc(sizeof(t_ttable), 1);
 	return ;
 }
 
 char	*tweaks(char *str, int neg)
 {
-	str = ft_stridentical(str, "0") && g_f->pd == 2 ? "" : str;
+	str = ft_stridentical(str, "0") && g_f->pd == 2 ? ft_xlloc(str, "") : str;
 	g_f->a = g_f->w < 0 ? 1 : g_f->a;
 	g_f->w = ft_abs(g_f->w);
-	str = ft_stridentical(str, "0") && g_f->pd && g_f->pd != 2 && g_f->p == 0 ? "" : str;
+	str = ft_stridentical(str, "0") && g_f->pd && g_f->pd != 2 && g_f->p == 0 ? ft_xlloc(str, "") : str;
 	g_f->p = g_f->z && !g_f->pd && !g_f->a ? g_f->w : g_f->p;
 	g_f->z = g_f->pd && g_f->p > 0 ? 1 : g_f->z;
-	g_f->p += neg && g_f->pd ? 1 : 0;
+	g_f->p += neg && g_f->pd && g_f->p >= 0 ? 1 : 0;
 	g_f->pn = g_f->p < 0 ? 1 : 0;
 	g_f->p = g_f->wd ? ft_abs(g_f->p) : g_f->p;
 	g_f->p = g_f->wd && !g_f->w && g_f->pn ? g_f->w : g_f->p;
+	g_f->p = g_f->t == 's' && g_f->pd && (unsigned long)g_f->p + 1 > ft_strlen(str) ? ft_strlen(str) : g_f->p;
 	g_f->w = !g_f->wd ? g_f->p : g_f->w;
+	g_f->p = g_f->w > g_f->p && g_f->z && !g_f->a && g_f->pn ? g_f->w : g_f->p;
+	str = g_f->t == 's' && (g_f->pd == 2 || (g_f->pd && !g_f->p)) && !g_f->pn ? ft_xlloc(str, "") : str;
+	str = g_f->t == 's' && g_f->t && g_f->pd && (unsigned long)g_f->p < ft_strlen(str) && !g_f->pn ? ft_xlloc(str, ft_substr(str, 0, g_f->p)) : str;
+	g_f->w = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->w;
+	g_f->p = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->p;
+	g_f->w = g_f->t == 'c' && !*str ? g_f->w - 1 : g_f->w;	
+//	g_f->ncc += g_f->t == 'c' && !*str ? 1 : 0;
 	return (str);
 }
 
@@ -62,24 +49,28 @@ char	*format_len(char *str)
 	char	fill;
 	int		neg;
 
+	str = g_f->t == 's' && !str ? ft_xlloc(str, "(null)") : str;
 	if (!str)
 		return (NULL);
-	neg = *str == '-' ? 1 : 0;
-	str = tweaks(str, neg);
+	neg = *str == '-' && g_f->t != 'c' && g_f->t != 's' ? 1 : 0;
+	str = ft_xlloc(str, tweaks(str, neg));
 	fill = g_f->z ? '0' : ' ';
 	l = ft_strlen(str);
 	str += neg;
-	if ((l < g_f->p \
+	if (*str && \
+		((l < g_f->p \
 		&& !(g_f->p > g_f->w)
 		&& (!g_f->a || !g_f->pn) \
 		&& !(g_f->w < g_f->p && !g_f->z)) \
-		|| (l < g_f->p && g_f->pd && g_f->z && !g_f->pn))
-		str = ft_strcat(ft_repchar(fill, g_f->p - l), str);
-	str = neg ? ft_strcat("-", str) : str;
+		|| (l < g_f->p && g_f->pd && g_f->z && !g_f->pn)) \
+		&& !(g_f->w > g_f->p && neg && !g_f->z) \
+		)
+		str = ft_strcatx(ft_repchar(fill, g_f->p - l), str);
+	str = neg ? ft_strcatxr("-", str) : str;
 	l = ft_strlen(str);
 	if ((l < g_f->w) && (!g_f->a))
-		str = ft_strcat(ft_repchar(' ', g_f->w - l), str);
+		str = ft_strcatx(ft_repchar(' ', g_f->w - l), str);
 	if ((l < g_f->w) && (g_f->a))
-		str = ft_strcat(str, ft_repchar(' ', g_f->w - l));
+		str = ft_strcatx(str, ft_repchar(' ', g_f->w - l));
 	return (str);
 }

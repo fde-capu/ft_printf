@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/03 22:30:09 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/05 04:30:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct	s_ttable
 	int		pd;
 	int		pn;
 	char	t;
+//	int		ncc;
 }				t_ttable;
 
 t_ttable		*g_f;
 void			init_ttable(void);
-void			check_ttable(void);
 char			*fprocess(char *p, va_list ap);
 int				ft_printf(const char *a, ...);
 int				ftpf_flags(char *p);
