@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/06 10:33:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/06 13:38:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*fprocess(char *p, va_list ap)
 	p += ftpf_lengt(p);
 	p += ftpf_forms(p);
 	str = ftpf_render(ap);
+	str = g_f->t == 'c' && !*str ? ft_xlloc(str, ft_strnew("\0")) : str;
 	return (str);
 }
 

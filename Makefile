@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/06 09:54:39 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/06 12:06:46 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ GCC		=	gcc
 
 CC		=	$(GCC) $(FLAGS)	
 
-FLAGS	=	-Wall -Wextra -Werror -g
+FLAGS	=	-Wall -Wextra -Werror
 
 AR		=	ar -rcs
 
@@ -63,7 +63,7 @@ norm:
 $(DEPLIB):	dep
 
 test:		all
-	$(CC) $(TOBJ) -L. -l$(NAMESHORT) -o $(EXECNM)
+	gcc -g $(TOBJ) -L. -l$(NAMESHORT) -o $(EXECNM)
 	./$(EXECNM)
 
 rtest:		cleanall test
@@ -99,6 +99,7 @@ xdeliver:
 	rm -rf _deliver
 
 tt:			deliver
+	cd ../zzz && $(MAKE) cleanall
 	cp -prf _deliver/* ../zzz
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
 
