@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/03 17:46:23 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/06 09:54:39 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ GCC		=	gcc
 
 CC		=	$(GCC) $(FLAGS)	
 
-FLAGS	=	-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror -g
 
 AR		=	ar -rcs
 
@@ -75,9 +75,16 @@ rt:			rtest
 t:			test
 
 cleanall:	fclean cleandep xdeliver
+	rm -rf ./$(EXECNM).dSYM
 	rm -f $(EXECNM)
 
 st:			re test 
+
+val:
+	rm -rf ./$(EXECNM).dSYM
+	valgrind --dsymutil=yes --track-origins=yes ./$(EXECNM)
+	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
+	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 
 deliver:
 	mkdir -p _deliver
