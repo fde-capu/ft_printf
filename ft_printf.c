@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/06 13:38:01 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:48:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ int		ft_printf(const char *full, ...)
 	va_list	ap;
 	char	*f;
 	char	*out;
-	int		vr;
 
-	ncc = 0;
+	g_nc = 0;
 	g_f = malloc(1);
 	init_ttable();
 	out = ft_strnew("");
@@ -96,8 +95,7 @@ int		ft_printf(const char *full, ...)
 		f++;
 	}
 	va_end(ap);
-	vr = ft_strlen(out) + ncc;
-	ft_putstr(out);
+	write (1, out, g_nc);
 	free (g_f);
-	return (vr);
+	return (g_nc);
 }

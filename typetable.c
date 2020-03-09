@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/06 13:32:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:32:46 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*tweaks(char *str, int neg)
 	g_f->w = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->w;
 	g_f->p = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->p;
 	g_f->w = g_f->t == 'c' && !*str ? g_f->w - 1 : g_f->w;	
-	ncc += g_f->t == 'c' && !*str ? 1 : 0;
+	g_nc += ft_strlen(str);
+	g_nc += g_f->t == 'c' && !*str ? 1 : 0;
 	str = g_f->t == 'c' && !*str ? ft_xlloc(str, ft_strnew("\0")) : str;
 	return (str);
 }
