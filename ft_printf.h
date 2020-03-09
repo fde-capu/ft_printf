@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/09 07:31:12 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:13:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,44 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
-# define JOKER_FLAGS "-0"
+# include <stdio.h>//
+# define JOKER_FLAGS "-0%"
 # define JOKER_WIDTH "0123456789*"
 # define JOKER_PRECI ".0123456789*"
 # define JOKER_LENGT ""
-# define JOKER_FORMS "cspdiuxX%"
+# define JOKER_FORMS "cspdiuxX"
 
 typedef struct	s_ttable
 {
-	int		a;
-	int		z;
-	int		w;
-	int		wd;
-	int		p;
-	int		pd;
-	int		pn;
-	char	t;
+	int				a;
+	int				z;
+	int				w;
+	int				wd;
+	int				p;
+	int				pd;
+	int				pn;
+	char			t;
+	char			*s;
+	int				c;
+	struct s_ttable	*nx;
 }				t_ttable;
 
-t_ttable		*g_f;
-size_t			g_nc;
-void			init_ttable(void);
-char			*fprocess(char *p, va_list ap);
+int				ffeed(char *f, t_ttable *t);
 int				ft_printf(const char *a, ...);
-int				ftpf_flags(char *p);
-int				ftpf_w(char *p);
-int				ftpf_preci(char *p);
-int				ftpf_lengt(char *p);
-int				ftpf_forms(char *p);
-char			*ftpf_render(va_list ap);
-char			*format_len(char *str);
-int				count_jokers(char *f);
-char			*tweaks(char *str, int neg);
-int				tt_cmp(const char *tt, char *str, char *stv);
+int				fprocess(char *p, va_list ap, t_ttable *t);
+void			ftpf_render(va_list ap, t_ttable *t);
+t_ttable		*init_ttable(void);
+int				ftpf_flags(char *p, t_ttable *t);
+int				ftpf_w(char *p, t_ttable *t);
+int				ftpf_preci(char *p, t_ttable *t);
+int				ftpf_lengt(char *p, t_ttable *t);
+int				ftpf_forms(char *p, t_ttable *t);
+void			format_len(t_ttable *t);
+void			tweaks(t_ttable *t, int neg);
+int				do_ft_printf(t_ttable *t);
+void	check_ttable(t_ttable *g_f);
+
+t_ttable *gg;//
 
 #endif
 

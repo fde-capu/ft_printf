@@ -6,71 +6,84 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/09 07:32:46 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:02:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	init_ttable(void)
+t_ttable	*init_ttable(void)
 {
-	free(g_f);
-	g_f = ft_calloc(sizeof(t_ttable), 1);
+	return (ft_calloc(sizeof(t_ttable), 1));
+}
+
+void	tweaks(t_ttable *t, int neg)
+{
+	ft_stridentical(t->s, "0") && t->pd == 2 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->a = t->w < 0 ? 1 : t->a;
+	t->w = ft_abs(t->w);
+	ft_stridentical(t->s, "0") && t->pd && t->pd != 2 && t->p == 0 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->p = t->z && !t->pd && !t->a ? t->w : t->p;
+	t->z = t->pd && t->p > 0 ? 1 : t->z;
+	t->p += neg && t->pd && t->p >= 0 ? 1 : 0;
+	t->pn = t->p < 0 ? 1 : 0;
+	t->p = t->wd ? ft_abs(t->p) : t->p;
+	t->p = t->wd && !t->w && t->pn ? t->w : t->p;
+	t->p = t->t == 's' && t->pd && (unsigned long)t->p + 1 > ft_strlen(t->s) ? ft_strlen(t->s) : t->p;
+	t->w = !t->wd ? t->p : t->w;
+	t->p = t->w > t->p && t->z && !t->a && t->pn ? t->w : t->p;
+	t->t == 's' && (t->pd == 2 || (t->pd && !t->p)) && !t->pn ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->t == 's' && t->t && t->pd && (unsigned long)t->p < ft_strlen(t->s) && !t->pn ? t->s = ft_xlloc(t->s, ft_substr(t->s, 0, t->p)) : 0;
+	t->w = t->t == 's' && ft_stridentical(t->s, "0") && !t->wd ? 1 : t->w;
+	t->p = t->t == 's' && ft_stridentical(t->s, "0") && !t->wd ? 1 : t->p;
+//	t->w = t->t == 'c' && !*t->s ? t->w - 1 : t->w;	
+//	t->c = t->t == 'c' && !*t->s ? 1 : t->c;
+//	t->t == 'c' && !*t->s ? t->s = ft_xlloc(t->s, ft_strnew("\0")) : 0;
 	return ;
 }
 
-char	*tweaks(char *str, int neg)
-{
-	str = ft_stridentical(str, "0") && g_f->pd == 2 ? ft_xlloc(str, ft_strnew("")) : str;
-	g_f->a = g_f->w < 0 ? 1 : g_f->a;
-	g_f->w = ft_abs(g_f->w);
-	str = ft_stridentical(str, "0") && g_f->pd && g_f->pd != 2 && g_f->p == 0 ? ft_xlloc(str, ft_strnew("")) : str;
-	g_f->p = g_f->z && !g_f->pd && !g_f->a ? g_f->w : g_f->p;
-	g_f->z = g_f->pd && g_f->p > 0 ? 1 : g_f->z;
-	g_f->p += neg && g_f->pd && g_f->p >= 0 ? 1 : 0;
-	g_f->pn = g_f->p < 0 ? 1 : 0;
-	g_f->p = g_f->wd ? ft_abs(g_f->p) : g_f->p;
-	g_f->p = g_f->wd && !g_f->w && g_f->pn ? g_f->w : g_f->p;
-	g_f->p = g_f->t == 's' && g_f->pd && (unsigned long)g_f->p + 1 > ft_strlen(str) ? ft_strlen(str) : g_f->p;
-	g_f->w = !g_f->wd ? g_f->p : g_f->w;
-	g_f->p = g_f->w > g_f->p && g_f->z && !g_f->a && g_f->pn ? g_f->w : g_f->p;
-	str = g_f->t == 's' && (g_f->pd == 2 || (g_f->pd && !g_f->p)) && !g_f->pn ? ft_xlloc(str, ft_strnew("")) : str;
-	str = g_f->t == 's' && g_f->t && g_f->pd && (unsigned long)g_f->p < ft_strlen(str) && !g_f->pn ? ft_xlloc(str, ft_substr(str, 0, g_f->p)) : str;
-	g_f->w = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->w;
-	g_f->p = g_f->t == 's' && ft_stridentical(str, "0") && !g_f->wd ? 1 : g_f->p;
-	g_f->w = g_f->t == 'c' && !*str ? g_f->w - 1 : g_f->w;	
-	g_nc += ft_strlen(str);
-	g_nc += g_f->t == 'c' && !*str ? 1 : 0;
-	str = g_f->t == 'c' && !*str ? ft_xlloc(str, ft_strnew("\0")) : str;
-	return (str);
-}
-
-char	*format_len(char *str)
+void	format_len(t_ttable *t)
 {
 	int		l;
 	char	fill;
 	int		neg;
 
-	str = g_f->t == 's' && !*str ? ft_xlloc(str, ft_strnew("(null)")) : str;
-	neg = *str == '-' && g_f->t != 'c' && g_f->t != 's' ? 1 : 0;
-	str = tweaks(str, neg);
-	fill = g_f->z ? '0' : ' ';
-	l = ft_strlen(str);
-	str = ft_xlloc(str, ft_strnew(str + neg));
-	if (*str && \
-		((l < g_f->p \
-		&& !(g_f->p > g_f->w)
-		&& (!g_f->a || !g_f->pn) \
-		&& !(g_f->w < g_f->p && !g_f->z)) \
-		|| (l < g_f->p && g_f->pd && g_f->z && !g_f->pn)) \
-		&& !(g_f->w > g_f->p && neg && !g_f->z) \
+	t->s = t->t == 's' && !*t->s ? ft_xlloc(t->s, ft_strnew("(null)")) : t->s;
+	neg = *t->s == '-' && t->t != 'c' && t->t != 's' ? 1 : 0;
+	tweaks(t, neg);
+	fill = t->z ? '0' : ' ';
+	l = ft_strlen(t->s);
+	t->s = ft_xlloc(t->s, ft_strnew(t->s + neg));
+	if (*t->s && \
+		((l < t->p \
+		&& !(t->p > t->w)
+		&& (!t->a || !t->pn) \
+		&& !(t->w < t->p && !t->z)) \
+		|| (l < t->p && t->pd && t->z && !t->pn)) \
+		&& !(t->w > t->p && neg && !t->z) \
 		)
-		str = ft_strcatxr(ft_repchar(fill, g_f->p - l), str);
-	str = neg ? ft_strcatxr("-", str) : str;
-	l = ft_strlen(str);
-	if ((l < g_f->w) && (!g_f->a))
-		str = ft_strcatx(ft_repchar(' ', g_f->w - l), str);
-	if ((l < g_f->w) && (g_f->a))
-		str = ft_strcatx(str, ft_repchar(' ', g_f->w - l));
-	return (str);
+		t->s = ft_strcatxr(ft_repchar(fill, t->p - l), t->s);
+	t->s = neg ? ft_strcatxr("-", t->s) : t->s;
+	l = ft_strlen(t->s);
+	if ((l < t->w) && (!t->a))
+		t->s = ft_strcatx(ft_repchar(' ', t->w - l), t->s);
+	if ((l < t->w) && (t->a))
+		t->s = ft_strcatx(t->s, ft_repchar(' ', t->w - l));
+	t->c += ft_strlen(t->s); 
+	return ;
+}
+
+int		do_ft_printf(t_ttable *t)
+{
+	int	c;
+
+	c = 0;
+	while (t->nx)
+	{
+		t = t->nx;
+		gg = t;
+		write(1, t->s, t->c);
+		c += t->c;
+	}
+	return (c);
 }

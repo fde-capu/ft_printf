@@ -6,44 +6,45 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:51:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/04 03:00:38 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:29:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ftpf_flags(char *p)
+int		ftpf_flags(char *p, t_ttable *t)
 {
 	char	*o;
 
 	o = p;
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_FLAGS)))
 	{
-		g_f->a = *p == '-' ? 1 : g_f->a;
-		g_f->z = *p == '0' ? 1 : g_f->z;
+		t->t = *p == '%' && *(p + 1) == '%' ? '%' : t->t;
+		t->a = *p == '-' ? 1 : t->a;
+		t->z = *p == '0' ? 1 : t->z;
 		p++;
 	}
 	return (p - o);
 }
 
-int		ftpf_w(char *p)
+int		ftpf_w(char *p, t_ttable *t)
 {
 	char	*o;
 
 	o = p;
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_WIDTH)))
 	{
-		if (!g_f->wd)
-			g_f->w = ft_atoi(p);
-		g_f->wd = 1;
+		if (!t->wd)
+			t->w = ft_atoi(p);
+		t->wd = 1;
 		if (*p == '*')
-			g_f->wd = -1;
+			t->wd = -1;
 		p++;
 	}
 	return (p - o);
 }
 
-int		ftpf_preci(char *p)
+int		ftpf_preci(char *p, t_ttable *t)
 {
 	char	*o;
 
@@ -51,39 +52,42 @@ int		ftpf_preci(char *p)
 	if (*p == '.')
 	{
 		p++;
-		g_f->pd = 2;
+		t->pd = 2;
 		if (ft_chrinset(p, "123456789"))
 		{
-			g_f->pd = 1;
-			g_f->p = ft_atoi(p);
+			t->pd = 1;
+			t->p = ft_atoi(p);
 		}
 	}
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_PRECI)))
 	{
 		if (*p == '*')
-			g_f->pd = -1;
+			t->pd = -1;
 		p++;
 	}
 	return (p - o);
 }
 
-int		ftpf_lengt(char *p)
+int		ftpf_lengt(char *p, t_ttable *t)
 {
 	char	*o;
 
 	o = p;
-	(void)p;
 	while ((p) && (*p) && (ft_chrinset(p, JOKER_LENGT)))
 		p++;
+	t->t = t->t;
 	return (p - o);
 }
 
-int		ftpf_forms(char *p)
+int		ftpf_forms(char *p, t_ttable *t)
 {
 	char	*o;
 
 	o = p;
-	g_f->t = *p;
-	p++;
+	while ((p) && (*p) && (ft_chrinset(p, JOKER_FORMS)))
+	{
+		t->t = *p;
+		p++;
+	}
 	return (p - o);
 }

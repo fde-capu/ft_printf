@@ -6,96 +6,85 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/09 07:48:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:19:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		count_jokers(char *f)
+void	ftpf_render(va_list ap, t_ttable *t)
 {
-	char	*o;
-
-	o = f;
-	if ((*f == '%') && (*(f + 1) == '%'))
-		return (1);
-	f++;
-	while (ft_chrinset(f, JOKER_FLAGS))
-		f++;
-	while (ft_chrinset(f, JOKER_WIDTH))
-		f++;
-	while (ft_chrinset(f, JOKER_PRECI))
-		f++;
-	while (ft_chrinset(f, JOKER_LENGT))
-		f++;
-	return (f - o);
+	t->s = ft_strnew("");
+	t->t = t->t == 'i' ? 'd' : t->t;
+	t->w = t->wd == -1 ? va_arg(ap, int) : t->w;
+	t->wd = t->wd == -1 ? 1 : t->wd;
+	t->p = t->pd == -1 ? va_arg(ap, int) : t->p;
+	t->pd = t->pd == -1 ? 1 : t->pd;
+	t->s = t->t == '%' ? ft_strnew("%") : t->s;
+	t->s = t->t == 'd' ? ft_itoa(va_arg(ap, int)) : t->s;
+	t->s = t->t == 'c' ? ft_chrtostr((char)va_arg(ap, int)) : t->s;
+	t->s = t->t == 's' ? ft_strnew(va_arg(ap, char *)) : t->s;
+	t->s = t->t == 'p' ? ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16)) : t->s;
+	t->s = t->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : t->s;
+	ft_chrinset(&t->t, "Xx") ? t->s = ft_dtob(va_arg(ap, unsigned int), 16) : t->s;
+	t->s = t->t == 'X' ? ft_xlloc(t->s, ft_ucase(t->s)) : t->s;
+	format_len(t);
+	return ;
 }
 
-char	*ftpf_render(va_list ap)
+int		fprocess(char *p, va_list ap, t_ttable *t)
 {
-	char		*str;
-
-	str = ft_strnew("");
-	g_f->t = g_f->t == 'i' ? 'd' : g_f->t;
-	g_f->w = g_f->wd == -1 ? va_arg(ap, int) : g_f->w;
-	g_f->wd = g_f->wd == -1 ? 1 : g_f->wd;
-	g_f->p = g_f->pd == -1 ? va_arg(ap, int) : g_f->p;
-	g_f->pd = g_f->pd == -1 ? 1 : g_f->pd;
-	str = g_f->t == '%' ? ft_strcatxl(str, "%") : str;
-	str = g_f->t == 'd' ? ft_strcatxl(str, ft_itoa(va_arg(ap, int))) : str;
-	str = g_f->t == 'c' ? ft_xlloc(str, ft_strchrcat(str, (char)va_arg(ap, int))) : str;
-	str = g_f->t == 's' ? ft_xlloc(str, ft_strnew(va_arg(ap, char *))) : str;
-	str = g_f->t == 'p' ? \
-		ft_xlloc(str, ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16))) : str;
-	str = g_f->t == 'u' ? ft_xlloc(str, ft_uitoa(va_arg(ap, unsigned int))) : str;
-	str = ft_chrinset(&g_f->t, "Xx") ? ft_xlloc(str, ft_dtob(va_arg(ap, unsigned int), 16)) : str;
-	str = g_f->t == 'X' ? ft_xlloc(str, ft_ucase(str)) : str;
-	return (format_len(str));
-}
-
-char	*fprocess(char *p, va_list ap)
-{
-	char	*str;
 	char	*o;
 
 	o = p;
-	p++;
-	p += ftpf_flags(p);
-	p += ftpf_w(p);
-	p += ftpf_preci(p);
-	p += ftpf_lengt(p);
-	p += ftpf_forms(p);
-	str = ftpf_render(ap);
-	str = g_f->t == 'c' && !*str ? ft_xlloc(str, ft_strnew("\0")) : str;
-	return (str);
+	p += ftpf_flags(p, t);
+	p += ftpf_w(p, t);
+	p += ftpf_preci(p, t);
+	p += ftpf_lengt(p, t);
+	p += ftpf_forms(p, t);
+	ftpf_render(ap, t);
+	return (p - o);
+}
+
+int		ffeed(char *f, t_ttable *t)
+{
+	char	*p;
+	int		c;
+
+	t->t = '*';
+	c = 0;
+	p = f;
+	while ((p) && (*p) && (*p != '%'))
+	{
+		c++;
+		p++;
+	}
+	t->s = ft_strnew(ft_substr(f, 0, c));
+	t->c = c;
+	return (c);
 }
 
 int		ft_printf(const char *full, ...)
 {
-	va_list	ap;
-	char	*f;
-	char	*out;
+	va_list		ap;
+	t_ttable	*head;
+	t_ttable	*p;
+	char		*f;
 
-	g_nc = 0;
-	g_f = malloc(1);
-	init_ttable();
-	out = ft_strnew("");
+	head = init_ttable();
+	p = head;
 	va_start(ap, full);
 	f = (char *)full;
 	while ((f) && (*f))
 	{
+		p->nx = init_ttable();
+		p = p->nx;
 		if (*f == '%')
-		{
-			init_ttable();
-			out = ft_strcatxl(out, fprocess(f, ap));
-			f += count_jokers(f);
-		}
+			f += fprocess(f, ap, p);
 		else
-			out = ft_xlloc(out, ft_strchrcat(out, *f));
-		f++;
+			f += ffeed(f, p);
+		check_ttable(p);printf("\n");//
 	}
 	va_end(ap);
-	write (1, out, g_nc);
-	free (g_f);
-	return (g_nc);
+	return (do_ft_printf(head));
 }
