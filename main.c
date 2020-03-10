@@ -6,7 +6,7 @@
 /*     :::|:| <:::|:|>                         */
 /*                                             */
 /* C20200203204618 :::|:|                      */
-/* U20200218122926 ||:|::                      */
+/* U20200218151612 ||::||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -201,6 +201,7 @@ int	main()
 	printf("%%li _%li_\t", LONG_MIN + 123);
 	printf("%%lu _%lu_\t", ULONG_MAX - 123);
 	printf("%%lld _%lld_\t", LLONG_MIN + 123);
+	printf("%%lld _%lld_\t", (long long)3);
 	printf("%%lli _%lli_\t", LLONG_MAX - 123);
 	printf("%%llu _%llu_\t", ULLONG_MAX - 123);
 	printf("\n");
@@ -208,6 +209,7 @@ int	main()
 	ft_printf("%%li _%li_\t", LONG_MIN + 123);
 	ft_printf("%%lu _%lu_\t", ULONG_MAX - 123);
 	ft_printf("%%lld _%lld_\t", LLONG_MIN + 123);
+	ft_printf("%%lld _%lld_\t", (long long)3);
 	ft_printf("%%lli _%lli_\t", LLONG_MAX - 123);
 	ft_printf("%%llu _%llu_\t", ULLONG_MAX - 123);
 

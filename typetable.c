@@ -6,7 +6,7 @@
 /*     ::::|: <::::|:>                         */
 /*                                             */
 /* C20200207152631 ::::|:                      */
-/* U20200218134415 ::|||:                      */
+/* U20200218151823 :|::||                      */
 /*                                             */
 /* ******************************************* */
 
@@ -38,7 +38,8 @@ void	print_typetable(void)
 	str = TTU && TBT ? ft_dtob(TTU, TBT) : str;
 	str = TUC ? ft_ucase(str) : str;
 	str = TTL && !TUL ? ft_ltoa(TTL) : str;
-	str = TUL ? ft_ultoa(TUL) : str;
+	str = TTL && TUL ? ft_ultoa(TUL) : str;
+	str = TLL && !TUL ? ft_lltoa(TLL) : str;
 	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
 	if (TTZ && NEG)
 	{
