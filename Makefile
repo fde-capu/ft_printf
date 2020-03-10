@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/02/03 15:34:11 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/09 12:34:47 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,29 +16,34 @@ CC		=	$(GCC) $(FLAGS)
 
 FLAGS	=	-Wall -Wextra -Werror
 
-AR		=	ar -rc
+AR		=	ar -rcs
 
 NAME	=	libftprintf.a
+NAMESHORT = ftprintf
 
-DEPLIB	=	libft/libft.a
+DEPPATH =	./libft
+DEPLIB	=	libft.a
+DEPLSHORT =	ft
 
 SRCS	=	ft_printf.c	\
-			typetable.c
+			typetable.c \
+			ftpf_renders.c
 
 OBJS	=	$(SRCS:.c=.o)
+DEPOBJS =	$(DEPPATH)/*.o
+
+HEAD	=	ft_printf.h	
 
 TOBJ	=	main.c
+EXECNM	=	ftpft
 
 all:	dep $(NAME)
 
 dep:
 	cd libft && $(MAKE)
 
-$(SRCS):
-	$(CC) -o $(OBJS) -c $(SRCS)
-
 $(NAME):	$(OBJS)
-	$(AR) $(NAME) $(OBJS) $(DEPLIB)
+	$(AR) $(NAME) $(OBJS) $(DEPOBJS)
 
 clean:
 	rm -f $(OBJS)
@@ -46,20 +51,20 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re:			fclean all
+re:			cleanall all
 
 cleandep:
 	cd libft && $(MAKE) fclean
 
 norm:
 	cd libft && norminette -R CheckForbiddenSourceHeader *.c *.h
-	norminette -R CheckForbiddenSourceHeader *.c *.h
+	norminette -R CheckForbiddenSourceHeader $(SRCS) $(HEAD)
 
 $(DEPLIB):	dep
 
 test:		all
-	$(CC) $(TOBJ) $(NAME) $(DEPLIB) -o ftpft
-	./ftpft
+	gcc -g $(TOBJ) -L. -l$(NAMESHORT) -o $(EXECNM)
+	./$(EXECNM)
 
 rtest:		cleanall test
 
@@ -69,6 +74,35 @@ rt:			rtest
 
 t:			test
 
-cleanall:	fclean cleandep
+cleanall:	fclean cleandep xdeliver
+	rm -rf ./$(EXECNM).dSYM
+	rm -f $(EXECNM)
 
 st:			re test 
+
+val:
+	rm -rf ./$(EXECNM).dSYM
+	valgrind --dsymutil=yes --track-origins=yes ./$(EXECNM)
+	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
+	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
+
+deliver:
+	mkdir -p _deliver
+	cp -p ft_printf.c _deliver
+	cp -p typetable.c _deliver
+	cp -p ftpf_renders.c _deliver
+	cp -p Makefile _deliver
+	cp -rfp libft _deliver
+	cp -p ft_printf.h _deliver
+
+xdeliver:
+	rm -rf _deliver
+
+tt:			deliver
+	cd ../zzz && $(MAKE) cleanall
+	cp -prf _deliver/* ../zzz
+	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
+
+t2:			deliver
+	cp -prf _deliver/* ../zzz
+#to do

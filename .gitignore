@@ -1,3 +1,5 @@
+_deliver
+.DS*
 *.o
 *.a
 ftpft

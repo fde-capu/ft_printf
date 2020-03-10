@@ -1,76 +1,90 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 12:47:29 by fde-capu          #+#    #+#             */
-/* U20200218141443 |::||:                      */
+/*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
+/*   Updated: 2020/03/10 15:44:55 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printf_error(char *s, int pos)
+void	ftpf_render(va_list ap, t_ttable *t)
 {
-	ft_putstr_fd(s, FDOUT);
-	if (ft_whichar(s, -1) != '\n')
-		ft_putchar_fd('\n', FDOUT);
-	while (pos--)
-		ft_putchar_fd(' ', FDOUT);
-	ft_putstr_fd(ERRORMSG, FDOUT);
+	t->s = ft_strnew("");
+	t->t = t->t == 'i' ? 'd' : t->t;
+	t->w = t->wd == -1 ? va_arg(ap, int) : t->w;
+	t->wd = t->wd == -1 ? 1 : t->wd;
+	t->p = t->pd == -1 ? va_arg(ap, int) : t->p;
+	t->pd = t->pd == -1 ? 1 : t->pd;
+	t->s = t->t == '%' ? ft_strnew("%") : t->s;
+	t->s = t->t == 'd' ? ft_itoa(va_arg(ap, int)) : t->s;
+	t->s = t->t == 'c' ? ft_chrtostr((char)va_arg(ap, int)) : t->s;
+	t->s = t->t == 's' ? ft_strnew(va_arg(ap, char *)) : t->s;
+	t->s = t->t == 'p' ? ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16)) : t->s;
+	t->s = t->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : t->s;
+	ft_chrinset(&t->t, "Xx") ? t->s = ft_dtob(va_arg(ap, unsigned int), 16) : t->s;
+	t->s = t->t == 'X' ? ft_xlloc(t->s, ft_ucase(t->s)) : t->s;
+	format_len(t);
 	return ;
 }
 
-void	putvar(unsigned int val, unsigned int *adr)
+int		fprocess(char *p, va_list ap, t_ttable *t)
 {
-	*adr = val;
+	char	*o;
+
+	o = p;
+	p += ftpf_flags(p, t);
+	p += ftpf_w(p, t);
+	p += ftpf_preci(p, t);
+	p += ftpf_lengt(p, t);
+	p += ftpf_forms(p, t);
+	ftpf_render(ap, t);
+	return (p - o);
 }
 
-int		ft_printf(const char *fmt, ...)
+int		ffeed(char *f, t_ttable *t)
 {
-	va_list		a;
-	char		*s;
-	int			i;
+	char	*p;
+	int		c;
 
-	init_typetable();
-	s = (char *)fmt;
-	va_start(a, fmt);
-	while (*s)
+	t->t = '*';
+	c = 0;
+	p = f;
+	while ((p) && (*p) && (*p != '%'))
 	{
-		i = 1;
-		if (ft_strcmp(s, "%"))
-		{
-			i = maketable(s);
-			if (i == -1)
-			{
-				ft_printf_error(s, s - fmt);
-				free(g_tt);
-				return (1);
-			}
-			TTW = TRW ? va_arg(a, unsigned int) : TTW;
-			TTP = TRP ? va_arg(a, unsigned int) : TTP;
-			TTC = TGC ? (char)va_arg(a, int) : TTC;
-			TTS = TGS ? va_arg(a, char *) : TTS;
-			TPT = TGP ? va_arg(a, void *) : TPT;
-			TTI = TTI ? va_arg(a, int) : TTI;
-			TUC = TTU == 3 ? 1 : TUC;
-			TBT = TTU > 1 ? 16 : TBT;
-			TTU = TTU && TTI ? va_arg(a, unsigned int) : TTU;
-			TTL = TTL && !TTU ? va_arg(a, signed long) : TTL;
-			TUL = TTL && TTU ? va_arg(a, unsigned long) : TUL;
-			TLL = TLL && !TTU ? va_arg(a, signed long long) : TLL;
-			if (!TPV)
-				print_typetable();
-			else
-				putvar(s - fmt, va_arg(a, unsigned int *));
-		}
-		else
-			ft_putchar_fd(*s, FDOUT);
-		s += i;
+		c++;
+		p++;
 	}
-	free(g_tt);
-	va_end(a);
-	return (0);
+	t->s = ft_strnew(ft_substr(f, 0, c));
+	t->c = c;
+	return (c);
+}
+
+int		ft_printf(const char *full, ...)
+{
+	va_list		ap;
+	t_ttable	*head;
+	t_ttable	*p;
+	char		*f;
+
+	head = init_ttable();
+	p = head;
+	va_start(ap, full);
+	f = (char *)full;
+	while ((f) && (*f))
+	{
+		p->nx = init_ttable();
+		p = p->nx;
+		if (*f == '%')
+			f += fprocess(f, ap, p);
+		else
+			f += ffeed(f, p);
+		check_ttable(p);printf("\n");//
+	}
+	va_end(ap);
+	return (do_ft_printf(head));
 }

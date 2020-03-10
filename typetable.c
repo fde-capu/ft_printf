@@ -1,155 +1,91 @@
 /* ******************************************* */
-/*                                             */
-/*                     |:|::::::|:::|:|::|::|| */
-/* typetable.c         :|:|:||:||::::||::|:||| */
-/*                     :||||:::|||::||||||:|:: */
-/*     ::::|: <::::|:>                         */
-/*                                             */
-/* C20200207152631 ::::|:                      */
-/* U20200218151823 :|::||                      */
-/*                                             */
-/* ******************************************* */
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   typetable.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
+/*   Updated: 2020/03/09 14:02:57 by fde-capu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	init_typetable(void)
+t_ttable	*init_ttable(void)
 {
-	g_tt = ft_calloc(sizeof(t_typetable), 1);
+	return (ft_calloc(sizeof(t_ttable), 1));
+}
+
+void	tweaks(t_ttable *t, int neg)
+{
+	ft_stridentical(t->s, "0") && t->pd == 2 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->a = t->w < 0 ? 1 : t->a;
+	t->w = ft_abs(t->w);
+	ft_stridentical(t->s, "0") && t->pd && t->pd != 2 && t->p == 0 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->p = t->z && !t->pd && !t->a ? t->w : t->p;
+	t->z = t->pd && t->p > 0 ? 1 : t->z;
+	t->p += neg && t->pd && t->p >= 0 ? 1 : 0;
+	t->pn = t->p < 0 ? 1 : 0;
+	t->p = t->wd ? ft_abs(t->p) : t->p;
+	t->p = t->wd && !t->w && t->pn ? t->w : t->p;
+	t->p = t->t == 's' && t->pd && (unsigned long)t->p + 1 > ft_strlen(t->s) ? ft_strlen(t->s) : t->p;
+	t->w = !t->wd ? t->p : t->w;
+	t->p = t->w > t->p && t->z && !t->a && t->pn ? t->w : t->p;
+	t->t == 's' && (t->pd == 2 || (t->pd && !t->p)) && !t->pn ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	t->t == 's' && t->t && t->pd && (unsigned long)t->p < ft_strlen(t->s) && !t->pn ? t->s = ft_xlloc(t->s, ft_substr(t->s, 0, t->p)) : 0;
+	t->w = t->t == 's' && ft_stridentical(t->s, "0") && !t->wd ? 1 : t->w;
+	t->p = t->t == 's' && ft_stridentical(t->s, "0") && !t->wd ? 1 : t->p;
+//	t->w = t->t == 'c' && !*t->s ? t->w - 1 : t->w;	
+//	t->c = t->t == 'c' && !*t->s ? 1 : t->c;
+//	t->t == 'c' && !*t->s ? t->s = ft_xlloc(t->s, ft_strnew("\0")) : 0;
 	return ;
 }
 
-void	reset_typetable(void)
+void	format_len(t_ttable *t)
 {
-	t_typetable	*temp;
-	temp = ft_calloc(sizeof(t_typetable), 1);
-	free(g_tt);
-	g_tt = temp;
+	int		l;
+	char	fill;
+	int		neg;
+
+	t->s = t->t == 's' && !*t->s ? ft_xlloc(t->s, ft_strnew("(null)")) : t->s;
+	neg = *t->s == '-' && t->t != 'c' && t->t != 's' ? 1 : 0;
+	tweaks(t, neg);
+	fill = t->z ? '0' : ' ';
+	l = ft_strlen(t->s);
+	t->s = ft_xlloc(t->s, ft_strnew(t->s + neg));
+	if (*t->s && \
+		((l < t->p \
+		&& !(t->p > t->w)
+		&& (!t->a || !t->pn) \
+		&& !(t->w < t->p && !t->z)) \
+		|| (l < t->p && t->pd && t->z && !t->pn)) \
+		&& !(t->w > t->p && neg && !t->z) \
+		)
+		t->s = ft_strcatxr(ft_repchar(fill, t->p - l), t->s);
+	t->s = neg ? ft_strcatxr("-", t->s) : t->s;
+	l = ft_strlen(t->s);
+	if ((l < t->w) && (!t->a))
+		t->s = ft_strcatx(ft_repchar(' ', t->w - l), t->s);
+	if ((l < t->w) && (t->a))
+		t->s = ft_strcatx(t->s, ft_repchar(' ', t->w - l));
+	t->c += ft_strlen(t->s); 
 	return ;
 }
 
-void	print_typetable(void)
-{
-	char	*str;
-
-	str = 0;
-	str = TTS ? TTS : str;
-	str = TTI ? ft_itoa(TTI) : str;
-	str = TTU && !TBT ? ft_uitoa(TTU) : str;
-	str = TTU && TBT ? ft_dtob(TTU, TBT) : str;
-	str = TUC ? ft_ucase(str) : str;
-	str = TTL && !TUL ? ft_ltoa(TTL) : str;
-	str = TTL && TUL ? ft_ultoa(TUL) : str;
-	str = TLL && !TUL ? ft_lltoa(TLL) : str;
-	str = TPT ? ft_dtob((long unsigned int)TPT, 16) : str;
-	if (TTZ && NEG)
-	{
-		ft_putchar_fd('-', FDOUT);
-		TTW -= TTW ? 1 : 0;
-		str++;
-	}
-	if (TPT)
-		ft_putstr_fd("0x", FDOUT);
-/*
-**	Maybe TPT resolution is system dependent. 
-*/
-	TTZ = TTZ && !TTP && !TTW ? 0 : TTZ;
-	TTZ = TTZ && TTW > STRL ? TTW - STRL : TTZ;
-	TTZ = !TTW && TTP ? TTP - STRL : TTZ;
-	TTZ = TTW && TTP ? TTP - STRL : TTZ;
-	TTW -= TTW && TTP && NEG ? 1 : 0;
-	if ((str) && (TTW > TTZ + STRL) && (!TAL))
-		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
-	if ((str) && (TTZ) && (NEG))
-	{
-		ft_putchar_fd('-', FDOUT);
-		ft_repchar_fd('0', TTZ, FDOUT);
-		str++;
-	}
-	if ((str) && (TTZ) && (!NEG))
-		ft_repchar_fd('0', TTZ, FDOUT);
-	if ((!str) && (TTW > 1))
-		ft_repchar_fd(' ', TTW - 1, FDOUT);
-/*
-**
-*/
-	if (!TGC)
-		ft_putstr_fd(str, FDOUT);
-	else
-		ft_putchar_fd(TTC, FDOUT);
-/*
-** 
-*/
-	if ((str) && (TTW > TTZ + STRL) && (TAL))
-		ft_repchar_fd(' ', TTW - TTZ - STRL, FDOUT);
-}
-
-/*
-** %[flags]<width><precision><length>[conversion char]
-** Bonus:
-** conversions: n f g e (ok: n) 
-** flags: l ll h hh
-** flags: # + (both have to work)
-*/
-
-int		maketable(char *s)
+int		do_ft_printf(t_ttable *t)
 {
 	int	c;
 
-	reset_typetable();
-	c = 1;
-	s++;
-	if (*s == '%')		// % exepction
+	c = 0;
+	while (t->nx)
 	{
-		TTS = "%";
-		return (2);
+		t = t->nx;
+		gg = t;
+		write(1, t->s, t->c);
+		c += t->c;
 	}
-	while (ft_chrinset(s, "-0"))	// % flags
-	{
-		if (*s == '-')
-			TAL = 1;
-		if (*s == '0')
-			TTZ = 1;
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "0123456789*"))		// width
-	{
-		if (*s == '*')
-			TRW = 1;
-		TTW = TTW ? TTW : (unsigned int)ft_atoi(s);
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, ".1234567890*"))	// precision
-	{
-		TTP = TTP ? TTP : (unsigned int)ft_atoi(s + 1);
-		if (*s == '*')
-			TRP = 1;
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "h"))	// (bonus) length (l, ll, h, hh) cplusplus.com/reference/cstdio/printf
-	{
-		c++;
-		s++;
-	}
-	while (ft_chrinset(s, "cspdiuxXnl")) // conversion
-	{
-		TGC = *s == 'c' ? 1 : TGC;
-		TGS = *s == 's' ? 1 : TGS;
-		TGP = *s == 'p' ? 1 : TGP;
-		TTI = *s == 'd' ? 1 : TTI;
-		TTI = *s == 'i' ? 1 : TTI;
-		TTU = *s == 'u' ? 1 : TTU;
-		TTU = *s == 'x' ? 2 : TTU;
-		TTU = *s == 'X' ? 3 : TTU;
-		TPV = *s == 'n' ? 1 : TPV;
-		TTL += *s == 'l' ? 1 : 0;
-		TLL = TTL > 1 ? 1 : TLL;
-		TTL = TLL ? 0 : TTL;
-		TTI = TTL || TLL ? 0 : TTI;
-		c++;
-		s++;
-	}
-	return (c == 1 ? -1 : c);
+	return (c);
 }

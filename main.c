@@ -14,222 +14,232 @@
 #include <math.h>
 #include <limits.h>
 #include <stdint.h>
+# include <stdio.h> 
+
+char *s1, *s2;
+int	n1, n2;
+
+void	check_ttable(t_ttable *t)
+{
+	ft_putstr("\t\t|a:");
+	ft_putstr(ft_itoa(t->a));
+	ft_putstr("|z:");
+	ft_putstr(ft_itoa(t->z));
+	ft_putstr("|w:");
+	ft_putstr(ft_itoa(t->w));
+	ft_putstr(":");
+	ft_putstr(ft_itoa(t->wd));
+	ft_putstr("|p:");
+	ft_putstr(ft_itoa(t->p));
+	ft_putstr(":");
+	ft_putstr(ft_itoa(t->pd));
+	ft_putstr("-");
+	ft_putstr(ft_itoa(t->pn));
+	ft_putstr("|t:");
+	ft_putstr(&t->t);
+	ft_putstr("|c");
+	ft_putstr(ft_itoa(t->c));
+	ft_putstr("|\"");
+	ft_putstr(t->s);
+	ft_putstr("\"");
+	//ft_putstr("|\n");
+}
+
+#define S0(s) \
+	s1 = ft_strcat("U \"", s); \
+	s1 = ft_strcat(s1, "\" _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("S \"", s); \
+	s2 = ft_strcat(s2, "\" _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\t"); \
+	n1 = ft_printf(s1); check_ttable(gg); \
+	printf("\n"); \
+	n2 = printf(s2); fflush(stdout); \
+	printf("U %d|%d S\n\n", n1, n2);
+
+#define SC(s, v) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " (\'"); \
+	s1 = ft_strcat(s1, ft_chrtostr(v)); \
+	s1 = ft_strcat(s1, "\') _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("S %", s); \
+	s2 = ft_strcat(s2, " (\'"); \
+	s2 = ft_strcat(s2, ft_chrtostr(v)); \
+	s2 = ft_strcat(s2, "\') _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\t"); \
+	n1 = ft_printf(s1, v); check_ttable(gg); \
+	printf("\n"); \
+	n2 = printf(s2, v); fflush(stdout); \
+	printf("U %d|%d S\n\n", n1, n2);
+
+#define S(s, v) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " (\""); \
+	s1 = ft_strcat(s1, v); \
+	s1 = ft_strcat(s1, "\") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("S %", s); \
+	s2 = ft_strcat(s2, " (\""); \
+	s2 = ft_strcat(s2, v); \
+	s2 = ft_strcat(s2, "\") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\t"); \
+	n1 = ft_printf(s1, v); check_ttable(gg); \
+	printf("\n"); \
+	n2 = printf(s2, v); fflush(stdout); \
+	printf("U %d|%d S\n\n", n1, n2);
+
+#define S1(s, a, v) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " (\""); \
+	s1 = ft_strcat(s1, v); \
+	s1 = ft_strcat(s1, "\","); \
+	s1 = ft_strcat(s1, ft_itoa(a)); \
+	s1 = ft_strcat(s1, ") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("S %", s); \
+	s2 = ft_strcat(s2, " (\""); \
+	s2 = ft_strcat(s2, v); \
+	s2 = ft_strcat(s2, "\","); \
+	s2 = ft_strcat(s2, ft_itoa(a)); \
+	s2 = ft_strcat(s2, ") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\t"); \
+	n1 = ft_printf(s1, a, v); check_ttable(gg); \
+	printf("\n"); \
+	n2 = printf(s2, a, v); fflush(stdout); \
+	printf("U %d|%d S\n\n", n1, n2);
+
+#define S2(s, a, a2, v) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " (\""); \
+	s1 = ft_strcat(s1, v); \
+	s1 = ft_strcat(s1, "\","); \
+	s1 = ft_strcat(s1, ft_itoa(a)); \
+	s1 = ft_strcat(s1, ","); \
+	s1 = ft_strcat(s1, ft_itoa(a2)); \
+	s1 = ft_strcat(s1, ") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("\nS %", s); \
+	s2 = ft_strcat(s2, " (\""); \
+	s2 = ft_strcat(s2, v); \
+	s2 = ft_strcat(s2, "\","); \
+	s2 = ft_strcat(s2, ft_itoa(a)); \
+	s2 = ft_strcat(s2, ","); \
+	s2 = ft_strcat(s2, ft_itoa(a2)); \
+	s2 = ft_strcat(s2, ") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\n\n"); \
+	ft_printf(s1, a, a2, v); check_ttable(gg); \
+	printf(s2, a, a2, v);
+
+#define T(s, v) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " ("); \
+	s1 = ft_strcat(s1, ft_itoa(v)); \
+	s1 = ft_strcat(s1, ") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("S %", s); \
+	s2 = ft_strcat(s2, " ("); \
+	s2 = ft_strcat(s2, ft_itoa(v)); \
+	s2 = ft_strcat(s2, ") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\t"); \
+	n1 = ft_printf(s1, v); check_ttable(gg); \
+	printf("\n"); \
+	n2 = printf(s2, v); fflush(stdout); \
+	printf("U %d|%d S\n\n", n1, n2);
+
+#define V(s, v1, v2, v3) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " ("); \
+	s1 = ft_strcat(s1, ft_itoa(v1)); \
+	s1 = ft_strcat(s1, ","); \
+	s1 = ft_strcat(s1, ft_itoa(v2)); \
+	s1 = ft_strcat(s1, ","); \
+	s1 = ft_strcat(s1, ft_itoa(v3)); \
+	s1 = ft_strcat(s1, ") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("\nS %", s); \
+	s2 = ft_strcat(s2, " ("); \
+	s2 = ft_strcat(s2, ft_itoa(v1)); \
+	s2 = ft_strcat(s2, ","); \
+	s2 = ft_strcat(s2, ft_itoa(v2)); \
+	s2 = ft_strcat(s2, ","); \
+	s2 = ft_strcat(s2, ft_itoa(v3)); \
+	s2 = ft_strcat(s2, ") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\n\n"); \
+	ft_printf(s1, v1, v2, v3); check_ttable(gg); \
+	printf(s2, v1, v2, v3);
+
+#define X(s, v1, v2) \
+	s1 = ft_strcat("U %", s); \
+	s1 = ft_strcat(s1, " ("); \
+	s1 = ft_strcat(s1, ft_itoa(v1)); \
+	s1 = ft_strcat(s1, ","); \
+	s1 = ft_strcat(s1, ft_itoa(v2)); \
+	s1 = ft_strcat(s1, ") _"); \
+	s1 = ft_strcat(s1, s); \
+	s1 = ft_strcat(s1, "_\t"); \
+	s2 = ft_strcat("\nS %", s); \
+	s2 = ft_strcat(s2, " ("); \
+	s2 = ft_strcat(s2, ft_itoa(v1)); \
+	s2 = ft_strcat(s2, ","); \
+	s2 = ft_strcat(s2, ft_itoa(v2)); \
+	s2 = ft_strcat(s2, ") _"); \
+	s2 = ft_strcat(s2, s); \
+	s2 = ft_strcat(s2, "_\n\n"); \
+	ft_printf(s1, v1, v2); check_ttable(gg); \
+	printf(s2, v1, v2);
 
 int	main()
 {
 	int	x = 42;
-	int	*z;
-	z = &x;
+	//int	*z;
+	//z = &x;
+	//unsigned int	*avar;
+	//unsigned int	thevar;
+	//avar = &thevar;
+	//*avar = 42;
 
 	printf("\n\n");
-	printf	("System || User\n\n");
-	printf("basics:\n");
+	printf	("DEBUG\n\n");
 
-	printf	 ("\tS %%%% _%%_\t");
-	printf	 ("\tS %%d _%d_\t", 42);
-	printf	 ("\tS %%c _%c_\t", 'X');
-	printf	 ("\tS %%5c _%5c_\t", 'X');
-	printf	 ("\tS %%0d _%0d_\t", 6);
-	printf	 ("\tS %%00d _err_\t");
-	printf	 ("\tS %%p _%p_\t", z);
-	printf	 ("\tS %%s _%s_\t", "Hey, ho!");
-	printf("\n");
-	ft_printf("\tU %%%% _%%_\t");
-	ft_printf("\tS %%d _%d_\t", 42);
-	ft_printf("\tU %%c _%c_\t", 'X');
-	ft_printf("\tU %%5c _%5c_\t", 'X');
-	ft_printf("\tU %%0d _%0d_\t", 6);
-	ft_printf("\tU %%00d _%00d_\t", 6);
-	ft_printf("\tS %%p _%p_\t", z);
-	ft_printf("\tS %%s _%s_\t", "Hey, ho!");
-	
-	printf("\n");
-	printf("\ninput variants:");
-	printf("\n");
+	//ft_printf("");
+	//S0("")
+	//S0("__")
+	//S0("123")
 
-	printf	 ("\tS %%d (hex) _%d_\t", 0x2a);
-	printf	 ("\tS %%d (HEX) _%d_\t", 0x2A);
-	printf	 ("\tS %%d (oct) _%d_\t", 012);
-	printf	 ("\tS %%i (hex) _%i_\t", 0x2a);
-	printf	 ("\tS %%i (HEX) _%i_\t", 0x2A);
-	printf	 ("\tS %%i (oct) _%i_\t", 012);
-	printf("\n");
-	ft_printf	 ("\tU %%d (hex) _%d_\t", 0x2a);
-	ft_printf	 ("\tU %%d (HEX) _%d_\t", 0x2A);
-	ft_printf	 ("\tU %%d (oct) _%d_\t", 012);
-	ft_printf	 ("\tU %%i (hex) _%i_\t", 0x2a);
-	ft_printf	 ("\tU %%i (HEX) _%i_\t", 0x2A);
-	ft_printf	 ("\tU %%i (oct) _%i_\t", 012);
+	S0("")
+	S0("Teste")
+	S0("%%")
+	S("%s", "Flávio")
+	SC("%c", 'X')
+	T("%i", 42);
+	T("%0i", 42);
+	T("%-0i", 42);
+//	S("%p", x);
 
-	printf("\n");
-	printf("\nwidth:");
-	printf("\n");
-
-	printf	 ("S %%06d _%06d_\t", 6);
-	printf	 ("S %%6d _%6d_\t", 6);
-	printf	 ("S %%-6d _%-6d_\t", 6);
-	printf	 ("S %%-06d _(error)_\t");
-	printf	 ("S %%-10d _%-10d_\t", -6);
-	printf	 ("S %%10d _%10d_\t", -6);
-	printf	 ("S %%-010d _(error)_\t");
-	printf	 ("S %%010d _%010d_\t", -6);
-	printf("\n");
-	ft_printf("U %%06d _%06d_\t", 6);
-	ft_printf("U %%6d _%6d_\t", 6);
-	ft_printf("U %%-6d _%-6d_\t", 6);
-	ft_printf("U %%-06d _%-06d_\t", 6);
-	ft_printf("U %%-10d _%-10d_\t", -6);
-	ft_printf("U %%10d _%10d_\t", -6);
-	ft_printf("U %%-010d _%-010d_\t", -6);
-	ft_printf("U %%010d _%010d_\t", -6);
-
-	printf("\n");
-	printf("\nwidth read:");
-	printf("\n");
-	printf	 ("S %%0*d _err_\t");
-	printf	 ("S %%*d _%*d_\t", 6, 6);
-	printf	 ("S %%-*d _%-*d_\t", 6, 6);
-	printf	 ("S %%-0*d _err_\t\t");
-	printf	 ("S %%-*d _%-*d_\t", 10, -6);
-	printf	 ("S %%*d _%*d_\t", 10, -6);
-	printf	 ("S %%-0*d _err_\t\t");
-	printf	 ("S %%0*d _%0*d_\t", 10, -6);
-	printf("\n");
-	ft_printf("U %%0*d _%0*d_\t", 6, 6);
-	ft_printf("U %%*d _%*d_\t", 6, 6);
-	ft_printf("U %%-*d _%-*d_\t", 6, 6);
-	ft_printf("U %%-0*d _%-0*d_\t", 6, 6);
-	ft_printf("U %%-*d _%-*d_\t", 10, -6);
-	ft_printf("U %%*d _%*d_\t", 10, -6);
-	ft_printf("U %%-0*d _%-0*d_\t", 10, -6);
-	ft_printf("U %%0*d _%0*d_\t", 10, -6);
-
-	printf("\n");
-	printf("\nprecision:");
-	printf("\n");
-	printf	 ("\tS %%.5d _%.5d_\t", 6);
-	printf	 ("\tS %%.5d _%.5d_\t", -123);
-	printf	 ("\tS %%01.5d _error_\t");
-	printf	 ("\tS %%10.5d _%10.5d_\t", 6);
-	printf	 ("\tS %%10.5d _%10.5d_\t", -123);
-	printf("\n");
-	ft_printf("\tU %%.5d _%.5d_\t", 6);
-	ft_printf("\tU %%.5d _%.5d_\t", -123);
-	ft_printf("\tU %%01.5d _%01.5d_\t", 6);
-	ft_printf("\tU %%10.5d _%10.5d_\t", 6);
-	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
-	
-	printf("\n");
-	printf("\nprecision read:");
-	printf("\n");
-	printf	 ("\tS %%.*d _%.*d_\t", 5, 6);
-	printf	 ("\tS %%.*d _%.*d_\t", 5, -123);
-	printf	 ("\tS %%10.*d _%10.*d_\t", 5, 6);
-	printf	 ("\tS %%10.*d _%10.*d_\t", 5, -123);
-	printf("\n");
-	ft_printf("\tU %%.*d _%.*d_\t", 5, 6);
-	ft_printf("\tU %%.*d _%.*d_\t", 5, -123);
-	ft_printf("\tU %%10.*d _%10.*d_\t", 5, 6);
-	ft_printf("\tU %%10.*d _%10.*d_\t", 5, -123);
-
-	printf("\n");
-	printf("\nwidth and precision:");
-	printf("\n");
-	printf	 ("\tS %%7.5d _%7.5d_\t", 6);
-	printf	 ("\tS %%3.5d _%3.5d_\t", -123);
-	printf	 ("\tS %%10.5d _%10.5d_\t", 6);
-	printf	 ("\tS %%10.5d _%10.5d_\t", -123);
-	printf("\n");
-	ft_printf("\tU %%7.5d _%7.5d_\t", 6);
-	ft_printf("\tU %%3.5d _%3.5d_\t", -123);
-	ft_printf("\tU %%10.5d _%10.5d_\t", 6);
-	ft_printf("\tU %%10.5d _%10.5d_\t", -123);
-	
-	printf("\n");
-	printf("\nwidth and precision read:");
-	printf("\n");
-	printf	 ("\tS %%*.*d _%*.*d_\t", 7, 5, 6);
-	printf	 ("\tS %%*.*d _%*.*d_\t", 3, 5, -123);
-	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, 6);
-	printf	 ("\tS %%*.*d _%*.*d_\t", 10, 5, -123);
-	printf("\n");
-	ft_printf("\tU %%*.*d _%*.*d_\t", 7, 5, 6);
-	ft_printf("\tU %%*.*d _%*.*d_\t", 3, 5, -123);
-	ft_printf("\tU %%*.*d _%*.*d_\t", 10, 5, 6);
-	ft_printf("\tU %%*.*d _%*.*d_\t", 10, 5, -123);
-
-	printf("\n");
-	ft_printf("\nhex:");
-	printf("\n");
-	printf	 ("\tS %%i(123) _%i_\t", 123);
-	printf	 ("\tS %%i(0x123) _%i_\t", 0x123);
-	printf	 ("\tS %%i(0X123) _%i_\t", 0x123);
-	printf	 ("\tS %%i(0123) _%i_\t", 0123);
-	printf	 ("\tS %%u _%u_\t", -123);
-	printf	 ("\tS %%X _%X_\t", 123);
-	printf	 ("\tS %%x _%x_\t", -123);
-	printf("\n");
-	ft_printf("\tU %%i(123) _%i_\t", 123);
-	ft_printf ("\tU %%i(0x123) _%i_\t", 0x123);
-	ft_printf ("\tU %%i(0X123) _%i_\t", 0x123);
-	ft_printf ("\tU %%i(0123) _%i_\t", 0123);
-	ft_printf("\tU %%u _%u_\t", -123);
-	ft_printf("\tU %%X _%X_\t", 123);
-	ft_printf("\tU %%x _%x_\t", -123);
-
-	unsigned int	*avar;
-	unsigned int	thevar;
-	avar = &thevar;
-	*avar = 42;
-
-	printf("\n");
-	ft_printf("\nBONUS:");
-	printf("\n");
-	printf("S This var %d...%n(%%n, 16)", *avar, avar);
-	printf("...is now %d.\t", *avar);
-	printf("\n");
-
-
-	*avar = 42;
-	ft_printf("U This var %d...%n(%%n, 16)", *avar, avar);
-	ft_printf("...is now %d.\t", *avar);
-	
-	printf("\n");
-	ft_printf("\nlong:");
-	printf("\n");
-	printf("S %%ld _%ld_\t", LONG_MAX - 123);
-	printf("%%li _%li_\t", LONG_MIN + 123);
-	printf("%%lu _%lu_\t", ULONG_MAX - 123);
-	printf("%%lld _%lld_\t", LLONG_MIN + 123);
-	printf("%%lld _%lld_\t", (long long)3);
-	printf("%%lli _%lli_\t", LLONG_MAX - 123);
-	printf("%%llu _%llu_\t", ULLONG_MAX - 123);
-	printf("\n");
-	ft_printf("U %%ld _%ld_\t", LONG_MAX - 123);
-	ft_printf("%%li _%li_\t", LONG_MIN + 123);
-	ft_printf("%%lu _%lu_\t", ULONG_MAX - 123);
-	ft_printf("%%lld _%lld_\t", LLONG_MIN + 123);
-	ft_printf("%%lld _%lld_\t", (long long)3);
-	ft_printf("%%lli _%lli_\t", LLONG_MAX - 123);
-	ft_printf("%%llu _%llu_\t", ULLONG_MAX - 123);
-
-	printf("\n");
-	ft_printf("\nlong extremes:");
-	printf("\n");
-	printf("S %%ld _%ld_\t", LONG_MAX);
-	printf("%%li _%li_\t", LONG_MIN);
-	printf("%%lu _%lu_\t", ULONG_MAX);
-	printf("%%lld _%lld_\t", LLONG_MIN);
-	printf("%%lli _%lli_\t", LLONG_MAX);
-	printf("%%llu _%llu_\t", ULLONG_MAX);
-	printf("\n");
-//	ft_printf("U %%ld _%ld_\t", LONG_MAX);
-//	ft_printf("%%li _%li_\t", LONG_MIN);
-//	ft_printf("%%lu _%lu_\t", ULONG_MAX);
-//	ft_printf("%%lld _%lld_\t", LLONG_MIN);
-//	ft_printf("%%lli _%lli_\t", LLONG_MAX);
-//	ft_printf("%%llu _%llu_\t", ULLONG_MAX);
-
-	printf("\n\n");
 	return (0);
+
 }
+
+// S (s, v)
+// S0 (s)
+// SC (s, c)
+// T (s, i)
+// S1 (s, i, v)
+// S2 (s, i, i, v)
+// V (s, i, i, i)
+// X (s, i, i)

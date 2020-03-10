@@ -1,74 +1,62 @@
-/* ******************************************* */
-/*                                             */
-/*                     ||||::::::||||:|||::||| */
-/* ft_printf.h         :|::::|:::||:::|:||::|: */
-/*                     :||:||:|:|::|:|:||||||: */
-/*     |:|::| <|:|::|>                         */
-/*                                             */
-/* C20200207142351 |:|::|                      */
-/* U20200218132125 |:::::                      */
-/*                                             */
-/* ******************************************* */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
+/*   Updated: 2020/03/09 15:13:12 by fde-capu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include <stdlib.h>
+# include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
-# include <stdio.h> // REM
-# define FDOUT 1
-# define ERRORMSG "^~~~ format error\n"
-# define TAL g_tt->tt_alignleft
-# define TBT g_tt->tt_baseto
-# define TGC g_tt->tt_getchar
-# define TGP g_tt->tt_getpointer
-# define TGS g_tt->tt_getstring
-# define TLL g_tt->tt_llong
-# define TPT g_tt->tt_pointer
-# define TPV g_tt->tt_putvar
-# define TRP g_tt->tt_read_precision
-# define TRW g_tt->tt_read_width
-# define TTI g_tt->tt_int
-# define TTS g_tt->tt_string
-# define TTL g_tt->tt_long
-# define TTP g_tt->tt_precision
-# define TTU g_tt->tt_uint
-# define TTZ g_tt->tt_zero
-# define TTW g_tt->tt_width
-# define TTC g_tt->tt_char
-# define TUC g_tt->tt_ucase
-# define TUL g_tt->tt_ulong
-# define NEG (*str == '-')
-# define STRL ft_strlen(str)
+# include <stdio.h>//
+# define JOKER_FLAGS "-0%"
+# define JOKER_WIDTH "0123456789*"
+# define JOKER_PRECI ".0123456789*"
+# define JOKER_LENGT ""
+# define JOKER_FORMS "cspdiuxX"
 
-typedef struct s_typetable
+typedef struct	s_ttable
 {
-	char			*tt_string;
-	int				tt_getstring;
-	char			tt_char;
-	int				tt_getchar;
-	int				tt_getpointer;
-	long			tt_long;
-	long long		tt_llong;
-	unsigned long	tt_ulong;
-	void			*tt_pointer;// check if its in use
-	int				tt_int;
-	unsigned int	tt_uint;
-	unsigned int	tt_zero;
-	int				tt_alignleft;
-	unsigned int	tt_precision;
-	unsigned int	tt_width;
-	int				tt_read_width;
-	int				tt_read_precision;
-	int				tt_baseto;
-	int				tt_ucase;
-	int				tt_putvar;
-} t_typetable;
+	int				a;
+	int				z;
+	int				w;
+	int				wd;
+	int				p;
+	int				pd;
+	int				pn;
+	char			t;
+	char			*s;
+	int				c;
+	struct s_ttable	*nx;
+}				t_ttable;
 
-t_typetable		*g_tt;
+int				ffeed(char *f, t_ttable *t);
 int				ft_printf(const char *a, ...);
-void			init_typetable(void);
-void			reset_typetable(void);
-void			print_typetable(void);
-int				maketable(char *s);
+int				fprocess(char *p, va_list ap, t_ttable *t);
+void			ftpf_render(va_list ap, t_ttable *t);
+t_ttable		*init_ttable(void);
+int				ftpf_flags(char *p, t_ttable *t);
+int				ftpf_w(char *p, t_ttable *t);
+int				ftpf_preci(char *p, t_ttable *t);
+int				ftpf_lengt(char *p, t_ttable *t);
+int				ftpf_forms(char *p, t_ttable *t);
+void			format_len(t_ttable *t);
+void			tweaks(t_ttable *t, int neg);
+int				do_ft_printf(t_ttable *t);
+void	check_ttable(t_ttable *g_f);
+
+t_ttable *gg;//
 
 #endif
+
+/*
+** <flag><w><p><length><conversion>
+*/
