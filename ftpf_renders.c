@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:51:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/09 15:29:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:17:17 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ftpf_flags(char *p, t_ttable *t)
 	return (p - o);
 }
 
-int		ftpf_w(char *p, t_ttable *t)
+int		ftpf_width(char *p, t_ttable *t)
 {
 	char	*o;
 
