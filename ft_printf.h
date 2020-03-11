@@ -6,9 +6,13 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/10 16:17:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 07:44:39 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** <flag><w><p><length><conversion>
+*/
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
@@ -17,7 +21,7 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 # include <stdio.h>//
-# define JOKER_FLAGS "-0%"
+# define JOKER_FLAGS "-0"
 # define JOKER_WIDTH "0123456789*"
 # define JOKER_PRECI ".0123456789*"
 # define JOKER_LENGT ""
@@ -56,7 +60,3 @@ void	check_ttable(t_ttable *g_f);//
 t_ttable *gg;//
 
 #endif
-
-/*
-** <flag><w><p><length><conversion>
-*/

@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/10 16:17:03 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 07:48:18 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ int		fprocess(char *p, va_list ap, t_ttable *t)
 	char	*o;
 
 	o = p;
-	p += ftpf_flags(p, t);
-	p += ftpf_width(p, t);
-	p += ftpf_preci(p, t);
-	p += ftpf_lengt(p, t);
-	p += ftpf_forms(p, t);
+	t->t = *p == '%' && *(p + 1) == '%' ? '%' : t->t;
+	p += t->t == '%' ? 1 : 0;
+	p++;
+	if (t->t != '%')
+	{
+		p += ftpf_flags(p, t);
+		p += ftpf_width(p, t);
+		p += ftpf_preci(p, t);
+		p += ftpf_lengt(p, t);
+		p += ftpf_forms(p, t);
+	}
 	ftpf_render(ap, t);
 	return (p - o);
 }
