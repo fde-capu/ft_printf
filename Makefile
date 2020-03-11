@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/11 15:06:55 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 15:47:48 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,21 +92,23 @@ ft:
 	cp -p typetable.c _ft
 	cp -p ftpf_renders.c _ft
 	cp -p Makefile _ft
-	cp -rfp libft _ft
+	cp -Rfp libft _ft
 	cp -p ft_printf.h _ft
 	rm -rf _ok
 	git clone vogsphere@vogsphere.42sp.org.br:intra/2020/activities/42cursus_ft_printf/fde-capu _ok
-	cp -rfp _ft/* _ok
+	rm -rf _ok/*
+	cp -Rfp _ft/* _ok
+	cd _ft && git add * && git commit -m 'ft_printf :)' && git push
 
 xft:
 	rm -rf _ft
 
 tt:			ft
-	cp -prf _ft/* ../zzz
+	cp -Rpf _ft/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
 
 t2:			ft
-	cp -prf _ft/* ../zzz
+	cp -Rpf _ft/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/pft_2019 && $(MAKE) && ./test
