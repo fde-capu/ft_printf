@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/11 14:10:34 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 15:06:55 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ rt:			rtest
 
 t:			test
 
-cleanall:	fclean cleandep xdeliver
+cleanall:	fclean cleandep xft
 	rm -rf ./$(EXECNM).dSYM
 	rm -f $(EXECNM)
 
@@ -86,24 +86,27 @@ val:	t
 	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 	valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 
-deliver:
-	mkdir -p _deliver
-	cp -p ft_printf.c _deliver
-	cp -p typetable.c _deliver
-	cp -p ftpf_renders.c _deliver
-	cp -p Makefile _deliver
-	cp -rfp libft _deliver
-	cp -p ft_printf.h _deliver
+ft:
+	mkdir -p _ft
+	cp -p ft_printf.c _ft
+	cp -p typetable.c _ft
+	cp -p ftpf_renders.c _ft
+	cp -p Makefile _ft
+	cp -rfp libft _ft
+	cp -p ft_printf.h _ft
+	rm -rf _ok
+	git clone vogsphere@vogsphere.42sp.org.br:intra/2020/activities/42cursus_ft_printf/fde-capu _ok
+	cp -rfp _ft/* _ok
 
-xdeliver:
-	rm -rf _deliver
+xft:
+	rm -rf _ft
 
-tt:			deliver
-	cp -prf _deliver/* ../zzz
+tt:			ft
+	cp -prf _ft/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
 
-t2:			deliver
-	cp -prf _deliver/* ../zzz
+t2:			ft
+	cp -prf _ft/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/pft_2019 && $(MAKE) && ./test
