@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 13:49:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 14:18:34 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,27 @@ void	format_len(t_ttable *t)
 	return ;
 }
 
+t_ttable	*free_tt(t_ttable *t)
+{
+	if (!t->nx)
+	{
+		free(t->s);
+		free(t->so);
+		free(t);
+		return (0);
+	}
+	return (free_tt(t->nx));
+}
+
 int		do_ft_printf(t_ttable *t)
 {
-	int	c;
-	int w;
+	int			c;
+	int 		w;
 
 	c = 0;
 	while (t->nx)
 	{
 		t = t->nx;
-		gg = t;//
 		w = 0;
 		while (w < t->c)
 		{

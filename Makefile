@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/11 11:10:03 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 14:10:34 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,11 +80,11 @@ cleanall:	fclean cleandep xdeliver
 
 st:			re test 
 
-val:
+val:	t
 	rm -rf ./$(EXECNM).dSYM
-	valgrind --dsymutil=yes --track-origins=yes ./$(EXECNM)
+	#valgrind --dsymutil=yes --track-origins=yes ./$(EXECNM)
 	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
-	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
+	valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 
 deliver:
 	mkdir -p _deliver

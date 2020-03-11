@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 10:42:56 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 14:09:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int				ftpf_forms(char *p, t_ttable *t);
 void			format_len(t_ttable *t);
 void			tweaks(t_ttable *t, int neg);
 int				do_ft_printf(t_ttable *t);
-void	check_ttable(t_ttable *g_f);//
-//
-t_ttable *gg;//
+t_ttable		*free_tt(t_ttable *t);
 
 #endif
