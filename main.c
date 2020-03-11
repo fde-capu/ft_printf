@@ -16,10 +16,12 @@
 #include <stdint.h>
 # include <stdio.h> 
 
+#define NL printf("\n");
 int	main()
 {
-	ft_printf("123");
-	printf("123");
+	printf("");
+	NL
+	ft_printf("");
 	return (0);
 
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 15:27:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:37:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,5 @@ int		ft_printf(const char *full, ...)
 	va_end(ap);
 	r = do_ft_printf(head);
 	free_tt(head);
-	free(head);
 	return (r);
 }
