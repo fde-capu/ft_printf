@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/11 15:47:48 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 16:04:26 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ rt:			rtest
 
 t:			test
 
-cleanall:	fclean cleandep xft
+cleanall:	fclean cleandep xok xft
 	rm -rf ./$(EXECNM).dSYM
 	rm -f $(EXECNM)
 
@@ -82,33 +82,44 @@ st:			re test
 
 val:	t
 	rm -rf ./$(EXECNM).dSYM
-	#valgrind --dsymutil=yes --track-origins=yes ./$(EXECNM)
-	#valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 	valgrind --dsymutil=yes --track-origins=yes --leak-check=full ./$(EXECNM)
 
-ft:
+okcopy:	xok
+	mkdir -p _ok
+	cp -p ft_printf.c _ok
+	cp -p typetable.c _ok
+	cp -p ftpf_renders.c _ok
+	cp -p Makefile _ok
+	cp -Rfp libok _ok
+	cp -p ft_printf.h _ok
+
+ftcopy: xft
 	mkdir -p _ft
 	cp -p ft_printf.c _ft
 	cp -p typetable.c _ft
 	cp -p ftpf_renders.c _ft
 	cp -p Makefile _ft
-	cp -Rfp libft _ft
+	cp -Rfp libok _ft
 	cp -p ft_printf.h _ft
-	rm -rf _ok
-	git clone vogsphere@vogsphere.42sp.org.br:intra/2020/activities/42cursus_ft_printf/fde-capu _ok
-	rm -rf _ok/*
-	cp -Rfp _ft/* _ok
+
+ft: okcopy xft
+	git clone vogsphere@vogsphere.42sp.org.br:intra/2020/activities/42cursus_ft_printf/fde-capu _ft
+	rm -rf _ft/*
+	cp -Rfp _ok/* _ft
 	cd _ft && git add * && git commit -m 'ft_printf :)' && git push
+
+xok:
+	rm -rf _ok
 
 xft:
 	rm -rf _ft
 
-tt:			ft
-	cp -Rpf _ft/* ../zzz
+tt:			okcopy
+	cp -Rpf _ok/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
 
-t2:			ft
-	cp -Rpf _ft/* ../zzz
+t2:			okcopy
+	cp -Rpf _ok/* ../zzz
 	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/pft_2019 && $(MAKE) && ./test
