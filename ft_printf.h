@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 07:44:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 09:47:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_ttable
 	int				pn;
 	char			t;
 	char			*s;
+	char			*so;
 	int				c;
 	struct s_ttable	*nx;
 }				t_ttable;

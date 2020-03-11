@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 07:48:18 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 09:56:09 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	ftpf_render(va_list ap, t_ttable *t)
 	t->s = t->t == 'd' ? ft_itoa(va_arg(ap, int)) : t->s;
 	t->s = t->t == 'c' ? ft_chrtostr((char)va_arg(ap, int)) : t->s;
 	t->s = t->t == 's' ? ft_strnew(va_arg(ap, char *)) : t->s;
+	t->s = t->t == 's' && !*t->s ? ft_xlloc(t->s, ft_strnew("(null)")) : t->s;
 	t->s = t->t == 'p' ? ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16)) : t->s;
 	t->s = t->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : t->s;
-	ft_chrinset(&t->t, "Xx") ? t->s = ft_dtob(va_arg(ap, unsigned int), 16) : t->s;
+	t->s = ft_chrinset(&t->t, "Xx") ? ft_dtob(va_arg(ap, unsigned int), 16) : t->s;
 	t->s = t->t == 'X' ? ft_xlloc(t->s, ft_ucase(t->s)) : t->s;
+	t->so = ft_strnew(t->s);
 	format_len(t);
 	return ;
 }
@@ -89,7 +91,7 @@ int		ft_printf(const char *full, ...)
 			f += fprocess(f, ap, p);
 		else
 			f += ffeed(f, p);
-		check_ttable(p);printf("\n");//
+		//check_ttable(p);printf("\n");//
 	}
 	va_end(ap);
 	return (do_ft_printf(head));
