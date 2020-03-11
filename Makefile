@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/11 16:04:26 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 16:07:45 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ okcopy:	xok
 	cp -p typetable.c _ok
 	cp -p ftpf_renders.c _ok
 	cp -p Makefile _ok
-	cp -Rfp libok _ok
+	cp -Rfp libft _ok
 	cp -p ft_printf.h _ok
 
 ftcopy: xft
@@ -99,7 +99,7 @@ ftcopy: xft
 	cp -p typetable.c _ft
 	cp -p ftpf_renders.c _ft
 	cp -p Makefile _ft
-	cp -Rfp libok _ft
+	cp -Rfp libft_ft
 	cp -p ft_printf.h _ft
 
 ft: okcopy xft
