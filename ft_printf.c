@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 08:15:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 09:56:09 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:46:10 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ftpf_render(va_list ap, t_ttable *t)
 {
+	long long	a;
+
 	t->s = ft_strnew("");
 	t->t = t->t == 'i' ? 'd' : t->t;
 	t->w = t->wd == -1 ? va_arg(ap, int) : t->w;
@@ -23,9 +25,16 @@ void	ftpf_render(va_list ap, t_ttable *t)
 	t->s = t->t == '%' ? ft_strnew("%") : t->s;
 	t->s = t->t == 'd' ? ft_itoa(va_arg(ap, int)) : t->s;
 	t->s = t->t == 'c' ? ft_chrtostr((char)va_arg(ap, int)) : t->s;
-	t->s = t->t == 's' ? ft_strnew(va_arg(ap, char *)) : t->s;
-	t->s = t->t == 's' && !*t->s ? ft_xlloc(t->s, ft_strnew("(null)")) : t->s;
-	t->s = t->t == 'p' ? ft_strcatxr("0x", ft_dtob(va_arg(ap, long long), 16)) : t->s;
+	if (t->t == 's')
+	{
+		a = va_arg(ap, long long);
+		if (a)
+			t->s = ft_strnew((char *)a);
+		else
+			t->s = ft_strnew("(null)");
+	}
+	t->s = t->t == 'p' ? ft_dtob(va_arg(ap, long long), 16) : t->s;
+//	t->s = t->t == 'p' && t->pd == 2 && ft_stridentical(t->s, "0x0") ? ft_xlloc(t->s, ft_strnew("0x")) : t->s;
 	t->s = t->t == 'u' ? ft_uitoa(va_arg(ap, unsigned int)) : t->s;
 	t->s = ft_chrinset(&t->t, "Xx") ? ft_dtob(va_arg(ap, unsigned int), 16) : t->s;
 	t->s = t->t == 'X' ? ft_xlloc(t->s, ft_ucase(t->s)) : t->s;
@@ -39,10 +48,8 @@ int		fprocess(char *p, va_list ap, t_ttable *t)
 	char	*o;
 
 	o = p;
-	t->t = *p == '%' && *(p + 1) == '%' ? '%' : t->t;
-	p += t->t == '%' ? 1 : 0;
 	p++;
-	if (t->t != '%')
+	if (*p)
 	{
 		p += ftpf_flags(p, t);
 		p += ftpf_width(p, t);
@@ -91,7 +98,7 @@ int		ft_printf(const char *full, ...)
 			f += fprocess(f, ap, p);
 		else
 			f += ffeed(f, p);
-		//check_ttable(p);printf("\n");//
+//		check_ttable(p);printf("\n");//
 	}
 	va_end(ap);
 	return (do_ft_printf(head));

@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 10:08:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:49:29 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	format_len(t_ttable *t)
 		)
 		t->s = ft_strcatxr(ft_repchar(fill, t->p - l), t->s);
 	t->s = neg ? ft_strcatxr("-", t->s) : t->s;
+	t->s = t->t == 'p' ? ft_strcatxr("0x", t->s) : t->s;
 	l = ft_strlen(t->s);
 	l += t->t == 'c' && !*t->s ? 1 : 0;
 	if ((l < t->w) && (!t->a))

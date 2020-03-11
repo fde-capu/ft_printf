@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:51:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 07:44:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:14:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ftpf_preci(char *p, t_ttable *t)
 	{
 		p++;
 		t->pd = 2;
-		if (ft_chrinset(p, "123456789"))
+		if (ft_chrinset(p, "1234567890"))
 		{
 			t->pd = 1;
 			t->p = ft_atoi(p);
@@ -83,10 +83,11 @@ int		ftpf_forms(char *p, t_ttable *t)
 	char	*o;
 
 	o = p;
-	while ((p) && (*p) && (ft_chrinset(p, JOKER_FORMS)))
+	if ((p) && (*p) && (ft_chrinset(p, JOKER_FORMS)))
 	{
 		t->t = *p;
 		p++;
 	}
+	t->t = t->t ? t->t : '?';
 	return (p - o);
 }

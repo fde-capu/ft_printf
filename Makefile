@@ -6,7 +6,7 @@
 #    By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 12:43:45 by fde-capu          #+#    #+#              #
-#    Updated: 2020/03/09 12:34:47 by fde-capu         ###   ########.fr        #
+#    Updated: 2020/03/11 11:10:03 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,10 +99,11 @@ xdeliver:
 	rm -rf _deliver
 
 tt:			deliver
-	cd ../zzz && $(MAKE) cleanall
 	cp -prf _deliver/* ../zzz
+	cd ../zzz && $(MAKE) cleanall
 	cd ../zzz/42TESTERS-PRINTF && ./runtest.sh
 
 t2:			deliver
 	cp -prf _deliver/* ../zzz
-#to do
+	cd ../zzz && $(MAKE) cleanall
+	cd ../zzz/pft_2019 && $(MAKE) && ./test

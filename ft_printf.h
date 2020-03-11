@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 09:47:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 10:42:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define JOKER_WIDTH "0123456789*"
 # define JOKER_PRECI ".0123456789*"
 # define JOKER_LENGT ""
-# define JOKER_FORMS "cspdiuxX"
+# define JOKER_FORMS "cspdiuxX%"
 
 typedef struct	s_ttable
 {
