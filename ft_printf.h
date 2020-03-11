@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:39:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 14:09:56 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:28:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
-# include <stdio.h>//
 # define JOKER_FLAGS "-0"
 # define JOKER_WIDTH "0123456789*"
 # define JOKER_PRECI ".0123456789*"

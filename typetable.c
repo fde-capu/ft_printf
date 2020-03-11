@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 07:12:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/11 14:18:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:22:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,32 @@ t_ttable	*init_ttable(void)
 	return (ft_calloc(sizeof(t_ttable), 1));
 }
 
-void	tweaks(t_ttable *t, int neg)
+void		tweaks(t_ttable *t, int neg)
 {
-	ft_stridentical(t->s, "0") && t->pd == 2 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	ft_stridentical(t->s, "0") && t->pd == 2 ? \
+		t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
 	t->a = t->w < 0 ? 1 : t->a;
 	t->w = ft_abs(t->w);
-	ft_stridentical(t->s, "0") && t->pd && t->pd != 2 && t->p == 0 ? t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
+	ft_stridentical(t->s, "0") && t->pd && t->pd != 2 && t->p == 0 ? \
+		t->s = ft_xlloc(t->s, ft_strnew("")) : 0;
 	t->p = t->z && !t->pd && !t->a ? t->w : t->p;
 	t->z = t->pd && t->p > 0 ? 1 : t->z;
 	t->p += neg && t->pd && t->p >= 0 ? 1 : 0;
 	t->pn = t->p < 0 ? 1 : 0;
 	t->p = t->wd ? ft_abs(t->p) : t->p;
 	t->p = t->wd && !t->w && t->pn ? t->w : t->p;
-	t->p = t->t == 's' && t->pd && t->p + 1 > (int)ft_strlen(t->s) ? (int)ft_strlen(t->s) : t->p;
+	t->p = t->t == 's' && t->pd && t->p + 1 > (int)ft_strlen(t->s) ? \
+		(int)ft_strlen(t->s) : t->p;
 	t->w = !t->wd ? t->p : t->w;
 	t->p = t->w > t->p && t->z && !t->a && t->pn ? t->w : t->p;
-	t->s = t->t == 's' && (t->pd == 2 || (t->pd && !t->p)) && !t->pn ? ft_xlloc(t->s, ft_strnew("")) : t->s;
-	t->s = t->t == 's' && t->t && t->pd && (unsigned long)t->p < ft_strlen(t->s) && !t->pn ? ft_xlloc(t->s, ft_substr(t->s, 0, t->p)) : t->s;
+	t->s = t->t == 's' && (t->pd == 2 || (t->pd && !t->p)) && !t->pn ? \
+		ft_xlloc(t->s, ft_strnew("")) : t->s;
+	t->s = t->t == 's' && t->pd && (unsigned long)t->p < ft_strlen(t->s) && \
+		!t->pn ? ft_xlloc(t->s, ft_substr(t->s, 0, t->p)) : t->s;
 	return ;
 }
 
-void	format_len(t_ttable *t)
+void		format_len(t_ttable *t)
 {
 	int		l;
 	char	fill;
@@ -49,14 +54,10 @@ void	format_len(t_ttable *t)
 	l = ft_strlen(t->s);
 	t->s = ft_xlloc(t->s, ft_strnew(t->s + neg));
 	t->s = t->t == 'c' && !*t->so ? ft_xlloc(t->s, ft_strnew("#")) : t->s;
-	if (*t->s && \
-		((l < t->p \
-		&& !(t->p > t->w)
-		&& (!t->a || !t->pn) \
+	if (*t->s && ((l < t->p && !(t->p > t->w) && (!t->a || !t->pn) \
 		&& !(t->w < t->p && !t->z)) \
 		|| (l < t->p && t->pd && t->z && !t->pn)) \
-		&& !(t->w > t->p && neg && !t->z) \
-		)
+		&& !(t->w > t->p && neg && !t->z))
 		t->s = ft_strcatxr(ft_repchar(fill, t->p - l), t->s);
 	t->s = neg ? ft_strcatxr("-", t->s) : t->s;
 	t->s = t->t == 'p' ? ft_strcatxr("0x", t->s) : t->s;
@@ -66,7 +67,7 @@ void	format_len(t_ttable *t)
 		t->s = ft_strcatx(ft_repchar(' ', t->w - l), t->s);
 	if ((l < t->w) && (t->a))
 		t->s = ft_strcatx(t->s, ft_repchar(' ', t->w - l));
-	t->c += ft_strlen(t->s); 
+	t->c += ft_strlen(t->s);
 	return ;
 }
 
@@ -82,10 +83,10 @@ t_ttable	*free_tt(t_ttable *t)
 	return (free_tt(t->nx));
 }
 
-int		do_ft_printf(t_ttable *t)
+int			do_ft_printf(t_ttable *t)
 {
-	int			c;
-	int 		w;
+	int	c;
+	int	w;
 
 	c = 0;
 	while (t->nx)
