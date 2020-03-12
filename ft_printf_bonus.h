@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:22:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/03/12 19:14:07 by fde-capu         ###   ########.fr       */
+/*   Updated: 2020/03/12 19:23:29 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 ** <flag><w><p><length><conversion>
 */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
