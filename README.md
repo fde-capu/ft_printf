@@ -8,11 +8,11 @@ It is not designed to have all functionalities, but is does some neat things.
 Thanks for checking it out. Just don't freak out.
 
 #### Specifications:
-• The prototype: `int ft_printf(const char *, ...);`
-• Recode the libc’s printf function.
-• It manages the following conversions: cspdiuxX%
-• It manages any combination of the flags: `-0.*` and minimum field width with all conversions.
-• Library created with `ar` (libtool is forbidden).
+- The prototype: `int ft_printf(const char *, ...);`
+- Recode the libc’s `printf` function.
+- It manages the following conversions: `"cspdiuxX%"`
+- It manages any combination of the flags: `"-0.*"` and minimum field width with all conversions.
+- Library created with `ar` (libtool is forbidden).
 
 ---
 
