@@ -18,6 +18,8 @@ Thanks for checking it out. Just don't freak out.
 
 *this project is part of the 42 São Paulo cursus*
 
+[![fde-capu's 42Project Score](https://badge42.herokuapp.com/api/project/fde-capu/ft_printf)](https://github.com/JaeSeoKim/badge42)
+
 ---
 
 Copyright 2020 fde-capu
