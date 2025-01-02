@@ -1,0 +1,7 @@
+_*
+.DS*
+*.o
+*.a
+ftpft
+main.c
+README.md
